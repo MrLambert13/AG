@@ -1,3 +1,2 @@
 #nginx logs
-autogigant.access.log
-autogigant.error.log
+autogigant.*
