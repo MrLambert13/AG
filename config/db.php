@@ -2,10 +2,11 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=192.168.253.3:3306;dbname=autogigant',
-    'username' => 'foo',
-    'password' => 'PPPppp!2345))',
+    'dsn' => 'mysql:host=127.0.0.1:3308;dbname=autogigant',
+    'username' => 'root',
+    'password' => '',
     'charset' => 'utf8',
+
     // Schema cache options (for production environment)
     //'enableSchemaCache' => true,
     //'schemaCacheDuration' => 60,
