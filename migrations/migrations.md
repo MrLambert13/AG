@@ -13,7 +13,7 @@ ___
 
 `php yii migrate/create create_user_types_table --fields=name:string:notNull`  
 
-`php yii migrate/create create_users_table --fields="password_hash:string:notNull,auth_key:string,created_at:integer:notNull,updated_at:integer,username:string(32):notNull:unique,email:string(128):notNull:unique"`  
+`php yii migrate/create create_users_table --fields="password_hash:string:notNull,auth_key:string,created_at:integer:notNull,updated_at:integer,username:string(32):notNull:unique,email:string(128):notNull:unique,status:boolean"`  
 
 `php yii migrate/create create_users_info_table --fields="id_user:integer:notNull:foreignKey(users),id_type:integer:foreignKey(user_types),surname:string:notNull,name:string:notNull,middlename:string,birthday:integer:notNull,telegram_name:string,telephone:string(10):notNull:unique,id_city:integer:notNull:foreignKey(cities)"`  
 
@@ -45,8 +45,8 @@ ___
 `php yii migrate/create create_feedback_table --fields="created_by:integer:foreignKey(users),id_sto:integer:foreignKey(sto),text:text,created_at:integer,work_evaluation:tinyInteger,cost_evaluation:tinyInteger,service_evaluation:tinyInteger"`  
 
 `php yii migrate/create create_service_types_table --fields="name:integer:notNull,id_sto:integer:foreignKey(sto)"`  
-`php yii migrate/create create_work_types_table --fields="name:string:notNull,id_service_type:integer:foreignKey(service_types),id_sto:integer:foreignKey(sto)"`  
-`php yii migrate/create create_work_categories_table --fields="name:string:notNull,cost:double:notNull,id_work_type:integer:foreignKey(work_types),id_sto:integer:foreignKey(sto)"`  
+`php yii migrate/create create_work_types_table --fields="name:string:notNull,id_service_type:integer:foreignKey(service_types)"`  
+`php yii migrate/create create_work_categories_table --fields="name:string:notNull,cost:double:notNull,id_work_type:integer:foreignKey(work_types)"`  
 
 `php yii migrate/create create_basket_table --fields="id_service:integer:foreignKey(service_types),id_work_type:integer:foreignKey(work_types),id_work_category:integer:foreignKey(work_categories),created_by:integer:foreignKey(users),id_vehicle:integer:foreignKey(vehicles),create_at:integer:notNull,cost_service:double:notNull"`  
 

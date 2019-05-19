@@ -45,7 +45,7 @@ class m190512_203554_create_orders_table extends Migration
             'id_city',
             '{{%cities}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
 
         // creates index for column `id_vehicle`
@@ -62,7 +62,7 @@ class m190512_203554_create_orders_table extends Migration
             'id_vehicle',
             '{{%vehicles}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
 
         // creates index for column `created_by`
@@ -79,7 +79,7 @@ class m190512_203554_create_orders_table extends Migration
             'created_by',
             '{{%users}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
 
         // creates index for column `updated_by`
@@ -96,7 +96,7 @@ class m190512_203554_create_orders_table extends Migration
             'updated_by',
             '{{%users}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
 
         // creates index for column `id_request_status`
@@ -113,7 +113,7 @@ class m190512_203554_create_orders_table extends Migration
             'id_request_status',
             '{{%request_statuses}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
     }
 

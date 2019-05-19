@@ -20,6 +20,7 @@ class m190512_203237_create_users_table extends Migration
             'updated_at' => $this->integer(),
             'username' => $this->string(32)->notNull()->unique(),
             'email' => $this->string(128)->notNull()->unique(),
+            'status' => $this->boolean(),
         ]);
     }
 

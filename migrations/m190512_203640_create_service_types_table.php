@@ -34,7 +34,7 @@ class m190512_203640_create_service_types_table extends Migration
             'id_sto',
             '{{%sto}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
     }
 

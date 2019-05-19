@@ -34,7 +34,7 @@ class m190512_203114_create_countries_table extends Migration
             'id_currency',
             '{{%currency}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
     }
 

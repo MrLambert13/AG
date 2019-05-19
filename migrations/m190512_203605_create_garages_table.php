@@ -40,7 +40,7 @@ class m190512_203605_create_garages_table extends Migration
             'id_vehicle',
             '{{%vehicles}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
 
         // creates index for column `created_by`
@@ -57,7 +57,7 @@ class m190512_203605_create_garages_table extends Migration
             'created_by',
             '{{%users}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
 
         // creates index for column `updated_by`
@@ -74,7 +74,7 @@ class m190512_203605_create_garages_table extends Migration
             'updated_by',
             '{{%users}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
     }
 

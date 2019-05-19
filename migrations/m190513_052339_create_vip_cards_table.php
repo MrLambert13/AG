@@ -39,7 +39,7 @@ class m190513_052339_create_vip_cards_table extends Migration
             'id_sto',
             '{{%sto}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
 
         // creates index for column `id_user`
@@ -56,7 +56,7 @@ class m190513_052339_create_vip_cards_table extends Migration
             'id_user',
             '{{%users}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
     }
 

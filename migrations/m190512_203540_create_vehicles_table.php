@@ -48,7 +48,7 @@ class m190512_203540_create_vehicles_table extends Migration
             'id_car_model',
             '{{%car_models}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
 
         // creates index for column `id_motor`
@@ -65,7 +65,7 @@ class m190512_203540_create_vehicles_table extends Migration
             'id_motor',
             '{{%motors}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
 
         // creates index for column `id_transmission`
@@ -82,7 +82,7 @@ class m190512_203540_create_vehicles_table extends Migration
             'id_transmission',
             '{{%transmissions}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
 
         // creates index for column `created_by`
@@ -99,7 +99,7 @@ class m190512_203540_create_vehicles_table extends Migration
             'created_by',
             '{{%users}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
 
         // creates index for column `updated_by`
@@ -116,7 +116,7 @@ class m190512_203540_create_vehicles_table extends Migration
             'updated_by',
             '{{%users}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
     }
 

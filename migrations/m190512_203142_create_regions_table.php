@@ -35,7 +35,7 @@ class m190512_203142_create_regions_table extends Migration
             'id_country',
             '{{%countries}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
     }
 

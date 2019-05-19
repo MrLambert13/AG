@@ -44,7 +44,7 @@ class m190512_203619_create_sto_table extends Migration
             'id_order',
             '{{%orders}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
     }
 
