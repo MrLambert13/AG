@@ -2,6 +2,7 @@
 
 use yii\rest\UrlRule;
 use yii\web\JsonParser;
+use yii\web\JsonResponseFormatter;
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
@@ -16,6 +17,13 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
     ],
+    'modules' => [
+        'api' => [
+            'class' => 'app\modules\api\Api',
+//            'layout' => 'api',
+            'defaultRoute' => 'login/index',
+        ],
+    ],
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -24,12 +32,23 @@ $config = [
                 'application/json' => JsonParser::class
             ],
         ],
+
+        'response' => [
+            'formatters' => [
+                'json' => [
+                    'class' => JsonResponseFormatter::class,
+                    'prettyPrint' => YII_DEBUG,
+                    'encodeOptions' => JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
+                ]
+            ]
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
+            'identityClass' => 'app\models\Users',
+            'enableAutoLogin' => false,
+            'enableSession' => false
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -56,10 +75,16 @@ $config = [
             'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
-                ['class' => UrlRule::class, 'controller' => ['user']],
-                '/'=>'site/index',
-                '<action:(about|contact|login)>' => 'site/<action>',
-//                ['class' => 'yii\rest\UrlRule', 'controller' => 'user'],
+                '' => 'site/index',
+                'auth' => 'api/login/login',
+                'register' => 'api/login/register',
+                'logout' => 'api/login/logout',
+                '/api' => 'api/login/index',
+
+                '<_c:[\w-]+>' => '<_c>/index',
+                '<_c:[\w-]+>/<id:\d+>' => '<_c>/view',
+                '<_c:[\w-]+>/<id:\d+>/<_a:[\w-]+>' => '<_c>/<_a>',
+
             ],
         ],
     ],
