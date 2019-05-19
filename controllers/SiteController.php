@@ -56,7 +56,6 @@ class SiteController extends Controller
 
     /**
      * Displays homepage.
-     *
      * @return string
      */
     public function actionIndex()
@@ -66,7 +65,6 @@ class SiteController extends Controller
 
     /**
      * Login action.
-     *
      * @return Response|string
      */
     public function actionLogin()
@@ -88,7 +86,6 @@ class SiteController extends Controller
 
     /**
      * Logout action.
-     *
      * @return Response
      */
     public function actionLogout()
@@ -100,7 +97,6 @@ class SiteController extends Controller
 
     /**
      * Displays contact page.
-     *
      * @return Response|string
      */
     public function actionContact()
@@ -118,7 +114,6 @@ class SiteController extends Controller
 
     /**
      * Displays about page.
-     *
      * @return string
      */
     public function actionAbout()

@@ -10,10 +10,10 @@ timezone: Europe/London
 box_check_update: false
 
 # Virtual machine name
-machine_name: yii2basic
+machine_name: autogigant
 
 # Virtual machine IP
-ip: 192.168.83.137
+ip: 192.168.83.2
 
 # Virtual machine CPU cores number
 cpus: 1
