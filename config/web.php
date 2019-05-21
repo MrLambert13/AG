@@ -81,9 +81,9 @@ $config = [
                 'logout' => 'api/login/logout',
                 '/api' => 'api/login/index',
 
-                'sto' => 'api/sto/index',
-                'sto/create' => 'api/sto/create',
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/sto'],
+                //'sto' => 'api/sto/index',
+                //'sto/create' => 'api/sto/create',
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/sto', 'pluralize' => false],
 
                 '<_c:[\w-]+>' => '<_c>/index',
                 '<_c:[\w-]+>/<id:\d+>' => '<_c>/view',

@@ -194,4 +194,9 @@ class Sto extends \yii\db\ActiveRecord
     {
         return $this->getAuthKey() === $authKey;
     }
+
+    public function getTokens()
+    {
+        return $this->hasMany(UserTokens::class, ['id_user' => 'id']);
+    }
 }

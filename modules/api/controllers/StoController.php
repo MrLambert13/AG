@@ -4,6 +4,7 @@ namespace app\modules\api\controllers;
 
 use app\models\Sto;
 use app\models\Users;
+use app\models\UserTokens;
 use Yii;
 use yii\rest\Controller;
 
@@ -37,15 +38,32 @@ class StoController extends Controller
             $sto->setPassword($params['password']);
             $sto->generateAuthKey();
 
-            $sto->save();
+            if ($sto->save()) {
+                $token = new UserTokens();
+                $token->token = Yii::$app->security->generateRandomString();
+                $token->id_user = $sto->id;
+                $token->expire_time = time() + 3600 * 5;
+                if ($token->save()) {
+                    UserTokens::deleteAll('expire_time < ' . time());
+                    $result = [
+                        'success' => 1,
+                        'username' => $sto->username,
+                        'name' => $sto->name,
+                        'telephone' => $sto->telephone,
+                        'userId' => $sto->id,
+                        'payload' => $sto,
+                        'token' => $token->token,
+                        'expired' => date(DATE_RFC3339, $token->expire_time),
+                    ];
+                    return $result;
+                } else {
+                    return $token;
+                }
+            } else {
+                return $sto;
+            }
 
-            $result = [
-                'success' => 1,
-                'username' => $sto->username,
-                'name' => $sto->name,
-                'telephone' => $sto->telephone,
-                'userId' => $sto->id,
-            ];
+
         }
 
 
@@ -102,5 +120,22 @@ class StoController extends Controller
         }
 
         return $result;
+    }
+
+    public function actionLogout()
+    {
+        $params = Yii::$app->request->bodyParams;
+        $sto = Users::findByEmail($params['email']);
+        if ($sto->tokens) {
+            $token = UserTokens::findOne(['id_user' => $sto->id]);
+            $token->token = NULL;
+            if ($token->save()) {
+                return ['massage' => 'Вы вышли'];
+            } else {
+                return $token;
+            }
+        } else {
+            return $sto;
+        }
     }
 }
