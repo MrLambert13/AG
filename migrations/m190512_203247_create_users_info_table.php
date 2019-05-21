@@ -5,8 +5,8 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `{{%users_info}}`.
  * Has foreign keys to the tables:
+ *
  * - `{{%users}}`
- * - `{{%user_types}}`
  * - `{{%cities}}`
  */
 class m190512_203247_create_users_info_table extends Migration
@@ -19,7 +19,6 @@ class m190512_203247_create_users_info_table extends Migration
         $this->createTable('{{%users_info}}', [
             'id' => $this->primaryKey(),
             'id_user' => $this->integer()->notNull(),
-            'id_type' => $this->integer(),
             'surname' => $this->string()->notNull(),
             'name' => $this->string()->notNull(),
             'middlename' => $this->string(),
@@ -43,24 +42,7 @@ class m190512_203247_create_users_info_table extends Migration
             'id_user',
             '{{%users}}',
             'id',
-            'NO ACTION'
-        );
-
-        // creates index for column `id_type`
-        $this->createIndex(
-            '{{%idx-users_info-id_type}}',
-            '{{%users_info}}',
-            'id_type'
-        );
-
-        // add foreign key for table `{{%user_types}}`
-        $this->addForeignKey(
-            '{{%fk-users_info-id_type}}',
-            '{{%users_info}}',
-            'id_type',
-            '{{%user_types}}',
-            'id',
-            'NO ACTION'
+            'CASCADE'
         );
 
         // creates index for column `id_city`
@@ -77,7 +59,7 @@ class m190512_203247_create_users_info_table extends Migration
             'id_city',
             '{{%cities}}',
             'id',
-            'NO ACTION'
+            'CASCADE'
         );
     }
 
@@ -95,18 +77,6 @@ class m190512_203247_create_users_info_table extends Migration
         // drops index for column `id_user`
         $this->dropIndex(
             '{{%idx-users_info-id_user}}',
-            '{{%users_info}}'
-        );
-
-        // drops foreign key for table `{{%user_types}}`
-        $this->dropForeignKey(
-            '{{%fk-users_info-id_type}}',
-            '{{%users_info}}'
-        );
-
-        // drops index for column `id_type`
-        $this->dropIndex(
-            '{{%idx-users_info-id_type}}',
             '{{%users_info}}'
         );
 

@@ -5,7 +5,8 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `{{%service_types}}`.
  * Has foreign keys to the tables:
- * - `{{%sto}}`
+ *
+ * - `{{%users}}`
  */
 class m190512_203640_create_service_types_table extends Migration
 {
@@ -27,14 +28,14 @@ class m190512_203640_create_service_types_table extends Migration
             'id_sto'
         );
 
-        // add foreign key for table `{{%sto}}`
+        // add foreign key for table `{{%users}}`
         $this->addForeignKey(
             '{{%fk-service_types-id_sto}}',
             '{{%service_types}}',
             'id_sto',
-            '{{%sto}}',
+            '{{%users}}',
             'id',
-            'NO ACTION'
+            'CASCADE'
         );
     }
 
@@ -43,7 +44,7 @@ class m190512_203640_create_service_types_table extends Migration
      */
     public function safeDown()
     {
-        // drops foreign key for table `{{%sto}}`
+        // drops foreign key for table `{{%users}}`
         $this->dropForeignKey(
             '{{%fk-service_types-id_sto}}',
             '{{%service_types}}'

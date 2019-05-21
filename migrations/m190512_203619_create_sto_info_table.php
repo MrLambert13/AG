@@ -9,7 +9,7 @@ use yii\db\Migration;
  * - `{{%users}}`
  * - `{{%orders}}`
  */
-class m190521_214029_create_sto_info_table extends Migration
+class m190512_203619_create_sto_info_table extends Migration
 {
     /**
      * {@inheritdoc}
