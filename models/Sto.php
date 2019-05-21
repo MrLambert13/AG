@@ -61,7 +61,7 @@ class Sto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['password_hash', 'username', 'name', 'telephone'], 'required'],
+            [['password_hash', 'email', 'username', 'name', 'telephone'], 'required'],
             [['created_at', 'updated_at', 'rate', 'id_order'], 'integer'],
             [['password_hash', 'auth_key', 'name', 'geo', 'address', 'email'], 'string', 'max' => 255],
             [['username'], 'string', 'max' => 32],
@@ -157,11 +157,20 @@ class Sto extends \yii\db\ActiveRecord
         return $model = static::findOne(['email' => $email]);
     }
 
+    public static function findByTel($tel)
+    {
+        return $model = static::findOne(['telephone' => $tel]);
+    }
+
     public static function findByUsername($username)
     {
         return static::findOne(['username' => $username]);
     }
 
+    public static function findByName($name)
+    {
+        return static::findOne(['name' => $name]);
+    }
     public function setPassword($password)
     {
         $this->password_hash = Yii::$app->security->generatePasswordHash($password);
