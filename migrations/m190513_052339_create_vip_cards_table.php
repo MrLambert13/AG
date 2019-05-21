@@ -19,7 +19,7 @@ class m190513_052339_create_vip_cards_table extends Migration
         $this->createTable('{{%vip_cards}}', [
             'id' => $this->primaryKey(),
             'number' => $this->integer()->notNull(),
-            'status' => $this->'ENUM("use","block")'(),
+            'status' => $this->boolean(),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer(),
             'id_sto' => $this->integer(),
