@@ -81,6 +81,8 @@ $config = [
                 'logout' => 'api/login/logout',
                 '/api' => 'api/login/index',
 
+                //['class' => 'yii\rest\UrlRule', 'controller' => 'api/login'],
+
                 '<_c:[\w-]+>' => '<_c>/index',
                 '<_c:[\w-]+>/<id:\d+>' => '<_c>/view',
                 '<_c:[\w-]+>/<id:\d+>/<_a:[\w-]+>' => '<_c>/<_a>',
