@@ -2,6 +2,7 @@
 
 namespace app\modules\api\controllers;
 
+use app\models\Sto;
 use yii\rest\ActiveController;
 
 /**
@@ -17,6 +18,6 @@ class StoController extends ActiveController
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        return 'api-sto';
     }
 }
