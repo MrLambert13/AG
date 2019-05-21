@@ -33,3 +33,6 @@ tests/_support/_generated
 #vagrant folder
 /.vagrant
 /vagrant/nginx/log
+
+#config DB
+config/db.php
