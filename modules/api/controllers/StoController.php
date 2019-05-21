@@ -3,6 +3,7 @@
 namespace app\modules\api\controllers;
 
 use app\models\Sto;
+use Yii;
 use yii\rest\ActiveController;
 
 /**
@@ -18,6 +19,12 @@ class StoController extends ActiveController
      */
     public function actionIndex()
     {
-        return 'api-sto';
+        return Sto::find();
+    }
+
+    public function actionCreate()
+    {
+        $params = Yii::$app->request->bodyParams;
+        return $params;
     }
 }

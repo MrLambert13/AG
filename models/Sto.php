@@ -3,6 +3,9 @@
 namespace app\models;
 
 use Yii;
+use app\models\query\StoQuery;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "sto".
@@ -38,13 +41,27 @@ class Sto extends \yii\db\ActiveRecord
         return 'sto';
     }
 
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ]
+            ]
+
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['password_hash', 'created_at', 'username', 'name', 'telephone'], 'required'],
+            [['password_hash', 'username', 'name', 'telephone'], 'required'],
             [['created_at', 'updated_at', 'rate', 'id_order'], 'integer'],
             [['password_hash', 'auth_key', 'name', 'geo', 'address', 'email'], 'string', 'max' => 255],
             [['username'], 'string', 'max' => 32],
@@ -128,10 +145,44 @@ class Sto extends \yii\db\ActiveRecord
 
     /**
      * {@inheritdoc}
-     * @return \app\models\query\StoQuery the active query used by this AR class.
+     * @return StoQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new \app\models\query\StoQuery(get_called_class());
+        return new StoQuery(get_called_class());
+    }
+
+    public static function findByEmail($email)
+    {
+        return $model = static::findOne(['email' => $email]);
+    }
+
+    public static function findByUsername($username)
+    {
+        return static::findOne(['username' => $username]);
+    }
+
+    public function setPassword($password)
+    {
+        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+    }
+
+    public function validatePassword($password)
+    {
+        return Yii::$app->security->validatePassword($password, $this->password_hash);
+    }
+    public function getAuthKey()
+    {
+        return $this->auth_key;
+    }
+
+    public function generateAuthKey()
+    {
+        $this->auth_key = Yii::$app->security->generateRandomString(24);
+    }
+
+    public function validateAuthKey($authKey)
+    {
+        return $this->getAuthKey() === $authKey;
     }
 }
