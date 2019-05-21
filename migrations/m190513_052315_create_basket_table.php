@@ -10,7 +10,7 @@ use yii\db\Migration;
  * - `{{%work_categories}}`
  * - `{{%users}}`
  * - `{{%vehicles}}`
- * - `{{%sto}}`
+ * - `{{%users}}`
  */
 class m190513_052315_create_basket_table extends Migration
 {
@@ -123,12 +123,12 @@ class m190513_052315_create_basket_table extends Migration
             'id_sto'
         );
 
-        // add foreign key for table `{{%sto}}`
+        // add foreign key for table `{{%users}}`
         $this->addForeignKey(
             '{{%fk-basket-id_sto}}',
             '{{%basket}}',
             'id_sto',
-            '{{%sto}}',
+            '{{%users}}',
             'id',
             'NO ACTION'
         );

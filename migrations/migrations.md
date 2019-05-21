@@ -1,3 +1,5 @@
+CREATE SCHEMA autogigant CHARACTER SET utf8 COLLATE utf8_bin;
+
 ####Create geo table
 `php yii migrate/create create_currency_table --fields=name:string:notNull,code:integer`  
 
@@ -48,7 +50,7 @@ ___
 `php yii migrate/create create_work_types_table --fields="name:string:notNull,id_service_type:integer:foreignKey(service_types)"`  
 `php yii migrate/create create_work_categories_table --fields="name:string:notNull,cost:double:notNull,id_work_type:integer:foreignKey(work_types)"`  
 
-`php yii migrate/create create_basket_table --fields="id_service:integer:foreignKey(service_types),id_work_type:integer:foreignKey(work_types),id_work_category:integer:foreignKey(work_categories),created_by:integer:foreignKey(users),id_vehicle:integer:foreignKey(vehicles),create_at:integer:notNull,cost_service:double:notNull"`  
+`php yii migrate/create create_basket_table --fields="id_service:integer:foreignKey(service_types),id_work_type:integer:foreignKey(work_types),id_work_category:integer:foreignKey(work_categories),created_by:integer:foreignKey(users),id_vehicle:integer:foreignKey(vehicles),create_at:integer:notNull,cost_service:double:notNull,id_sto:integer:foreignKey(users)"`  
 
 `php yii migrate/create create_orders_works_table --fields="id_order:integer:foreignKey(orders),id_work:integer:foreignKey(works)"`  
 `php yii migrate/create create_vip_cards_table --fields="number:integer:notNull,status:boolean,created_at:integer:notNull,updated_at:integer,id_sto:integer:foreignKey(users),id_user:integer:foreignKey(users)"`  
