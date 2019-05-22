@@ -5,8 +5,9 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `{{%feedback}}`.
  * Has foreign keys to the tables:
+ *
  * - `{{%users}}`
- * - `{{%sto}}`
+ * - `{{%users}}`
  */
 class m190512_203631_create_feedback_table extends Migration
 {
@@ -50,12 +51,12 @@ class m190512_203631_create_feedback_table extends Migration
             'id_sto'
         );
 
-        // add foreign key for table `{{%sto}}`
+        // add foreign key for table `{{%users}}`
         $this->addForeignKey(
             '{{%fk-feedback-id_sto}}',
             '{{%feedback}}',
             'id_sto',
-            '{{%sto}}',
+            '{{%users}}',
             'id',
             'NO ACTION'
         );
@@ -78,7 +79,7 @@ class m190512_203631_create_feedback_table extends Migration
             '{{%feedback}}'
         );
 
-        // drops foreign key for table `{{%sto}}`
+        // drops foreign key for table `{{%users}}`
         $this->dropForeignKey(
             '{{%fk-feedback-id_sto}}',
             '{{%feedback}}'

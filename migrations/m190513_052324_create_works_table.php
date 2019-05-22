@@ -11,7 +11,7 @@ use yii\db\Migration;
  * - `{{%users}}`
  * - `{{%vehicles}}`
  * - `{{%request_statuses}}`
- * - `{{%sto}}`
+ * - `{{%users}}`
  */
 class m190513_052324_create_works_table extends Migration
 {
@@ -149,7 +149,7 @@ class m190513_052324_create_works_table extends Migration
             '{{%fk-works-id_sto}}',
             '{{%works}}',
             'id_sto',
-            '{{%sto}}',
+            '{{%users}}',
             'id',
             'NO ACTION'
         );
@@ -232,7 +232,7 @@ class m190513_052324_create_works_table extends Migration
             '{{%works}}'
         );
 
-        // drops foreign key for table `{{%sto}}`
+        // drops foreign key for table `{{%users}}`
         $this->dropForeignKey(
             '{{%fk-works-id_sto}}',
             '{{%works}}'
