@@ -14,7 +14,7 @@ ___
 
 `php yii migrate/create create_user_types_table --fields=name:string:notNull`  
 
-`php yii migrate/create create_users_table --fields="password_hash:string:notNull,auth_key:string,created_at:integer:notNull,updated_at:integer,username:string(32):notNull:unique,email:string(128):notNull:unique,status:boolean"`  
+`php yii migrate/create create_users_table --fields="password_hash:string:notNull,auth_key:string,created_at:integer:notNull,updated_at:integer,username:string(32):notNull:unique,email:string(128):notNull:unique,status:boolean,id_user_type:integer:foreignKey(user_types)"`  
 
 `php yii migrate/create create_users_info_table --fields="id_user:integer:notNull:foreignKey(users),surname:string:notNull,name:string:notNull,middlename:string,birthday:integer:notNull,telegram_name:string,telephone:string(10):notNull:unique,id_city:integer:notNull:foreignKey(cities)"`  
 
