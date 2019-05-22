@@ -35,7 +35,7 @@ class m190512_203202_create_cities_table extends Migration
             'id_region',
             '{{%regions}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
     }
 

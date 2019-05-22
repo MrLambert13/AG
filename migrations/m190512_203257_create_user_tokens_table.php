@@ -35,7 +35,7 @@ class m190512_203257_create_user_tokens_table extends Migration
             'id_user',
             '{{%users}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
     }
 

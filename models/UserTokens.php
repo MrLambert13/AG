@@ -59,4 +59,10 @@ class UserTokens extends ActiveRecord
     {
         return $this->hasOne(Users::class, ['id' => 'id_user']);
     }
+    public function generateToken($expire)
+    {
+        $this->expire_time = $expire;
+        $this->token = Yii::$app->security->generateRandomString();
+
+    }
 }

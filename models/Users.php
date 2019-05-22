@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\models\query\UserQuery;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -20,12 +21,15 @@ use yii\web\IdentityInterface;
  */
 class Users extends ActiveRecord implements IdentityInterface
 {
+
+    const STATUS_DELETED = 0;
+    const STATUS_ACTIVE = 10;
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'Users';
+        return 'users';
     }
 
     public function behaviors()
@@ -33,12 +37,10 @@ class Users extends ActiveRecord implements IdentityInterface
         return [
             [
                 'class' => TimestampBehavior::class,
-                'createdAtAttribute' => 'created_at',
-                'updatedAtAttribute' => 'updated_at',
-//                'value' => new Expression('NOW()'),
-//                'value' => function () {
-//                    return date('Y-m-d H:i:s');
-//                }
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ]
             ]
 
         ];
@@ -50,7 +52,7 @@ class Users extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['password_hash', 'created_at', 'username', 'email'], 'required'],
+            [['password_hash', 'username', 'email'], 'required'],
             [['created_at', 'updated_at'], 'integer'],
             [['password_hash', 'auth_key'], 'string', 'max' => 255],
             [['username'], 'string', 'max' => 32],
@@ -78,7 +80,7 @@ class Users extends ActiveRecord implements IdentityInterface
 
     public static function findIdentity($id)
     {
-        return static::findOne($id);
+        return static::findOne(['id' => $id]);
     }
 
     public static function findIdentityByAccessToken($token, $type = null)
@@ -96,6 +98,10 @@ class Users extends ActiveRecord implements IdentityInterface
         return $this->auth_key;
     }
 
+    public function generateAuthKey()
+    {
+        $this->auth_key = Yii::$app->security->generateRandomString(24);
+    }
 
     public function validateAuthKey($authKey)
     {
@@ -122,13 +128,18 @@ class Users extends ActiveRecord implements IdentityInterface
         $this->password_hash = Yii::$app->security->generatePasswordHash($password);
     }
 
-    public function generateAuthKey()
-    {
-        $this->auth_key = Yii::$app->security->generateRandomString(24);
-    }
-
     public function validatePassword($password)
     {
         return Yii::$app->security->validatePassword($password, $this->password_hash);
+    }
+
+    public static function find()
+    {
+        return new UserQuery(get_called_class());
+    }
+
+    public function getTokens()
+    {
+        return $this->hasMany(UserTokens::class, ['id_user' => 'id']);
     }
 }

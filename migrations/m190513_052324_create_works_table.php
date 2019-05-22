@@ -11,7 +11,7 @@ use yii\db\Migration;
  * - `{{%users}}`
  * - `{{%vehicles}}`
  * - `{{%request_statuses}}`
- * - `{{%sto}}`
+ * - `{{%users}}`
  */
 class m190513_052324_create_works_table extends Migration
 {
@@ -49,7 +49,7 @@ class m190513_052324_create_works_table extends Migration
             'id_service',
             '{{%service_types}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
 
         // creates index for column `id_work_type`
@@ -66,7 +66,7 @@ class m190513_052324_create_works_table extends Migration
             'id_work_type',
             '{{%work_types}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
 
         // creates index for column `id_work_category`
@@ -83,7 +83,7 @@ class m190513_052324_create_works_table extends Migration
             'id_work_category',
             '{{%work_categories}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
 
         // creates index for column `created_by`
@@ -100,7 +100,7 @@ class m190513_052324_create_works_table extends Migration
             'created_by',
             '{{%users}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
 
         // creates index for column `id_vehicle`
@@ -117,7 +117,7 @@ class m190513_052324_create_works_table extends Migration
             'id_vehicle',
             '{{%vehicles}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
 
         // creates index for column `status`
@@ -134,7 +134,7 @@ class m190513_052324_create_works_table extends Migration
             'status',
             '{{%request_statuses}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
 
         // creates index for column `id_sto`
@@ -149,9 +149,9 @@ class m190513_052324_create_works_table extends Migration
             '{{%fk-works-id_sto}}',
             '{{%works}}',
             'id_sto',
-            '{{%sto}}',
+            '{{%users}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
     }
 
@@ -232,7 +232,7 @@ class m190513_052324_create_works_table extends Migration
             '{{%works}}'
         );
 
-        // drops foreign key for table `{{%sto}}`
+        // drops foreign key for table `{{%users}}`
         $this->dropForeignKey(
             '{{%fk-works-id_sto}}',
             '{{%works}}'

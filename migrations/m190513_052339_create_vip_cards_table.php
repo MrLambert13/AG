@@ -5,7 +5,8 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `{{%vip_cards}}`.
  * Has foreign keys to the tables:
- * - `{{%sto}}`
+ *
+ * - `{{%users}}`
  * - `{{%users}}`
  */
 class m190513_052339_create_vip_cards_table extends Migration
@@ -18,7 +19,7 @@ class m190513_052339_create_vip_cards_table extends Migration
         $this->createTable('{{%vip_cards}}', [
             'id' => $this->primaryKey(),
             'number' => $this->integer()->notNull(),
-            'status' => 'ENUM("use","block")',
+            'status' => $this->boolean(),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer(),
             'id_sto' => $this->integer(),
@@ -32,14 +33,14 @@ class m190513_052339_create_vip_cards_table extends Migration
             'id_sto'
         );
 
-        // add foreign key for table `{{%sto}}`
+        // add foreign key for table `{{%users}}`
         $this->addForeignKey(
             '{{%fk-vip_cards-id_sto}}',
             '{{%vip_cards}}',
             'id_sto',
-            '{{%sto}}',
+            '{{%users}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
 
         // creates index for column `id_user`
@@ -56,7 +57,7 @@ class m190513_052339_create_vip_cards_table extends Migration
             'id_user',
             '{{%users}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
     }
 
@@ -65,7 +66,7 @@ class m190513_052339_create_vip_cards_table extends Migration
      */
     public function safeDown()
     {
-        // drops foreign key for table `{{%sto}}`
+        // drops foreign key for table `{{%users}}`
         $this->dropForeignKey(
             '{{%fk-vip_cards-id_sto}}',
             '{{%vip_cards}}'

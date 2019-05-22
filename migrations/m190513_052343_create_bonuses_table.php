@@ -37,7 +37,7 @@ class m190513_052343_create_bonuses_table extends Migration
             'id_vip_card',
             '{{%vip_cards}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
     }
 

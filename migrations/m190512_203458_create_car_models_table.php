@@ -42,7 +42,7 @@ class m190512_203458_create_car_models_table extends Migration
             'id_car_brand',
             '{{%car_brands}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
 
         // creates index for column `id_car_equip`
@@ -59,7 +59,7 @@ class m190512_203458_create_car_models_table extends Migration
             'id_car_equip',
             '{{%car_equips}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
 
         // creates index for column `id_car_gen`
@@ -76,7 +76,7 @@ class m190512_203458_create_car_models_table extends Migration
             'id_car_gen',
             '{{%car_gens}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
 
         // creates index for column `id_car_type`
@@ -93,7 +93,7 @@ class m190512_203458_create_car_models_table extends Migration
             'id_car_type',
             '{{%car_types}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
     }
 

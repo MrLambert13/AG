@@ -35,7 +35,7 @@ class m190513_052332_create_orders_works_table extends Migration
             'id_order',
             '{{%orders}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
 
         // creates index for column `id_work`
@@ -52,7 +52,7 @@ class m190513_052332_create_orders_works_table extends Migration
             'id_work',
             '{{%works}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
     }
 
