@@ -6,6 +6,9 @@ use app\models\Users;
 use app\models\UserTokens;
 use app\modules\api\models\LoginForm;
 use Yii;
+use yii\filters\AccessControl;
+use yii\filters\auth\HttpBearerAuth;
+use yii\filters\Cors;
 use yii\rest\Controller;
 
 /**
@@ -13,6 +16,26 @@ use yii\rest\Controller;
  */
 class LoginController extends Controller
 {
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+
+        // add CORS filter
+        $behaviors['corsFilter'] = [
+            'class' => Cors::class,
+            'cors' => [
+                'Origin' => ['*'],
+                'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
+//                'Access-Control-Allow-Credentials' => true,
+                'Access-Control-Allow-Origin' => ['*'],
+            ],
+
+        ];
+
+
+        return $behaviors;
+    }
+
     /**
      * Renders the index view for the module
      * @return string
@@ -25,7 +48,7 @@ class LoginController extends Controller
     public function actionLogin()
     {
         $params = Yii::$app->request->bodyParams;
-        $user = Users::findByEmail($params['email']);
+        $user = Users::findByEmail($params['username']);
         if (!$user) {
             $user = Users::findByUsername($params['username']);
             if (!$user) {
@@ -61,7 +84,7 @@ class LoginController extends Controller
     public function actionRegister()
     {
         $params = Yii::$app->request->bodyParams;
-        $user = Users::findByEmail($params['email']);
+        $user = Users::findByEmail($params['username']);
 
         if (!$user) {
             $user = Users::findByUsername($params['username']);
