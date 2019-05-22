@@ -46,7 +46,7 @@ ___
 
 `php yii migrate/create create_feedback_table --fields="created_by:integer:foreignKey(users),id_sto:integer:foreignKey(users),text:text,created_at:integer,work_evaluation:tinyInteger,cost_evaluation:tinyInteger,service_evaluation:tinyInteger"`  
 
-`php yii migrate/create create_service_types_table --fields="name:integer:notNull,id_sto:integer:foreignKey(users)"`  
+`php yii migrate/create create_service_types_table --fields="name:string:notNull,id_sto:integer:foreignKey(users)"`  
 `php yii migrate/create create_work_types_table --fields="name:string:notNull,id_service_type:integer:foreignKey(service_types)"`  
 `php yii migrate/create create_work_categories_table --fields="name:string:notNull,cost:double:notNull,id_work_type:integer:foreignKey(work_types)"`  
 

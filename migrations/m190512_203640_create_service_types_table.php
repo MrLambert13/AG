@@ -17,7 +17,7 @@ class m190512_203640_create_service_types_table extends Migration
     {
         $this->createTable('{{%service_types}}', [
             'id' => $this->primaryKey(),
-            'name' => $this->integer()->notNull(),
+            'name' => $this->string(),
             'id_sto' => $this->integer(),
         ]);
 
@@ -35,7 +35,7 @@ class m190512_203640_create_service_types_table extends Migration
             'id_sto',
             '{{%users}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
     }
 

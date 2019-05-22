@@ -41,7 +41,7 @@ class m190512_203619_create_sto_info_table extends Migration
             'id_user',
             '{{%users}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
 
         // creates index for column `id_order`
@@ -58,7 +58,7 @@ class m190512_203619_create_sto_info_table extends Migration
             'id_order',
             '{{%orders}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
     }
 

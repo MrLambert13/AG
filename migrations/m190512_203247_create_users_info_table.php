@@ -42,7 +42,7 @@ class m190512_203247_create_users_info_table extends Migration
             'id_user',
             '{{%users}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
 
         // creates index for column `id_city`
@@ -59,7 +59,7 @@ class m190512_203247_create_users_info_table extends Migration
             'id_city',
             '{{%cities}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
     }
 

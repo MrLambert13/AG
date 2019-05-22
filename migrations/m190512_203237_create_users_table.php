@@ -41,7 +41,7 @@ class m190512_203237_create_users_table extends Migration
             'id_user_type',
             '{{%user_types}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
     }
 

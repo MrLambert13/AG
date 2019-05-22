@@ -41,7 +41,7 @@ class m190512_203631_create_feedback_table extends Migration
             'created_by',
             '{{%users}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
 
         // creates index for column `id_sto`
@@ -58,7 +58,7 @@ class m190512_203631_create_feedback_table extends Migration
             'id_sto',
             '{{%users}}',
             'id',
-            'CASCADE'
+            'NO ACTION'
         );
     }
 
