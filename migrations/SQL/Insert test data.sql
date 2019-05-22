@@ -152,10 +152,10 @@ INSERT INTO `basket` (`id`, `id_service`, `id_work_type`, `id_work_category`, `c
 (4, 3, 3, 3, 4, 3, 1558375586, 3000, 3);
 
 INSERT INTO `vip_cards` (`id`, `number`, `status`, `created_at`, `updated_at`, `id_sto`, `id_user`) VALUES
-(3, 168762314, 'use', 1558369643, NULL, 1, 1),
-(4, 342452545, 'use', 1558367643, 1558369643, 4, 2),
-(5, 632478368, 'use', 1558369643, NULL, 1, 3),
-(6, 942451589, 'use', 1558367643, 1558369643, 4, 4);
+(3, 168762314, 1, 1558369643, NULL, 1, 1),
+(4, 342452545, 1, 1558367643, 1558369643, 4, 2),
+(5, 632478368, 1, 1558369643, NULL, 1, 3),
+(6, 942451589, 1, 1558367643, 1558369643, 4, 4);
 
 INSERT INTO `bonuses` (`id`, `name`, `size`, `used_count`, `max_count`, `id_vip_card`) VALUES
 (1, 'Стандарт', 1000, 876, NULL, 4),
