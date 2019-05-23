@@ -2,14 +2,14 @@
 
 namespace app\modules\api\controllers;
 
-use app\models\Transmissions;
+use app\models\CarGens;
 use yii\rest\ActiveController;
 
 /**
  * Default controller for the `api` module
  */
-class TransmissionsController extends ActiveController
+class CarGenController extends ActiveController
 {
-    public $modelClass = Transmissions::class;
+    public $modelClass = CarGens::class;
 
 }

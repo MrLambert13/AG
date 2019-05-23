@@ -8,7 +8,7 @@ use yii\rest\ActiveController;
 /**
  * Default controller for the `api` module
  */
-class CarModelsController extends ActiveController
+class CarModelController extends ActiveController
 {
     public $modelClass = CarModels::class;
 

@@ -54,7 +54,7 @@ class Vehicles extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_car_model', 'id_motor', 'created_by', 'created_at', 'updated_by', 'updated_at'], 'required'],
+            [['id_car_model', 'id_motor'], 'required'],
             [['id_car_model', 'id_motor', 'power', 'rel_year', 'id_transmission', 'mileage', 'created_by', 'created_at', 'updated_by', 'updated_at'], 'integer'],
             [['vin'], 'string', 'max' => 17],
             [['reg_number'], 'string', 'max' => 7],
