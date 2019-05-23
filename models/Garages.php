@@ -2,24 +2,24 @@
 
 namespace app\models;
 
-use Yii;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "garages".
- *
- * @property int $id
- * @property string $name
- * @property int $id_vehicle
- * @property int $created_by
- * @property int $created_at
- * @property int $updated_by
- * @property int $updated_at
- *
- * @property Users $createdBy
+ * @property int      $id
+ * @property string   $name
+ * @property int      $id_vehicle
+ * @property int      $created_by
+ * @property int      $created_at
+ * @property int      $updated_by
+ * @property int      $updated_at
+ * @property Users    $createdBy
  * @property Vehicles $vehicle
- * @property Users $updatedBy
+ * @property Users    $updatedBy
  */
-class Garages extends \yii\db\ActiveRecord
+class Garages extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -29,13 +29,21 @@ class Garages extends \yii\db\ActiveRecord
         return 'garages';
     }
 
+    public function behaviors()
+    {
+        return [
+            ['class' => TimestampBehavior::class],
+            ['class' => BlameableBehavior::class,],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['name', 'created_by', 'created_at'], 'required'],
+            [['name'], 'required'],
             [['id_vehicle', 'created_by', 'created_at', 'updated_by', 'updated_at'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['created_by' => 'id']],
