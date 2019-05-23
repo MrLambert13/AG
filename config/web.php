@@ -85,6 +85,7 @@ $config = [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'api/vehicle', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'api/transmissions', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'api/motors', 'pluralize' => false],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/car-models', 'pluralize' => false],
 
                 '<_c:[\w-]+>' => '<_c>/index',
                 '<_c:[\w-]+>/<id:\d+>' => '<_c>/view',
