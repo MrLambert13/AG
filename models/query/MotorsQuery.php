@@ -3,11 +3,10 @@
 namespace app\models\query;
 
 /**
- * This is the ActiveQuery class for [[\app\models\Sto]].
- *
- * @see \app\models\Sto
+ * This is the ActiveQuery class for [[\app\models\Motors]].
+ * @see \app\models\Motors
  */
-class StoQuery extends \yii\db\ActiveQuery
+class MotorsQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -16,7 +15,7 @@ class StoQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \app\models\Sto[]|array
+     * @return \app\models\Motors[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +24,7 @@ class StoQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \app\models\Sto|array|null
+     * @return \app\models\Motors|array|null
      */
     public function one($db = null)
     {

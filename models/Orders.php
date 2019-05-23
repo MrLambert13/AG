@@ -42,7 +42,7 @@ class Orders extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_city', 'id_vehicle', 'created_by', 'created_at', 'updated_at', 'id_request_status'], 'required'],
+            [['id_city', 'id_vehicle', 'id_request_status'], 'required'],
             [['id_city', 'id_vehicle', 'created_by', 'created_at', 'updated_by', 'updated_at', 'id_request_status', 'complete_date'], 'integer'],
             [['final_cost'], 'number'],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['created_by' => 'id']],
