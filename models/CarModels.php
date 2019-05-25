@@ -47,10 +47,10 @@ class CarModels extends ActiveRecord
             [['name', 'id_car_brand', 'id_car_equip', 'year_from', 'id_car_gen', 'id_car_type'], 'required'],
             [['id_car_brand', 'id_car_equip', 'year_from', 'year_to', 'id_car_gen', 'id_car_type'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['id_car_brand'], 'exist', 'skipOnError' => true, 'targetClass' => CarBrands::className(), 'targetAttribute' => ['id_car_brand' => 'id']],
-            [['id_car_equip'], 'exist', 'skipOnError' => true, 'targetClass' => CarEquips::className(), 'targetAttribute' => ['id_car_equip' => 'id']],
-            [['id_car_gen'], 'exist', 'skipOnError' => true, 'targetClass' => CarGens::className(), 'targetAttribute' => ['id_car_gen' => 'id']],
-            [['id_car_type'], 'exist', 'skipOnError' => true, 'targetClass' => CarTypes::className(), 'targetAttribute' => ['id_car_type' => 'id']],
+            [['id_car_brand'], 'exist', 'skipOnError' => true, 'targetClass' => CarBrands::class, 'targetAttribute' => ['id_car_brand' => 'id']],
+            [['id_car_equip'], 'exist', 'skipOnError' => true, 'targetClass' => CarEquips::class, 'targetAttribute' => ['id_car_equip' => 'id']],
+            [['id_car_gen'], 'exist', 'skipOnError' => true, 'targetClass' => CarGens::class, 'targetAttribute' => ['id_car_gen' => 'id']],
+            [['id_car_type'], 'exist', 'skipOnError' => true, 'targetClass' => CarTypes::class, 'targetAttribute' => ['id_car_type' => 'id']],
         ];
     }
 

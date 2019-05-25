@@ -90,6 +90,8 @@ $config = [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'api/car-equip', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'api/car-gen', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'api/car-type', 'pluralize' => false],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/vip-card', 'pluralize' => false],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/bonus', 'pluralize' => false],
 
                 '<_c:[\w-]+>' => '<_c>/index',
                 '<_c:[\w-]+>/<id:\d+>' => '<_c>/view',

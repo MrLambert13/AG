@@ -55,7 +55,7 @@ class CarEquips extends \yii\db\ActiveRecord
      */
     public function getCarModels()
     {
-        return $this->hasMany(CarModels::className(), ['id_car_equip' => 'id']);
+        return $this->hasMany(CarModels::class, ['id_car_equip' => 'id']);
     }
 
     /**

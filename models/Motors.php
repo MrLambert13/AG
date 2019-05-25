@@ -57,7 +57,7 @@ class Motors extends ActiveRecord
      */
     public function getVehicles()
     {
-        return $this->hasMany(Vehicles::className(), ['id_motor' => 'id']);
+        return $this->hasMany(Vehicles::class, ['id_motor' => 'id']);
     }
 
     /**
