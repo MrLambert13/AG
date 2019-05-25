@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\models\query\CarGensQuery;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 
@@ -55,7 +56,7 @@ class CarGens extends \yii\db\ActiveRecord
      */
     public function getCarModels()
     {
-        return $this->hasMany(CarModels::className(), ['id_car_gen' => 'id']);
+        return $this->hasMany(CarModels::class, ['id_car_gen' => 'id']);
     }
 
     /**
@@ -64,6 +65,6 @@ class CarGens extends \yii\db\ActiveRecord
      */
     public static function find()
     {
-        return new \app\models\query\CarGensQuery(get_called_class());
+        return new CarGensQuery(get_called_class());
     }
 }

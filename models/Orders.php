@@ -45,11 +45,11 @@ class Orders extends \yii\db\ActiveRecord
             [['id_city', 'id_vehicle', 'id_request_status'], 'required'],
             [['id_city', 'id_vehicle', 'created_by', 'created_at', 'updated_by', 'updated_at', 'id_request_status', 'complete_date'], 'integer'],
             [['final_cost'], 'number'],
-            [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['created_by' => 'id']],
-            [['id_city'], 'exist', 'skipOnError' => true, 'targetClass' => Cities::className(), 'targetAttribute' => ['id_city' => 'id']],
-            [['id_request_status'], 'exist', 'skipOnError' => true, 'targetClass' => RequestStatuses::className(), 'targetAttribute' => ['id_request_status' => 'id']],
-            [['id_vehicle'], 'exist', 'skipOnError' => true, 'targetClass' => Vehicles::className(), 'targetAttribute' => ['id_vehicle' => 'id']],
-            [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['updated_by' => 'id']],
+            [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['created_by' => 'id']],
+            [['id_city'], 'exist', 'skipOnError' => true, 'targetClass' => Cities::class, 'targetAttribute' => ['id_city' => 'id']],
+            [['id_request_status'], 'exist', 'skipOnError' => true, 'targetClass' => RequestStatuses::class, 'targetAttribute' => ['id_request_status' => 'id']],
+            [['id_vehicle'], 'exist', 'skipOnError' => true, 'targetClass' => Vehicles::class, 'targetAttribute' => ['id_vehicle' => 'id']],
+            [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['updated_by' => 'id']],
         ];
     }
 
@@ -85,7 +85,7 @@ class Orders extends \yii\db\ActiveRecord
      */
     public function getCity()
     {
-        return $this->hasOne(Cities::className(), ['id' => 'id_city']);
+        return $this->hasOne(Cities::class, ['id' => 'id_city']);
     }
 
     /**

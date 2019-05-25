@@ -46,7 +46,7 @@ class Transmissions extends \yii\db\ActiveRecord
      */
     public function getVehicles()
     {
-        return $this->hasMany(Vehicles::className(), ['id_transmission' => 'id']);
+        return $this->hasMany(Vehicles::class, ['id_transmission' => 'id']);
     }
 
     /**

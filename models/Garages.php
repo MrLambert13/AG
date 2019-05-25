@@ -46,9 +46,9 @@ class Garages extends ActiveRecord
             [['name'], 'required'],
             [['id_vehicle', 'created_by', 'created_at', 'updated_by', 'updated_at'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['created_by' => 'id']],
-            [['id_vehicle'], 'exist', 'skipOnError' => true, 'targetClass' => Vehicles::className(), 'targetAttribute' => ['id_vehicle' => 'id']],
-            [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['updated_by' => 'id']],
+            [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['created_by' => 'id']],
+            [['id_vehicle'], 'exist', 'skipOnError' => true, 'targetClass' => Vehicles::class, 'targetAttribute' => ['id_vehicle' => 'id']],
+            [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['updated_by' => 'id']],
         ];
     }
 
@@ -73,7 +73,7 @@ class Garages extends ActiveRecord
      */
     public function getCreatedBy()
     {
-        return $this->hasOne(Users::className(), ['id' => 'created_by']);
+        return $this->hasOne(Users::class, ['id' => 'created_by']);
     }
 
     /**
@@ -81,7 +81,7 @@ class Garages extends ActiveRecord
      */
     public function getVehicle()
     {
-        return $this->hasOne(Vehicles::className(), ['id' => 'id_vehicle']);
+        return $this->hasOne(Vehicles::class, ['id' => 'id_vehicle']);
     }
 
     /**
