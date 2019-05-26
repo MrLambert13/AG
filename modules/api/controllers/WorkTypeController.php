@@ -11,9 +11,8 @@ use yii\rest\Controller;
 /**
  * Controller for CRUD services
  */
-class ServiceController extends Controller
+class WorkTypeController extends Controller
 {
-    const USER_TYPE_STO = 2;
 
     /**
      * @return Users|\yii\web\IdentityInterface|null
