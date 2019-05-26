@@ -34,13 +34,21 @@ apt-get upgrade -y
 info "Install additional software"
 apt-get install -y php7.3-curl php7.3-cli php7.3-intl php7.3-mysql php7.3-gd php7.3-fpm php7.3-mbstring php7.3-xml php7.3-dba unzip nginx mariadb-server-10.0 php.xdebug
 
+info "Initailize databases for MySQL"
+mysql -uroot <<< "CREATE DATABASE autogigant CHARACTER SET utf8 COLLATE utf8_bin"
+mysql -uroot <<< "CREATE DATABASE autogigant_test CHARACTER SET utf8 COLLATE utf8_bin"
+echo "Done!"
+
 info "Configure MySQL"
 sed -i "s/.*bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/mariadb.conf.d/50-server.cnf
-mysql -uroot <<< "CREATE SCHEMA autogigant CHARACTER SET utf8 COLLATE utf8_bin"
 mysql -uroot <<< "CREATE USER 'root'@'%' IDENTIFIED BY ''"
 mysql -uroot <<< "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'"
 mysql -uroot <<< "DROP USER 'root'@'localhost'"
 mysql -uroot <<< "FLUSH PRIVILEGES"
+echo "Done!"
+
+info "create lof folder"
+mkdir /app/vagrant/nginx/log/
 echo "Done!"
 
 info "Configure PHP-FPM"
@@ -66,11 +74,6 @@ echo "Done!"
 
 info "Removing default site configuration"
 rm /etc/nginx/sites-enabled/default
-echo "Done!"
-
-info "Initailize databases for MySQL"
-mysql -uroot <<< "CREATE DATABASE autogigant"
-mysql -uroot <<< "CREATE DATABASE autogigant_test"
 echo "Done!"
 
 info "Install composer"
