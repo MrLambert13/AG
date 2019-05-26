@@ -11,4 +11,5 @@ use yii\rest\ActiveController;
 class CarTypeController extends ActiveController
 {
     public $modelClass = CarTypes::class;
+
 }
