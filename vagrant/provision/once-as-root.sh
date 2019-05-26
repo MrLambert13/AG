@@ -47,6 +47,10 @@ mysql -uroot <<< "DROP USER 'root'@'localhost'"
 mysql -uroot <<< "FLUSH PRIVILEGES"
 echo "Done!"
 
+info "create lof folder"
+mkdir /app/vagrant/nginx/log/
+echo "Done!"
+
 info "Configure PHP-FPM"
 sed -i 's/user = www-data/user = vagrant/g' /etc/php/7.3/fpm/pool.d/www.conf
 sed -i 's/group = www-data/group = vagrant/g' /etc/php/7.3/fpm/pool.d/www.conf
