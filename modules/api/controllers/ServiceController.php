@@ -4,10 +4,8 @@ namespace app\modules\api\controllers;
 
 use app\models\ServiceTypes;
 use app\models\Users;
-use app\models\WorkTypes;
-use app\models\WorkCategories;
-use app\models\UserTokens;
 use Yii;
+use yii\db\StaleObjectException;
 use yii\rest\Controller;
 
 /**
@@ -20,32 +18,15 @@ class ServiceController extends Controller
     /**
      * @return Users|\yii\web\IdentityInterface|null
      */
-    public function findUser()
+    private function findUser()
     {
         $params = Yii::$app->request->bodyParams;
 
         return Users::findIdentity($params['id_user']);
     }
 
-    /**
-     * Renders the index view for the module
-     * @return array
-     */
-    public function actionIndex()
+    public function validateUser()
     {
-        if (!$this->findUser()->isSto()) {
-            $result = [
-                'success' => 0,
-                'message' => 'Access denied',
-                'code' => 'user_type_incorrect',
-            ];
-        }
-        return $result;
-    }
-
-    public function actionCreate()
-    {
-        $params = Yii::$app->request->bodyParams;
         $user = $this->findUser();
 
         if (!$user->isSto()) {
@@ -55,11 +36,108 @@ class ServiceController extends Controller
                 'code' => 'user_type_incorrect',
             ];
         }
-
-        $service_type = new ServiceTypes();
-        $service_type->name = $params['service_name'];
-        $service_type->id_sto = $user->id;
     }
 
+    /**
+     * Renders the index view for the module
+     * @return array
+     */
+    public function actionIndex()
+    {
+        $result = $this->validateUser();
+        return $result;
+    }
 
+    /**
+     * @return array
+     */
+    public function actionCreate()
+    {
+        $params = Yii::$app->request->bodyParams;
+        $result = $this->validateUser();
+        if ($result) {
+            return $result;
+        }
+
+        $serviceType = new ServiceTypes();
+        $serviceType->name = $params['service_name'];
+        $serviceType->id_sto = $user->id;
+        $serviceType->save();
+
+        return $result = [
+            'success' => 1,
+            'message' => 'Service type created',
+            'serviceType' => $serviceType->id,
+            'payload' => $serviceType,
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function actionUpdate()
+    {
+        $params = Yii::$app->request->bodyParams;
+
+        $result = $this->validateUser();
+        if ($result) {
+            return $result;
+        }
+
+        $serviceType = ServiceTypes::findIdentity($params['id']);
+        $serviceType->name = $params['service_name'];
+        $serviceType->save();
+        return $result = [
+            'success' => 1,
+            'message' => 'Service type changed',
+            'serviceType' => $serviceType->id,
+            'payload' => $serviceType,
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function actionView()
+    {
+        $params = Yii::$app->request->bodyParams;
+
+        $serviceType = ServiceTypes::findIdentity($params['id']);
+        if ($serviceType) {
+            return $result = [
+                'success' => 1,
+                'serviceName' => $serviceType->name,
+                'idSto' => $serviceType->id_sto,
+            ];
+        } else {
+            return $result = [
+                'success' => 0,
+                'message' => 'service type is not exist',
+                'code' => 'service_type_id_error'
+            ];
+        }
+    }
+
+    /**
+     * @return array
+     * @throws \Throwable
+     * @throws StaleObjectException
+     */
+    public function actionDelete()
+    {
+        $params = Yii::$app->request->bodyParams;
+
+        $result = $this->validateUser();
+        if ($result) {
+            return $result;
+        };
+
+        $serviceType = ServiceTypes::findIdentity($params['id']);
+        $serviceType->delete();
+        return $result = [
+            'success' => 1,
+            'message' => 'Service type deleted',
+        ];
+
+    }
 }

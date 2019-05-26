@@ -2,14 +2,12 @@
 
 namespace app\models\query;
 
-use app\models\ServiceTypes;
-use yii\db\ActiveQuery;
-
 /**
- * This is the ActiveQuery class for [[\app\models\ServiceTypes]].
- * @see ServiceTypes
+ * This is the ActiveQuery class for [[\app\models\Works]].
+ *
+ * @see \app\models\Works
  */
-class ServiceTypesQuery extends ActiveQuery
+class WorksQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -18,7 +16,7 @@ class ServiceTypesQuery extends ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return ServiceTypes[]|array
+     * @return \app\models\Works[]|array
      */
     public function all($db = null)
     {
@@ -27,7 +25,7 @@ class ServiceTypesQuery extends ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return ServiceTypes|array|null
+     * @return \app\models\Works|array|null
      */
     public function one($db = null)
     {

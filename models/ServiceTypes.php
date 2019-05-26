@@ -2,7 +2,9 @@
 
 namespace app\models;
 
-use Yii;
+use app\models\query\ServiceTypesQuery;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "service_types".
@@ -14,7 +16,7 @@ use Yii;
  * @property WorkTypes[] $workTypes
  * @property Works[]     $works
  */
-class ServiceTypes extends \yii\db\ActiveRecord
+class ServiceTypes extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -49,43 +51,54 @@ class ServiceTypes extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * Find service by id
+     * @param $id
+     *
+     * @return ServiceTypes|null
+     */
+    public static function findIdentity($id)
+    {
+        return static::findOne(['id' => $id]);
+    }
+
+    /**
+     * @return ActiveQuery
      */
     public function getBaskets()
     {
-        return $this->hasMany(Basket::className(), ['id_service' => 'id']);
+        return $this->hasMany(Basket::class, ['id_service' => 'id']);
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSto()
     {
-        return $this->hasOne(Users::className(), ['id' => 'id_sto']);
+        return $this->hasOne(Users::class, ['id' => 'id_sto']);
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWorkTypes()
     {
-        return $this->hasMany(WorkTypes::className(), ['id_service_type' => 'id']);
+        return $this->hasMany(WorkTypes::class, ['id_service_type' => 'id']);
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWorks()
     {
-        return $this->hasMany(Works::className(), ['id_service' => 'id']);
+        return $this->hasMany(Works::class, ['id_service' => 'id']);
     }
 
     /**
      * {@inheritdoc}
-     * @return \app\models\query\ServiceTypesQuery the active query used by this AR class.
+     * @return ServiceTypesQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new \app\models\query\ServiceTypesQuery(get_called_class());
+        return new ServiceTypesQuery(get_called_class());
     }
 }
