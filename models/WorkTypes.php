@@ -2,7 +2,10 @@
 
 namespace app\models;
 
+use app\models\query\WorkTypesQuery;
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "work_types".
@@ -14,7 +17,7 @@ use Yii;
  * @property ServiceTypes     $serviceType
  * @property Works[]          $works
  */
-class WorkTypes extends \yii\db\ActiveRecord
+class WorkTypes extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -33,7 +36,7 @@ class WorkTypes extends \yii\db\ActiveRecord
             [['name'], 'required'],
             [['id_service_type'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['id_service_type'], 'exist', 'skipOnError' => true, 'targetClass' => ServiceTypes::className(), 'targetAttribute' => ['id_service_type' => 'id']],
+            [['id_service_type'], 'exist', 'skipOnError' => true, 'targetClass' => ServiceTypes::class, 'targetAttribute' => ['id_service_type' => 'id']],
         ];
     }
 
@@ -50,43 +53,54 @@ class WorkTypes extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * Find Work types by id
+     * @param $id
+     *
+     * @return WorkTypes|null
+     */
+    public static function findIdentity($id)
+    {
+        return static::findOne(['id' => $id]);
+    }
+
+    /**
+     * @return ActiveQuery
      */
     public function getBaskets()
     {
-        return $this->hasMany(Basket::className(), ['id_work_type' => 'id']);
+        return $this->hasMany(Basket::class, ['id_work_type' => 'id']);
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWorkCategories()
     {
-        return $this->hasMany(WorkCategories::className(), ['id_work_type' => 'id']);
+        return $this->hasMany(WorkCategories::class, ['id_work_type' => 'id']);
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getServiceType()
     {
-        return $this->hasOne(ServiceTypes::className(), ['id' => 'id_service_type']);
+        return $this->hasOne(ServiceTypes::class, ['id' => 'id_service_type']);
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWorks()
     {
-        return $this->hasMany(Works::className(), ['id_work_type' => 'id']);
+        return $this->hasMany(Works::class, ['id_work_type' => 'id']);
     }
 
     /**
      * {@inheritdoc}
-     * @return \app\models\query\WorkTypesQuery the active query used by this AR class.
+     * @return WorkTypesQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new \app\models\query\WorkTypesQuery(get_called_class());
+        return new WorkTypesQuery(get_called_class());
     }
 }

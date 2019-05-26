@@ -4,6 +4,7 @@ namespace app\modules\api\controllers;
 
 use app\models\ServiceTypes;
 use app\models\Users;
+use app\models\WorkTypes;
 use Yii;
 use yii\db\StaleObjectException;
 use yii\rest\Controller;
@@ -24,9 +25,13 @@ class WorkTypeController extends Controller
         return Users::findIdentity($params['id_user']);
     }
 
+    /**
+     * @return array
+     */
     public function validateUser()
     {
         $user = $this->findUser();
+
 
         if (!$user->isSto()) {
             return $result = [
@@ -38,12 +43,39 @@ class WorkTypeController extends Controller
     }
 
     /**
+     * @return array
+     */
+    public function validateOwner()
+    {
+        $params = Yii::$app->request->bodyParams;
+        $service_type = WorkTypes::findIdentity($params['id'])->getServiceType();
+        if ($service_type->id_sto === $this->findUser()->id) {
+            return $result = [
+                'success' => 0,
+                'message' => 'Access denied',
+                'code' => 'user_not_owner',
+            ];
+        }
+    }
+
+    /**
+     * @return array|null
+     */
+    public function validate()
+    {
+        $resultValidateUser = $this->validateUser();
+        $resultValidateOwner = $this->validateOwner();
+        $result = $resultValidateOwner ? $resultValidateOwner : $resultValidateUser;
+        return $result;
+    }
+
+    /**
      * Renders the index view for the module
      * @return array
      */
     public function actionIndex()
     {
-        $result = $this->validateUser();
+        $result = $this->validate();
         return $result;
     }
 
@@ -53,21 +85,21 @@ class WorkTypeController extends Controller
     public function actionCreate()
     {
         $params = Yii::$app->request->bodyParams;
-        $result = $this->validateUser();
+        $result = $this->validate();
         if ($result) {
             return $result;
         }
 
-        $serviceType = new ServiceTypes();
-        $serviceType->name = $params['service_name'];
-        $serviceType->id_sto = $user->id;
-        $serviceType->save();
+        $workType = new ServiceTypes();
+        $workType->name = $params['work_name'];
+        $workType->id_sto = $params['user_id'];
+        $workType->save();
 
         return $result = [
             'success' => 1,
-            'message' => 'Service type created',
-            'serviceType' => $serviceType->id,
-            'payload' => $serviceType,
+            'message' => 'Work type created',
+            'workType' => $workType->id,
+            'payload' => $workType,
         ];
     }
 
@@ -78,19 +110,19 @@ class WorkTypeController extends Controller
     {
         $params = Yii::$app->request->bodyParams;
 
-        $result = $this->validateUser();
+        $result = $this->validate();
         if ($result) {
             return $result;
         }
 
-        $serviceType = ServiceTypes::findIdentity($params['id']);
-        $serviceType->name = $params['service_name'];
-        $serviceType->save();
+        $workType = WorkTypes::findIdentity($params['id']);
+        $workType->name = $params['work_name'];
+        $workType->save();
         return $result = [
             'success' => 1,
-            'message' => 'Service type changed',
-            'serviceType' => $serviceType->id,
-            'payload' => $serviceType,
+            'message' => 'Work type changed',
+            'workType' => $workType->id,
+            'payload' => $workType,
         ];
     }
 
@@ -101,18 +133,18 @@ class WorkTypeController extends Controller
     {
         $params = Yii::$app->request->bodyParams;
 
-        $serviceType = ServiceTypes::findIdentity($params['id']);
-        if ($serviceType) {
+        $workType = WorkTypes::findIdentity($params['id']);
+        if ($workType) {
             return $result = [
                 'success' => 1,
-                'serviceName' => $serviceType->name,
-                'idSto' => $serviceType->id_sto,
+                'workName' => $workType->name,
+                'idSto' => $workType->id_sto,
             ];
         } else {
             return $result = [
                 'success' => 0,
-                'message' => 'service type is not exist',
-                'code' => 'service_type_id_error'
+                'message' => 'work type is not exist',
+                'code' => 'work_type_id_error'
             ];
         }
     }
@@ -126,16 +158,16 @@ class WorkTypeController extends Controller
     {
         $params = Yii::$app->request->bodyParams;
 
-        $result = $this->validateUser();
+        $result = $this->validate();
         if ($result) {
             return $result;
         };
 
-        $serviceType = ServiceTypes::findIdentity($params['id']);
-        $serviceType->delete();
+        $workType = WorkTypes::findIdentity($params['id']);
+        $workType->delete();
         return $result = [
             'success' => 1,
-            'message' => 'Service type deleted',
+            'message' => 'Work type deleted',
         ];
 
     }

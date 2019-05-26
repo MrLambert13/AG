@@ -59,7 +59,7 @@ class ServiceTypeController extends Controller
 
         $serviceType = new ServiceTypes();
         $serviceType->name = $params['service_name'];
-        $serviceType->id_sto = $user->id;
+        $serviceType->id_sto = $params['user_id'];
         $serviceType->save();
 
         return $result = [
