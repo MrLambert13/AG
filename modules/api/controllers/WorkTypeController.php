@@ -48,8 +48,8 @@ class WorkTypeController extends Controller
     public function validateOwner()
     {
         $params = Yii::$app->request->bodyParams;
-        $service_type = WorkTypes::findIdentity($params['id'])->getServiceType();
-        if ($service_type->id_sto === $this->findUser()->id) {
+        $serviceType = WorkTypes::findIdentity($params['id'])->getServiceType();
+        if ($serviceType->id_sto === $this->findUser()->id) {
             return $result = [
                 'success' => 0,
                 'message' => 'Access denied',

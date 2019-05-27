@@ -9,5 +9,5 @@
 4) В папку `config` добавить файл `db.php` (можно взять образец в папке `/migrations/SQL/`)
 5) пробросить `порт` для доступа к `mysql`  
 6) Сделать `yii migrate`
-7) Выполнить файл `/migrations/SQL/Insert test data.sql` для наполнения базы
+7) Выполнить файл `/migrations/SQL/Insert.sql` для наполнения базы
 

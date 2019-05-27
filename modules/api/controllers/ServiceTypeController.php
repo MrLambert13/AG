@@ -4,6 +4,7 @@ namespace app\modules\api\controllers;
 
 use app\models\ServiceTypes;
 use app\models\Users;
+use app\models\WorkTypes;
 use Yii;
 use yii\db\StaleObjectException;
 use yii\rest\Controller;
@@ -34,6 +35,39 @@ class ServiceTypeController extends Controller
                 'code' => 'user_type_incorrect',
             ];
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function validateOwner()
+    {
+        $params = Yii::$app->request->bodyParams;
+        $serviceType = ServiceTypes::findIdentity($params['id']);
+        if ($serviceType->id_sto !== $this->findUser()->id) {
+            return $result = [
+                'success' => 0,
+                'message' => 'Access denied',
+                'code' => 'user_not_owner',
+            ];
+        }
+    }
+
+    /**
+     * @return array|null
+     */
+    public function validate()
+    {
+        $resultValidateUser = $this->validateUser();
+        if (isset($resultValidateUser)) {
+            return $resultValidateUser;
+        }
+
+        $resultValidateOwner = $this->validateOwner();
+        if (isset($resultValidateOwner)) {
+            return $resultValidateOwner;
+        }
+        return false;
     }
 
     /**
@@ -77,7 +111,7 @@ class ServiceTypeController extends Controller
     {
         $params = Yii::$app->request->bodyParams;
 
-        $result = $this->validateUser();
+        $result = $this->validate();
         if ($result) {
             return $result;
         }
