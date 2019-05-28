@@ -1,0 +1,77 @@
+{
+  "TS": [
+    {
+      "id": 1,
+      "name": "Ferrari",
+      "number": "x699xx",
+      "year": "2017"
+    },
+    {
+      "id": 2,
+      "name": "Audi",
+      "number": "a757ax",
+      "year": 2004
+    },
+    {
+      "name": "Porshe",
+      "number": "344",
+      "year": "1999",
+      "id": 3
+    },
+    {
+      "name": "Daewooo",
+      "number": "555",
+      "year": "2017",
+      "id": 4
+    },
+    {
+      "name": "Tesla",
+      "number": "999",
+      "year": "2020",
+      "id": 5
+    }
+  ],
+  "user": [
+    {
+      "id": 1,
+      "name": "Ivan",
+      "isClient": true,
+      "isOwner": false,
+      "profile": []
+    },
+    {
+      "id": 1,
+      "name": "Ivan",
+      "isClient": true,
+      "isOwner": false,
+      "profile": []
+    },
+    {
+      "id": 2
+    },
+    {
+      "id": 3
+    },
+    {
+      "id": 4
+    },
+    {
+      "id": 5
+    },
+    {
+      "id": 6
+    },
+    {
+      "id": 7
+    },
+    {
+      "id": 8
+    },
+    {
+      "id": 9
+    },
+    {
+      "id": 10
+    }
+  ]
+}
