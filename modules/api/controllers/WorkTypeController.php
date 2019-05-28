@@ -64,9 +64,15 @@ class WorkTypeController extends Controller
     public function validate()
     {
         $resultValidateUser = $this->validateUser();
+        if (isset($resultValidateUser)) {
+            return $resultValidateUser;
+        }
+
         $resultValidateOwner = $this->validateOwner();
-        $result = $resultValidateOwner ? $resultValidateOwner : $resultValidateUser;
-        return $result;
+        if (isset($resultValidateOwner)) {
+            return $resultValidateOwner;
+        }
+        return false;
     }
 
     /**
