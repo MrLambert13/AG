@@ -7,12 +7,14 @@ use app\models\UserTokens;
 use app\modules\api\models\LoginForm;
 use Yii;
 use yii\rest\Controller;
+use yii\filters\Cors;
 
 /**
  * Default controller for the `modules` module
  */
 class LoginController extends Controller
 {
+
     /**
      * Renders the index view for the module
      * @return string
@@ -22,6 +24,25 @@ class LoginController extends Controller
         return 'api';
     }
 
+//    public function behaviors()
+//    {
+//        $behaviors = parent::behaviors();
+//
+//        // add CORS filter
+//        $behaviors['corsFilter'] = [
+//            'class' => Cors::className(),
+//            'cors' => [
+//                'Origin' => ['*'],
+//                'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD'],
+//                'Access-Control-Allow-Credentials' => true,
+//            ],
+//
+//        ];
+//
+//
+//        return $behaviors;
+//    }
+
     public function actionLogin()
     {
         $params = Yii::$app->request->bodyParams;
@@ -30,6 +51,8 @@ class LoginController extends Controller
             $user = Users::findByUsername($params['username']);
             if (!$user) {
                 $result = [
+//                    'params' => json_encode($params),
+//                    'params' => $params['username'],
                     'success' => 0,
                     'message' => 'Такой пользователь не найден'
                 ];
