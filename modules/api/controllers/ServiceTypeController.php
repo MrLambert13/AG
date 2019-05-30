@@ -21,7 +21,7 @@ class ServiceTypeController extends Controller
     {
         $params = Yii::$app->request->bodyParams;
 
-        return Users::findIdentity($params['id_user']);
+        return Users::findIdentity($params['idUser']);
     }
 
     public function validateUser()
@@ -92,8 +92,8 @@ class ServiceTypeController extends Controller
         }
 
         $serviceType = new ServiceTypes();
-        $serviceType->name = $params['service_name'];
-        $serviceType->id_sto = $params['user_id'];
+        $serviceType->name = $params['serviceName'];
+        $serviceType->id_sto = $params['idUser'];
         $serviceType->save();
 
         return $result = [
@@ -117,7 +117,7 @@ class ServiceTypeController extends Controller
         }
 
         $serviceType = ServiceTypes::findIdentity($params['id']);
-        $serviceType->name = $params['service_name'];
+        $serviceType->name = $params['serviceName'];
         $serviceType->save();
         return $result = [
             'success' => 1,

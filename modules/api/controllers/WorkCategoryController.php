@@ -4,8 +4,8 @@ namespace app\modules\api\controllers;
 
 use app\models\ServiceTypes;
 use app\models\Users;
-use app\models\WorkTypes;
 use app\models\WorkCategories;
+use app\models\WorkTypes;
 use Yii;
 use yii\db\StaleObjectException;
 use yii\rest\Controller;
@@ -13,7 +13,7 @@ use yii\rest\Controller;
 /**
  * Controller for CRUD services
  */
-class WorkСategoryController extends Controller
+class WorkCategoryController extends Controller
 {
 
     /**
@@ -23,7 +23,7 @@ class WorkСategoryController extends Controller
     {
         $params = Yii::$app->request->bodyParams;
 
-        return Users::findIdentity($params['id_user']);
+        return Users::findIdentity($params['idUser']);
     }
 
     /**
@@ -49,13 +49,25 @@ class WorkСategoryController extends Controller
     public function validateOwner()
     {
         $params = Yii::$app->request->bodyParams;
-        $workCategory = WorkCategories::findIdentity($params['id']);
-        if ($workCategory->workType->serviceType->id_sto !== $this->findUser()->id) {
-            return $result = [
-                'success' => 0,
-                'message' => 'Access denied',
-                'code' => 'user_not_owner',
-            ];
+
+        if (isset($params['id'])) {
+            $workCategory = WorkCategories::findIdentity($params['id']);
+            if ($workCategory->workType->serviceType->id_sto !== $this->findUser()->id) {
+                return $result = [
+                    'success' => 0,
+                    'message' => 'Access denied',
+                    'code' => 'user_not_owner',
+                ];
+            }
+        } else {
+            $workType = WorkTypes::findIdentity($params['idWorkType']);
+            if ($workType->serviceType->id_sto !== $this->findUser()->id) {
+                return $result = [
+                    'success' => 0,
+                    'message' => 'Access denied',
+                    'code' => 'user_not_owner',
+                ];
+            }
         }
     }
 
@@ -97,16 +109,17 @@ class WorkСategoryController extends Controller
             return $result;
         }
 
-        $workType = new ServiceTypes();
-        $workType->name = $params['work_name'];
-        $workType->id_sto = $params['user_id'];
-        $workType->save();
+        $workCategory = new WorkCategories();
+        $workCategory->name = $params['workName'];
+        $workCategory->id_work_type = $params['idWorkType'];
+        $workCategory->cost = $params['cost'];
+        $workCategory->save();
 
         return $result = [
             'success' => 1,
             'message' => 'Work type created',
-            'workType' => $workType->id,
-            'payload' => $workType,
+            'workCategory' => $workCategory->id,
+            'payload' => $workCategory,
         ];
     }
 
@@ -122,14 +135,14 @@ class WorkСategoryController extends Controller
             return $result;
         }
 
-        $workType = WorkTypes::findIdentity($params['id']);
-        $workType->name = $params['work_name'];
-        $workType->save();
+        $workCategory = WorkCategories::findIdentity($params['id']);
+        $workCategory->name = $params['workName'];
+        $workCategory->save();
         return $result = [
             'success' => 1,
             'message' => 'Work type changed',
-            'workType' => $workType->id,
-            'payload' => $workType,
+            'workCategory' => $workCategory->id,
+            'payload' => $workCategory,
         ];
     }
 
@@ -140,12 +153,12 @@ class WorkСategoryController extends Controller
     {
         $params = Yii::$app->request->bodyParams;
 
-        $workType = WorkTypes::findIdentity($params['id']);
-        if ($workType) {
+        $workCategory = WorkCategories::findIdentity($params['id']);
+        if ($workCategory) {
             return $result = [
                 'success' => 1,
-                'workName' => $workType->name,
-                'idSto' => $workType->id_sto,
+                'workName' => $workCategory->name,
+                'cost' => $workCategory->cost,
             ];
         } else {
             return $result = [
@@ -170,12 +183,18 @@ class WorkСategoryController extends Controller
             return $result;
         };
 
-        $workType = WorkTypes::findIdentity($params['id']);
-        $workType->delete();
-        return $result = [
-            'success' => 1,
-            'message' => 'Work type deleted',
-        ];
-
+        $workType = WorkCategories::findIdentity($params['id']);
+        if ($workType->delete()) {
+            return $result = [
+                'success' => 1,
+                'message' => 'Work category deleted',
+            ];
+        } else {
+            return $result = [
+                'success' => 0,
+                'message' => 'Work category is not deleted',
+                'code' => 'delete_error'
+            ];
+        }
     }
 }

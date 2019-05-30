@@ -22,7 +22,7 @@ class WorkTypeController extends Controller
     {
         $params = Yii::$app->request->bodyParams;
 
-        return Users::findIdentity($params['id_user']);
+        return Users::findIdentity($params['idUser']);
     }
 
     /**
@@ -48,13 +48,25 @@ class WorkTypeController extends Controller
     public function validateOwner()
     {
         $params = Yii::$app->request->bodyParams;
-        $workType = WorkTypes::findIdentity($params['id']);
-        if ($workType->serviceType->id_sto !== $this->findUser()->id) {
-            return $result = [
-                'success' => 0,
-                'message' => 'Access denied',
-                'code' => 'user_not_owner',
-            ];
+
+        if (isset($params['id'])) {
+            $workType = WorkTypes::findIdentity($params['id']);
+            if ($workType->serviceType->id_sto !== $this->findUser()->id) {
+                return $result = [
+                    'success' => 0,
+                    'message' => 'Access denied',
+                    'code' => 'user_not_owner',
+                ];
+            }
+        } else {
+            $serviceType = ServiceTypes::findIdentity($params['idServiceType']);
+            if ($serviceType->id_sto !== $this->findUser()->id) {
+                return $result = [
+                    'success' => 0,
+                    'message' => 'Access denied',
+                    'code' => 'user_not_owner',
+                ];
+            }
         }
     }
 
@@ -96,9 +108,9 @@ class WorkTypeController extends Controller
             return $result;
         }
 
-        $workType = new ServiceTypes();
-        $workType->name = $params['work_name'];
-        $workType->id_sto = $params['user_id'];
+        $workType = new WorkTypes();
+        $workType->name = $params['workName'];
+        $workType->id_service_type = $params['idServiceType'];
         $workType->save();
 
         return $result = [
@@ -170,11 +182,18 @@ class WorkTypeController extends Controller
         };
 
         $workType = WorkTypes::findIdentity($params['id']);
-        $workType->delete();
-        return $result = [
-            'success' => 1,
-            'message' => 'Work type deleted',
-        ];
 
+        if ($workType->delete()) {
+            return $result = [
+                'success' => 1,
+                'message' => 'Work type deleted',
+            ];
+        } else {
+            return $result = [
+                'success' => 0,
+                'message' => 'Work category is not deleted',
+                'code' => 'delete_error'
+            ];
+        }
     }
 }
