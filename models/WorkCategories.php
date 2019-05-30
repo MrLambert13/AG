@@ -2,7 +2,9 @@
 
 namespace app\models;
 
+use app\models\query\WorkCategoriesQuery;
 use Yii;
+use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "work_categories".
@@ -24,6 +26,16 @@ class WorkCategories extends \yii\db\ActiveRecord
         return 'work_categories';
     }
 
+    /** Fond work category by id
+     * @param $id
+     *
+     * @return WorkCategories|null
+     */
+    public static function findIdentity($id)
+    {
+        return static::findOne(['id' => $id]);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -34,7 +46,7 @@ class WorkCategories extends \yii\db\ActiveRecord
             [['cost'], 'number'],
             [['id_work_type'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['id_work_type'], 'exist', 'skipOnError' => true, 'targetClass' => WorkTypes::className(), 'targetAttribute' => ['id_work_type' => 'id']],
+            [['id_work_type'], 'exist', 'skipOnError' => true, 'targetClass' => WorkTypes::class, 'targetAttribute' => ['id_work_type' => 'id']],
         ];
     }
 
@@ -52,35 +64,35 @@ class WorkCategories extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBaskets()
     {
-        return $this->hasMany(Basket::className(), ['id_work_category' => 'id']);
+        return $this->hasMany(Basket::class, ['id_work_category' => 'id']);
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWorkType()
     {
-        return $this->hasOne(WorkTypes::className(), ['id' => 'id_work_type']);
+        return $this->hasOne(WorkTypes::class, ['id' => 'id_work_type']);
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWorks()
     {
-        return $this->hasMany(Works::className(), ['id_work_category' => 'id']);
+        return $this->hasMany(Works::class, ['id_work_category' => 'id']);
     }
 
     /**
      * {@inheritdoc}
-     * @return \app\models\query\WorkCategoriesQuery the active query used by this AR class.
+     * @return WorkCategoriesQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new \app\models\query\WorkCategoriesQuery(get_called_class());
+        return new WorkCategoriesQuery(get_called_class());
     }
 }

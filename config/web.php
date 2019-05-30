@@ -97,8 +97,11 @@ $config = [
                         'api/bonus',
                     ],
                     'pluralize' => false],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/service-type', 'pluralize' => false],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/work-type', 'pluralize' => false],
+
+                'service-type/<action:[\w-]+>' => 'api/service-type/<action>',
+                'work-type/<action:[\w-]+>' => 'api/work-type/<action>',
+                'work-category/<action:[\w-]+>' => 'api/work-category/<action>',
+                //['class' => 'yii\rest\UrlRule', 'controller' => 'api/work-type', 'pluralize' => false],
 
                 '<_c:[\w-]+>' => '<_c>/index',
                 '<_c:[\w-]+>/<id:\d+>' => '<_c>/view',

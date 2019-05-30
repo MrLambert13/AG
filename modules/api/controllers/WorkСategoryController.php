@@ -5,6 +5,7 @@ namespace app\modules\api\controllers;
 use app\models\ServiceTypes;
 use app\models\Users;
 use app\models\WorkTypes;
+use app\models\WorkCategories;
 use Yii;
 use yii\db\StaleObjectException;
 use yii\rest\Controller;
@@ -12,7 +13,7 @@ use yii\rest\Controller;
 /**
  * Controller for CRUD services
  */
-class WorkTypeController extends Controller
+class WorkСategoryController extends Controller
 {
 
     /**
@@ -48,8 +49,8 @@ class WorkTypeController extends Controller
     public function validateOwner()
     {
         $params = Yii::$app->request->bodyParams;
-        $workType = WorkTypes::findIdentity($params['id']);
-        if ($workType->serviceType->id_sto !== $this->findUser()->id) {
+        $workCategory = WorkCategories::findIdentity($params['id']);
+        if ($workCategory->workType->serviceType->id_sto !== $this->findUser()->id) {
             return $result = [
                 'success' => 0,
                 'message' => 'Access denied',
@@ -122,7 +123,7 @@ class WorkTypeController extends Controller
         }
 
         $workType = WorkTypes::findIdentity($params['id']);
-        $workType->name = $params['workName'];
+        $workType->name = $params['work_name'];
         $workType->save();
         return $result = [
             'success' => 1,
@@ -144,7 +145,7 @@ class WorkTypeController extends Controller
             return $result = [
                 'success' => 1,
                 'workName' => $workType->name,
-                'idServiceType' => $workType->serviceType,
+                'idSto' => $workType->id_sto,
             ];
         } else {
             return $result = [
