@@ -2,7 +2,6 @@
 
 namespace app\modules\api\controllers;
 
-use app\models\ServiceTypes;
 use app\models\Users;
 use app\models\WorkCategories;
 use app\models\WorkTypes;
@@ -16,20 +15,20 @@ use yii\rest\Controller;
 class WorkCategoryController extends Controller
 {
 
+    private $params;
+
     /**
      * @return Users|\yii\web\IdentityInterface|null
      */
     private function findUser()
     {
-        $params = Yii::$app->request->bodyParams;
-
-        return Users::findIdentity($params['idUser']);
+        return Users::findIdentity($this->params['idUser']);
     }
 
     /**
      * @return array
      */
-    public function validateUser()
+    private function validateUser()
     {
         $user = $this->findUser();
 
@@ -46,12 +45,10 @@ class WorkCategoryController extends Controller
     /**
      * @return array
      */
-    public function validateOwner()
+    private function validateOwner()
     {
-        $params = Yii::$app->request->bodyParams;
-
-        if (isset($params['id'])) {
-            $workCategory = WorkCategories::findIdentity($params['id']);
+        if (isset($this->params['id'])) {
+            $workCategory = WorkCategories::findIdentity($this->params['id']);
             if ($workCategory->workType->serviceType->id_sto !== $this->findUser()->id) {
                 return $result = [
                     'success' => 0,
@@ -60,7 +57,7 @@ class WorkCategoryController extends Controller
                 ];
             }
         } else {
-            $workType = WorkTypes::findIdentity($params['idWorkType']);
+            $workType = WorkTypes::findIdentity($this->params['idWorkType']);
             if ($workType->serviceType->id_sto !== $this->findUser()->id) {
                 return $result = [
                     'success' => 0,
@@ -72,9 +69,9 @@ class WorkCategoryController extends Controller
     }
 
     /**
-     * @return array|null
+     * @return array|bool
      */
-    public function validate()
+    private function validate()
     {
         $resultValidateUser = $this->validateUser();
         if (isset($resultValidateUser)) {
@@ -88,14 +85,15 @@ class WorkCategoryController extends Controller
         return false;
     }
 
-    /**
-     * Renders the index view for the module
-     * @return array
-     */
-    public function actionIndex()
+    private function initParams()
     {
-        $result = $this->validate();
-        return $result;
+        $this->params = Yii::$app->request->bodyParams;
+    }
+
+    public function behaviors()
+    {
+        $this->initParams();
+        return parent::behaviors();
     }
 
     /**
@@ -103,24 +101,29 @@ class WorkCategoryController extends Controller
      */
     public function actionCreate()
     {
-        $params = Yii::$app->request->bodyParams;
         $result = $this->validate();
         if ($result) {
             return $result;
         }
 
         $workCategory = new WorkCategories();
-        $workCategory->name = $params['workName'];
-        $workCategory->id_work_type = $params['idWorkType'];
-        $workCategory->cost = $params['cost'];
-        $workCategory->save();
-
-        return $result = [
-            'success' => 1,
-            'message' => 'Work type created',
-            'workCategory' => $workCategory->id,
-            'payload' => $workCategory,
-        ];
+        $workCategory->name = $this->params['workName'];
+        $workCategory->id_work_type = $this->params['idWorkType'];
+        $workCategory->cost = $this->params['cost'];
+        if ($workCategory->save()) {
+            return $result = [
+                'success' => 1,
+                'message' => 'Work category created',
+                'workCategory' => $workCategory->id,
+                'payload' => $workCategory,
+            ];
+        } else {
+            return $result = [
+                'success' => 0,
+                'message' => 'Work category is not created',
+                'code' => 'error_save',
+            ];
+        }
     }
 
     /**
@@ -128,22 +131,29 @@ class WorkCategoryController extends Controller
      */
     public function actionUpdate()
     {
-        $params = Yii::$app->request->bodyParams;
-
         $result = $this->validate();
         if ($result) {
             return $result;
         }
 
-        $workCategory = WorkCategories::findIdentity($params['id']);
-        $workCategory->name = $params['workName'];
-        $workCategory->save();
-        return $result = [
-            'success' => 1,
-            'message' => 'Work type changed',
-            'workCategory' => $workCategory->id,
-            'payload' => $workCategory,
-        ];
+        $workCategory = WorkCategories::findIdentity($this->params['id']);
+        $workCategory->name = $this->params['workName'] ? $this->params['workName'] : $workCategory->name;
+        $workCategory->cost = $this->params['cost'] ? $this->params['cost'] : $workCategory->cost;
+
+        if ($workCategory->save()) {
+            return $result = [
+                'success' => 1,
+                'message' => 'Work category changed',
+                'workCategory' => $workCategory->id,
+                'payload' => $workCategory,
+            ];
+        } else {
+            return $result = [
+                'success' => 0,
+                'message' => 'Work category is not updated',
+                'code' => 'error_save',
+            ];
+        }
     }
 
     /**
@@ -151,9 +161,7 @@ class WorkCategoryController extends Controller
      */
     public function actionView()
     {
-        $params = Yii::$app->request->bodyParams;
-
-        $workCategory = WorkCategories::findIdentity($params['id']);
+        $workCategory = WorkCategories::findIdentity($this->params['id']);
         if ($workCategory) {
             return $result = [
                 'success' => 1,
@@ -163,7 +171,7 @@ class WorkCategoryController extends Controller
         } else {
             return $result = [
                 'success' => 0,
-                'message' => 'work type is not exist',
+                'message' => 'work category is not exist',
                 'code' => 'work_type_id_error'
             ];
         }
@@ -176,14 +184,12 @@ class WorkCategoryController extends Controller
      */
     public function actionDelete()
     {
-        $params = Yii::$app->request->bodyParams;
-
         $result = $this->validate();
         if ($result) {
             return $result;
         };
 
-        $workType = WorkCategories::findIdentity($params['id']);
+        $workType = WorkCategories::findIdentity($this->params['id']);
         if ($workType->delete()) {
             return $result = [
                 'success' => 1,
@@ -193,7 +199,7 @@ class WorkCategoryController extends Controller
             return $result = [
                 'success' => 0,
                 'message' => 'Work category is not deleted',
-                'code' => 'delete_error'
+                'code' => 'error_delete'
             ];
         }
     }

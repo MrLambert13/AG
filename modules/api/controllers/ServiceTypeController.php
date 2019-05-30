@@ -14,17 +14,18 @@ use yii\rest\Controller;
  */
 class ServiceTypeController extends Controller
 {
+
+    private $params;
+    
     /**
      * @return Users|\yii\web\IdentityInterface|null
      */
     private function findUser()
     {
-        $params = Yii::$app->request->bodyParams;
-
-        return Users::findIdentity($params['idUser']);
+        return Users::findIdentity($this->params['idUser']);
     }
 
-    public function validateUser()
+    private function validateUser()
     {
         $user = $this->findUser();
 
@@ -40,10 +41,9 @@ class ServiceTypeController extends Controller
     /**
      * @return array
      */
-    public function validateOwner()
+    private function validateOwner()
     {
-        $params = Yii::$app->request->bodyParams;
-        $serviceType = ServiceTypes::findIdentity($params['id']);
+        $serviceType = ServiceTypes::findIdentity($this->params['id']);
         if ($serviceType->id_sto !== $this->findUser()->id) {
             return $result = [
                 'success' => 0,
@@ -56,7 +56,7 @@ class ServiceTypeController extends Controller
     /**
      * @return array|null
      */
-    public function validate()
+    private function validate()
     {
         $resultValidateUser = $this->validateUser();
         if (isset($resultValidateUser)) {
@@ -70,38 +70,46 @@ class ServiceTypeController extends Controller
         return false;
     }
 
-    /**
-     * Renders the index view for the module
-     * @return array
-     */
-    public function actionIndex()
+    private function initParams()
     {
-        $result = $this->validateUser();
-        return $result;
+        $this->params = Yii::$app->request->bodyParams;
     }
 
+    public function behaviors()
+    {
+        $this->initParams();
+        return parent::behaviors();
+    }
+    
     /**
      * @return array
      */
     public function actionCreate()
     {
-        $params = Yii::$app->request->bodyParams;
         $result = $this->validateUser();
         if ($result) {
             return $result;
         }
 
         $serviceType = new ServiceTypes();
-        $serviceType->name = $params['serviceName'];
-        $serviceType->id_sto = $params['idUser'];
-        $serviceType->save();
+        $serviceType->name = $this->params['serviceName'];
+        $serviceType->id_sto = $this->params['idUser'];
+        if ($serviceType->save()) {
+            return $result = [
+                'success' => 1,
+                'message' => 'Service type created',
+                'serviceType' => $serviceType->id,
+                'payload' => $serviceType,
+            ];
+        } else {
+            return $result = [
+                'success' => 0,
+                'message' => 'Service type is not created',
+                'code' => 'error_save',
+            ];
+        }
 
-        return $result = [
-            'success' => 1,
-            'message' => 'Service type created',
-            'serviceType' => $serviceType->id,
-            'payload' => $serviceType,
-        ];
+
     }
 
     /**
@@ -109,22 +117,27 @@ class ServiceTypeController extends Controller
      */
     public function actionUpdate()
     {
-        $params = Yii::$app->request->bodyParams;
-
         $result = $this->validate();
         if ($result) {
             return $result;
         }
 
-        $serviceType = ServiceTypes::findIdentity($params['id']);
-        $serviceType->name = $params['serviceName'];
-        $serviceType->save();
-        return $result = [
-            'success' => 1,
-            'message' => 'Service type changed',
-            'serviceType' => $serviceType->id,
-            'payload' => $serviceType,
-        ];
+        $serviceType = ServiceTypes::findIdentity($this->params['id']);
+        $serviceType->name = $this->params['serviceName'];
+        if ($serviceType->save()) {
+            return $result = [
+                'success' => 1,
+                'message' => 'Service type changed',
+                'serviceType' => $serviceType->id,
+                'payload' => $serviceType,
+            ];
+        } else {
+            return $result = [
+                'success' => 0,
+                'message' => 'Service type is not changed',
+                'code' => 'error_save',
+            ];
+        }
     }
 
     /**
@@ -132,9 +145,7 @@ class ServiceTypeController extends Controller
      */
     public function actionView()
     {
-        $params = Yii::$app->request->bodyParams;
-
-        $serviceType = ServiceTypes::findIdentity($params['id']);
+        $serviceType = ServiceTypes::findIdentity($this->params['id']);
         if ($serviceType) {
             return $result = [
                 'success' => 1,
@@ -157,19 +168,23 @@ class ServiceTypeController extends Controller
      */
     public function actionDelete()
     {
-        $params = Yii::$app->request->bodyParams;
-
         $result = $this->validateUser();
         if ($result) {
             return $result;
         };
 
-        $serviceType = ServiceTypes::findIdentity($params['id']);
-        $serviceType->delete();
-        return $result = [
-            'success' => 1,
-            'message' => 'Service type deleted',
-        ];
-
+        $serviceType = ServiceTypes::findIdentity($this->params['id']);
+        if ($serviceType->delete()) {
+            return $result = [
+                'success' => 1,
+                'message' => 'Service type deleted',
+            ];
+        } else {
+            return $result = [
+                'success' => 0,
+                'message' => 'Service type is not deleted',
+                'code' => 'error_delete'
+            ];
+        }
     }
 }

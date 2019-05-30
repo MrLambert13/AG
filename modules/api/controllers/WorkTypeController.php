@@ -15,20 +15,20 @@ use yii\rest\Controller;
 class WorkTypeController extends Controller
 {
 
+    private $params;
+
     /**
      * @return Users|\yii\web\IdentityInterface|null
      */
     private function findUser()
     {
-        $params = Yii::$app->request->bodyParams;
-
-        return Users::findIdentity($params['idUser']);
+        return Users::findIdentity($this->params['idUser']);
     }
 
     /**
      * @return array
      */
-    public function validateUser()
+    private function validateUser()
     {
         $user = $this->findUser();
 
@@ -45,12 +45,10 @@ class WorkTypeController extends Controller
     /**
      * @return array
      */
-    public function validateOwner()
+    private function validateOwner()
     {
-        $params = Yii::$app->request->bodyParams;
-
-        if (isset($params['id'])) {
-            $workType = WorkTypes::findIdentity($params['id']);
+        if (isset($this->params['id'])) {
+            $workType = WorkTypes::findIdentity($this->params['id']);
             if ($workType->serviceType->id_sto !== $this->findUser()->id) {
                 return $result = [
                     'success' => 0,
@@ -59,7 +57,7 @@ class WorkTypeController extends Controller
                 ];
             }
         } else {
-            $serviceType = ServiceTypes::findIdentity($params['idServiceType']);
+            $serviceType = ServiceTypes::findIdentity($this->params['idServiceType']);
             if ($serviceType->id_sto !== $this->findUser()->id) {
                 return $result = [
                     'success' => 0,
@@ -71,9 +69,9 @@ class WorkTypeController extends Controller
     }
 
     /**
-     * @return array|null
+     * @return array|bool
      */
-    public function validate()
+    private function validate()
     {
         $resultValidateUser = $this->validateUser();
         if (isset($resultValidateUser)) {
@@ -86,39 +84,44 @@ class WorkTypeController extends Controller
         }
         return false;
     }
-
-    /**
-     * Renders the index view for the module
-     * @return array
-     */
-    public function actionIndex()
+    private function initParams()
     {
-        $result = $this->validate();
-        return $result;
+        $this->params = Yii::$app->request->bodyParams;
     }
 
+    public function behaviors()
+    {
+        $this->initParams();
+        return parent::behaviors();
+    }
     /**
      * @return array
      */
     public function actionCreate()
     {
-        $params = Yii::$app->request->bodyParams;
         $result = $this->validate();
         if ($result) {
             return $result;
         }
 
         $workType = new WorkTypes();
-        $workType->name = $params['workName'];
-        $workType->id_service_type = $params['idServiceType'];
-        $workType->save();
+        $workType->name = $this->params['workName'];
+        $workType->id_service_type = $this->params['idServiceType'];
 
-        return $result = [
-            'success' => 1,
-            'message' => 'Work type created',
-            'workType' => $workType->id,
-            'payload' => $workType,
-        ];
+        if ($workType->save()) {
+            return $result = [
+                'success' => 1,
+                'message' => 'Work type created',
+                'workType' => $workType->id,
+                'payload' => $workType,
+            ];
+        } else {
+            return $result = [
+                'success' => 0,
+                'message' => 'Work type is not created',
+                'code' => 'error_save',
+            ];
+        }
     }
 
     /**
@@ -126,22 +129,27 @@ class WorkTypeController extends Controller
      */
     public function actionUpdate()
     {
-        $params = Yii::$app->request->bodyParams;
-
         $result = $this->validate();
         if ($result) {
             return $result;
         }
 
-        $workType = WorkTypes::findIdentity($params['id']);
-        $workType->name = $params['workName'];
-        $workType->save();
-        return $result = [
-            'success' => 1,
-            'message' => 'Work type changed',
-            'workType' => $workType->id,
-            'payload' => $workType,
-        ];
+        $workType = WorkTypes::findIdentity($this->params['id']);
+        $workType->name = $this->params['workName'];
+        if ($workType->save()) {
+            return $result = [
+                'success' => 1,
+                'message' => 'Work type changed',
+                'workType' => $workType->id,
+                'payload' => $workType,
+            ];
+        } else {
+            return $result = [
+                'success' => 1,
+                'message' => 'Work type is not changed',
+                'code' => 'error_save',
+            ];
+        }
     }
 
     /**
@@ -149,9 +157,7 @@ class WorkTypeController extends Controller
      */
     public function actionView()
     {
-        $params = Yii::$app->request->bodyParams;
-
-        $workType = WorkTypes::findIdentity($params['id']);
+        $workType = WorkTypes::findIdentity($this->params['id']);
         if ($workType) {
             return $result = [
                 'success' => 1,
@@ -174,14 +180,12 @@ class WorkTypeController extends Controller
      */
     public function actionDelete()
     {
-        $params = Yii::$app->request->bodyParams;
-
         $result = $this->validate();
         if ($result) {
             return $result;
         };
 
-        $workType = WorkTypes::findIdentity($params['id']);
+        $workType = WorkTypes::findIdentity($this->params['id']);
 
         if ($workType->delete()) {
             return $result = [
@@ -192,7 +196,7 @@ class WorkTypeController extends Controller
             return $result = [
                 'success' => 0,
                 'message' => 'Work category is not deleted',
-                'code' => 'delete_error'
+                'code' => 'error_delete'
             ];
         }
     }
