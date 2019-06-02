@@ -5,16 +5,13 @@ import {
 } from 'actions/client/UserActions';
 
 const initialState = {
-  // id: undefined,
-  // name: '',
-  // isClient: false,
-  // isOwner: false,
-  // profile: {},
   username: '',
   token: '',
   expired: '',
   error: '',
   isFetching: false,
+  isRegistered: false,
+  authError: false
 };
 
 export function userReducer(state = initialState, action) {
@@ -31,9 +28,9 @@ export function userReducer(state = initialState, action) {
     case LOGOUT_SUCCESS:
       return {...initialState, ...action.payload, isFetching: false};
     case REGISTRY_SUCCESS:
-      return {...state, ...action.payload, isFetching: false};
+      return {...state, ...action.payload, isFetching: false, isRegistered: true};
     case LOGIN_WRONG:
-      return {...state, username: '', isFetching: false};
+      return {...state, ...action.payload, username: '', isFetching: false, authError: true};
     case LOGIN_ERROR:
     case REGISTRY_ERROR:
     case LOGOUT_ERROR:

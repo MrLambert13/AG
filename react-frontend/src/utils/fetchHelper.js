@@ -21,7 +21,7 @@ const getJson = function (response) {
   throw new TypeError("We haven't got JSON in response!");
 };
 
-const sendMethod = function (methodType, URL, data, BEGIN_ACTION, SUCCESS_ACTION, ERROR_ACTION) {
+const sendMethod = function (methodType, URL, data, BEGIN_ACTION, SUCCESS_ACTION, ERROR_ACTION, successRedirectURL) {
   return dispatch => {
     dispatch({
       type: BEGIN_ACTION,
