@@ -1,5 +1,12 @@
 header {
-  min-height: 60px;
   margin-bottom: 20px;
   background-color: lightblue;
+}
+
+.main-nav {
+  &__item {
+    &:hover {
+      background-color: yellow;
+    }
+  }
 }

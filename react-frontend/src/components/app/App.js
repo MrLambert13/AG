@@ -30,7 +30,7 @@ import Footer from 'components/layouts/footer';
 class App extends React.Component {
   render() {
     return (
-      <React.Fragment>
+      <div className="container">
         <Header/>
         <h1>Базовый компонент App</h1>
         <Switch>
@@ -56,7 +56,7 @@ class App extends React.Component {
 
         </Switch>
         <Footer/>
-      </React.Fragment>
+      </div>
     )
   }
 }

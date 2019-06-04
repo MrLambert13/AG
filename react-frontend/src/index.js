@@ -7,6 +7,7 @@ import configureStore, { history } from './store/configureStore';
 import { ConnectedRouter } from 'connected-react-router'
 import App from './components/app/App';
 import * as serviceWorker from './serviceWorker';
+import 'bootstrap/dist/css/bootstrap.css';
 
 import { loadState } from 'utils/stateHelper';
 const initialState = loadState();

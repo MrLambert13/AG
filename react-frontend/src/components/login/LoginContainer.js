@@ -1,35 +1,21 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {login} from "actions/client/UserActions";
+import LoginForm from "components/layouts/forms/login";
+import Spinner from 'react-bootstrap/Spinner';
 
 class LoginContainer extends React.Component {
   render () {
+    const { user, login } = this.props;
+
     return (
       <div>
         <h4>Войти в свой аккаунт</h4>
-        <form action="" id="login-form">
-          <input type="text" name="username" placeholder="username"/><br/>
-          <input type="password" name="password" placeholder="Пароль"/><br/>
-          <button onClick={this.onClickHandler}>Войти</button>
-        </form>
+        <LoginForm url="/auth" sendMethod={login}/>
+        {user.isFetching && <Spinner as="span" animation="border" role="status" size="sm"/>}
+        {user.authError && <div className="text-danger">{user.message}</div>}
       </div>
     )
-  }
-
-  onClickHandler = (e) => {
-    e.preventDefault();
-
-    const data = {
-      username: document.getElementById("login-form")["username"].value,
-      password: document.getElementById("login-form")["password"].value,
-    };
-
-    // const form = new FormData(document.getElementById('login-form'));
-    // const form = new FormData();
-    //
-    // console.log(form);
-
-    this.props.login('/auth', data);
   }
 }
 
