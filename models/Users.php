@@ -158,4 +158,10 @@ class Users extends ActiveRecord implements IdentityInterface
     {
         return $this->id_user_type === self::USER_TYPE_CLIENT;
     }
+
+    public function getUserType()
+    {
+        return $this->hasOne(UserTypes::class, ['id' => 'id_user_type']);
+
+    }
 }
