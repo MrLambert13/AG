@@ -80,6 +80,7 @@ $config = [
                 'register' => 'api/login/register',
                 'logout' => 'api/login/logout',
                 '/api' => 'api/login/index',
+                'profile' => 'api/users/profile',
 
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'api/garage', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'api/vehicle', 'pluralize' => false],
