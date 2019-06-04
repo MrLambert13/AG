@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\models\query\UserQuery;
+use app\models\UserTypes;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -141,5 +142,10 @@ class Users extends ActiveRecord implements IdentityInterface
     public function getTokens()
     {
         return $this->hasMany(UserTokens::class, ['id_user' => 'id']);
+    }
+
+    public function getUserTipe()
+    {
+        return $this->hasOne(UserTypes::className(), ['id' => 'id_user_type']);
     }
 }
