@@ -3,7 +3,6 @@
 namespace app\models;
 
 use app\models\query\UserQuery;
-use app\models\UserTypes;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -11,20 +10,26 @@ use yii\web\IdentityInterface;
 
 /**
  * This is the model class for table "Users".
- *
- * @property int $id
- * @property string $password_hash
- * @property string $auth_key
- * @property int $created_at
- * @property int $updated_at
- * @property string $username
- * @property string $email
+ * @property int     $id
+ * @property string  $password_hash
+ * @property string  $auth_key
+ * @property int     $created_at
+ * @property int     $updated_at
+ * @property string  $username
+ * @property string  $email
+ * @property integer $status
+ * @property integer $id_user_type
  */
 class Users extends ActiveRecord implements IdentityInterface
 {
 
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
+    const USER_TYPE_CLIENT = 1;
+    const USER_TYPE_STO = 2;
+    const USER_TYPE_GUEST = 3;
+    const USER_TYPE_ADMIN = 4;
+
     /**
      * {@inheritdoc}
      */
@@ -144,8 +149,13 @@ class Users extends ActiveRecord implements IdentityInterface
         return $this->hasMany(UserTokens::class, ['id_user' => 'id']);
     }
 
-    public function getUserTipe()
+    public function isSto()
     {
-        return $this->hasOne(UserTypes::className(), ['id' => 'id_user_type']);
+        return $this->id_user_type === self::USER_TYPE_STO;
+    }
+
+    public function isClient()
+    {
+        return $this->id_user_type === self::USER_TYPE_CLIENT;
     }
 }

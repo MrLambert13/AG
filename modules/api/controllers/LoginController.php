@@ -148,7 +148,7 @@ class LoginController extends Controller
             $token = UserTokens::findOne(['id_user' => $user->id]);
             $token->token = NULL;
             if ($token->save()) {
-                return ['massage' => 'Вы вышли'];
+                return ['message' => 'Вы вышли'];
             } else {
                 return $token;
             }
