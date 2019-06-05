@@ -24,15 +24,10 @@ import OwnerRequest from 'routes/owner/cabinet/request';
 import OwnerRequestView from 'routes/owner/cabinet/request/view';
 import OwnerProfile from 'routes/owner/cabinet/profile';
 
-import Header from 'components/layouts/header';
-import Footer from 'components/layouts/footer';
-
 class App extends React.Component {
   render() {
     return (
       <div className="container">
-        <Header/>
-        <h1>Базовый компонент App</h1>
         <Switch>
           <Route exact path="/" component={Home} />
 
@@ -55,7 +50,6 @@ class App extends React.Component {
           <Route path="/owner/cabinet/profile" component={OwnerProfile} />
 
         </Switch>
-        <Footer/>
       </div>
     )
   }

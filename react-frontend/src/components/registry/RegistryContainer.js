@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {registry} from "actions/client/UserActions";
 import {push} from "connected-react-router";
 import { Link } from 'react-router-dom';
-import RegistryForm from 'components/layouts/forms/registry';
+import RegistryForm from './RegistryForm';
 
 class RegistryContainer extends React.Component {
   render () {

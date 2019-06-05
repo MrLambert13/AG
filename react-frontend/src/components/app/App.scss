@@ -7,3 +7,17 @@
 h1 {
   color: $secondary-color;
 }
+
+.feedback {
+  width: 100%;
+  margin-top: .25rem;
+  font-size: 80%;
+
+  &-valid {
+    color: #28a745;
+  }
+
+  &-error {
+    color: #dc3545;
+  }
+}
