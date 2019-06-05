@@ -2,10 +2,9 @@ import React from 'react';
 import classNames from 'classnames';
 import {Formik, Form, Field} from 'formik';
 import * as Yup from 'yup';
-import '../Forms.scss'
 
 const SignupSchema = Yup.object().shape({
-  userName: Yup.string()
+  username: Yup.string()
     .min(4, 'Too Short!')
     .max(25, 'Too Long!')
     .required('Required'),
@@ -30,7 +29,7 @@ class RegistryForm extends React.Component {
       <div>
         <Formik
           initialValues={{
-            userName: '',
+            username: '',
             email: '',
             password: '',
             passwordConfirm: ''
@@ -39,7 +38,7 @@ class RegistryForm extends React.Component {
 
           onSubmit={values => {
             let data = {
-              username: values.userName,
+              username: values.username,
               email: values.email,
               password: values.password
             };
@@ -48,7 +47,6 @@ class RegistryForm extends React.Component {
           }}
         >
           {({errors, touched}) => (
-            // {this.setState({ visible: true })}
             <Form className="needs-validation" noValidate>
               <div className="form-row">
                 <div className="form-group">
@@ -60,13 +58,13 @@ class RegistryForm extends React.Component {
                         classNames(
                           'form-control',
                           'mt-1',
-                          touched.userName ? (errors.userName && touched.userName ? 'is-invalid' : 'is-valid') : null
+                          touched.username ? (errors.username && touched.username ? 'is-invalid' : 'is-valid') : null
                         )}
                       id="inputUserName"
                       placeholder="Username"
                     />
-                    {errors.userName && touched.userName ? (
-                      <div className="feedback-error">{errors.userName}</div>
+                    {errors.username && touched.username ? (
+                      <div className="feedback-error">{errors.username}</div>
                     ) : null}
                   </label>
                 </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {login} from "actions/client/UserActions";
-import LoginForm from "components/layouts/forms/login";
+import LoginForm from './LoginForm';
 import Spinner from 'react-bootstrap/Spinner';
 
 class LoginContainer extends React.Component {

@@ -51,8 +51,6 @@ class LoginController extends Controller
             $user = Users::findByUsername($params['username']);
             if (!$user) {
                 $result = [
-//                    'params' => json_encode($params),
-//                    'params' => $params['username'],
                     'success' => 0,
                     'message' => 'Такой пользователь не найден'
                 ];
@@ -72,6 +70,7 @@ class LoginController extends Controller
                 $model->load($params, '');
                 if ($token = $model->auth()) {
                     return [
+                        'id_user' => $user->id,
                         'token' => $token->token,
                         'expired' => date(DATE_RFC3339, $token->expire_time),
                     ];

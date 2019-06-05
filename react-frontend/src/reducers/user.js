@@ -6,12 +6,12 @@ import {
 
 const initialState = {
   username: '',
-  token: '',
-  expired: '',
+  // token: '',
+  // expired: '',
   error: '',
   isFetching: false,
   isRegistered: false,
-  authError: false
+  authError: false,
 };
 
 export function userReducer(state = initialState, action) {
