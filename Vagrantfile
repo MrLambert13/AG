@@ -69,7 +69,7 @@ Vagrant.configure(2) do |config|
   config.hostmanager.aliases            = domains.values
 
   # quick fix for failed guest additions installations
-  # config.vbguest.auto_update = false
+  config.vbguest.auto_update = false
 
   # provisioners
   config.vm.provision 'shell', path: './vagrant/provision/once-as-root.sh', args: [options['timezone']]
