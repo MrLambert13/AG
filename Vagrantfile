@@ -53,8 +53,9 @@ Vagrant.configure(2) do |config|
 
   # network settings
   config.vm.network 'private_network', ip: options['ip']
+  config.vm.network  "forwarded_port", id: "MySQL", guest: 3308, host_ip: "127.0.0.1", host: 3306, auto_correct: true
 
-  # sync: folder 'yii2-app-advanced' (host machine) -> folder '/app' (guest machine)
+  # sync: folder 'current_pro' (host machine) -> folder '/app' (guest machine)
   config.vm.synced_folder './', '/app', owner: 'vagrant', group: 'vagrant'
 
   # disable folder '/vagrant' (guest machine)
@@ -69,7 +70,7 @@ Vagrant.configure(2) do |config|
   config.hostmanager.aliases            = domains.values
 
   # quick fix for failed guest additions installations
-  # config.vbguest.auto_update = false
+  config.vbguest.auto_update = false
 
   # provisioners
   config.vm.provision 'shell', path: './vagrant/provision/once-as-root.sh', args: [options['timezone']]
