@@ -53,7 +53,7 @@ Vagrant.configure(2) do |config|
 
   # network settings
   config.vm.network 'private_network', ip: options['ip']
-  config.vm.network  "forwarded_port", id: "MySQL", guest: 3308, host_ip: "127.0.0.1", host: 3306, auto_correct: true
+  config.vm.network  "forwarded_port", id: "MySQL", guest: 3306, host_ip: "127.0.0.1", host: 3308, auto_correct: true
 
   # sync: folder 'current_pro' (host machine) -> folder '/app' (guest machine)
   config.vm.synced_folder './', '/app', owner: 'vagrant', group: 'vagrant'
