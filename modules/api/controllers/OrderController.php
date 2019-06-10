@@ -86,6 +86,7 @@ class OrderController extends Controller
         }
         return false;
     }
+
     private function initParams()
     {
         $this->params = Yii::$app->request->bodyParams;
@@ -96,6 +97,7 @@ class OrderController extends Controller
         $this->initParams();
         return parent::behaviors();
     }
+
     public function actionCreate()
     {
         $order = new Orders();
@@ -126,13 +128,31 @@ class OrderController extends Controller
         if ($order) {
             $order->updated_by = $this->params['idUser'];
             $order->updated_at = time();
-            if (isset($this->params['status']) && $this->params['status']) {
-                $order->id_request_status = "";
+            if (isset($this->params['status'])) {
+                $order->id_request_status = $this->params['status'];
             }
-            $order->save();
+            if (isset($this->params['cost'])) {
+                $order->final_cost = $this->params['cost'];
+            }
+            if (isset($this->params['completeDate'])) {
+                $order->complete_date = $this->params['completeDate'];
+            }
 
+            $order->save()
+                ? $result = [
+                'success' => 1,
+                'message' => 'Order created',
+                'order' => $order->id,
+                'payload' => $order,
+            ]
+                : $result = [
+                'success' => 0,
+                'message' => 'Order is not created',
+                'code' => 'error_save',
+            ];
+
+            return $result;
         }
-        $order->id_request_status = RequestStatuses::STATUS_CREATE;
     }
 
     public function actionTest()
