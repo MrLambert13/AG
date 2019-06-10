@@ -2,27 +2,21 @@
 
 namespace app\models\query;
 
-
-use app\models\Orders;
-
 /**
- * This is the ActiveQuery class for [[\app\models\Orders]].
+ * This is the ActiveQuery class for [[\app\models\RequestStatuses]].
  *
- * @see \app\models\Orders
+ * @see \app\models\RequestStatuses
  */
-class OrdersQuery extends \yii\db\ActiveQuery
+class RequestStatusesQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
         return $this->andWhere('[[status]]=1');
     }*/
 
-    public function byUser($idUser) {
-        return $this->andWhere(['created_by' => $idUser])->all();
-    }
     /**
      * {@inheritdoc}
-     * @return \app\models\Orders[]|array
+     * @return \app\models\RequestStatuses[]|array
      */
     public function all($db = null)
     {
@@ -31,7 +25,7 @@ class OrdersQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \app\models\Orders|array|null
+     * @return \app\models\RequestStatuses|array|null
      */
     public function one($db = null)
     {

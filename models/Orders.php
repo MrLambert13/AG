@@ -28,6 +28,12 @@ use Yii;
  */
 class Orders extends \yii\db\ActiveRecord
 {
+    const STATUSES = [
+        RequestStatuses::STATUS_CREATE,
+        RequestStatuses::STATUS_IN_WORK,
+        RequestStatuses::STATUS_HALT,
+        RequestStatuses::STATUS_DONE,
+    ];
     /**
      * {@inheritdoc}
      */
