@@ -175,7 +175,7 @@ class WorkTypeController extends Controller
 
     public function actionAll()
     {
-        $workType = WorkTypes::find()->select('name')->groupBy('name')->all();
+        $workType = WorkTypes::find()->select(['id', 'name'])->groupBy('name')->all();
         if ($workType) {
             return $workType;
         }
