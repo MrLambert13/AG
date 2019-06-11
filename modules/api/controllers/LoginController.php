@@ -7,12 +7,14 @@ use app\models\UserTokens;
 use app\modules\api\models\LoginForm;
 use Yii;
 use yii\rest\Controller;
+use yii\filters\Cors;
 
 /**
  * Default controller for the `modules` module
  */
 class LoginController extends Controller
 {
+
     /**
      * Renders the index view for the module
      * @return string
@@ -21,6 +23,25 @@ class LoginController extends Controller
     {
         return 'api';
     }
+
+//    public function behaviors()
+//    {
+//        $behaviors = parent::behaviors();
+//
+//        // add CORS filter
+//        $behaviors['corsFilter'] = [
+//            'class' => Cors::className(),
+//            'cors' => [
+//                'Origin' => ['*'],
+//                'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD'],
+//                'Access-Control-Allow-Credentials' => true,
+//            ],
+//
+//        ];
+//
+//
+//        return $behaviors;
+//    }
 
     public function actionLogin()
     {
@@ -49,6 +70,7 @@ class LoginController extends Controller
                 $model->load($params, '');
                 if ($token = $model->auth()) {
                     return [
+                        'id_user' => $user->id,
                         'token' => $token->token,
                         'expired' => date(DATE_RFC3339, $token->expire_time),
                     ];
@@ -125,7 +147,7 @@ class LoginController extends Controller
             $token = UserTokens::findOne(['id_user' => $user->id]);
             $token->token = NULL;
             if ($token->save()) {
-                return ['massage' => 'Вы вышли'];
+                return ['message' => 'Вы вышли'];
             } else {
                 return $token;
             }

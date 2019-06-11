@@ -125,12 +125,12 @@ class StoController extends Controller
     public function actionLogout()
     {
         $params = Yii::$app->request->bodyParams;
-        $sto = Sto::findByEmail($params['email']);
+        $sto = Users::findByEmail($params['email']);
         if ($sto->tokens) {
             $token = UserTokens::findOne(['id_user' => $sto->id]);
             $token->token = NULL;
             if ($token->save()) {
-                return ['massage' => 'Вы вышли'];
+                return ['message' => 'Вы вышли'];
             } else {
                 return $token;
             }
