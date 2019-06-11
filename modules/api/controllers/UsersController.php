@@ -18,7 +18,8 @@ class UsersController extends Controller
     protected function verbs()
     {
         return [
-            'profile' => ['post']
+            'profile' => ['post'],
+            'update' => ['post'],
         ];
     }
 
@@ -41,8 +42,9 @@ class UsersController extends Controller
      */
     public function actionProfile()
     {
+        // получаем переданные параметры
         $params = Yii::$app->request->bodyParams; // POST
-        
+
         // проверяем наличие токена и ID
         if (
             !array_key_exists('token', $params) ||
@@ -76,7 +78,7 @@ class UsersController extends Controller
         // перебираем все токены из БД
         for ($i = 0; $i < $user_tokens_count; $i++) {
             // один из токенов в БД
-            $token_db = $user_tokens[$i]->attributes['token']; 
+            $token_db = $user_tokens[$i]->attributes['token'];
             // если нужный токен найден
             if ($token_db === $token) {
                 // если токен "умер"
@@ -129,5 +131,129 @@ class UsersController extends Controller
 
         // ответ
         return $response;
+    }
+
+    /**
+     * API обновить/изменить данные в ЛК (клиента)
+     * !!! "сырой" требует обновления
+     * @return void
+     */
+    public function actionUpdate()
+    {
+        // получаем переданные параметры
+        $params = Yii::$app->request->bodyParams; // POST
+        //$params = Yii::$app->request->queryParams; // GET
+        // необходимые ключи в параметрах
+        $keys = array(
+            'id_user',
+            'token',
+            'username',
+            'status',
+            'id_user_type',
+            'surname',
+            'name',
+            'middlename',
+            'birthday',
+            'telegram_name',
+            'telephone',
+            'id_city',
+        );
+        // массив ключей с ожидаемыми параметрами
+        $params_expected = array_fill_keys($keys, '');
+        // сравниваем необходимые параметры с полученными
+        $arr_diff = array_diff_key($params_expected, $params);
+        // проверяем рассхождение параметров (массив должен быть пустым)
+        if (count($arr_diff) > 0) {
+            return [
+                'success' => 'error',
+                'message' => 'Не все параметры были переданы!'
+            ];
+        }
+        // параметры, которые не должны быть пустыми
+        $keys_not_null = array(
+            'username',
+            'id_city',
+        );
+        // проверяем параметры, которые не должны быть пустыми
+        foreach ($keys_not_null as $key) {
+            if (empty($params[$key])) {
+                return [
+                    'success' => 'error',
+                    'message' => 'Параметры "username", "id_city" не должны быть пустыми!'
+                ];
+            }
+        }
+        // попробуем записать в БД
+        $token = $params['token'];
+        if (!$userToken = UserTokens::findOne(['token' => $token])) {
+            return [
+                'success' => 'error',
+                'message' => 'Токен не найден!'
+            ];
+        }
+        
+        $id_user = $userToken->id_user;
+        if ($id_user != $params['id_user']) {
+            return [
+                'success' => 'error',
+                'message' => 'ID пользователя не верен!'
+            ];
+        }
+
+        if (!$user_class = Users::findOne(['id' => $id_user])) {
+            return [
+                'success' => 'error',
+                'message' => 'User с таким ID не найден!'
+            ];
+        }
+        if (!$user_info_class = UsersInfo::findOne(['id_user' => $id_user])) {
+            return [
+                'success' => 'error',
+                'message' => 'Доп. инфо о пользователе НЕ найдена!'
+            ];
+        }
+        $paramsNewUser = []; // параметры которые будут изменены
+        $paramsNewInfo = []; // параметры которые будут изменены
+        // удаляем лишнее
+        unset($params['token']);
+        unset($params['id_user']);
+        // изменяем только новые параметры в записях
+        foreach ($params as $key => $value) {
+            if (isset($user_class->$key)) {
+                if ($user_class->$key != $value) {
+                    $user_class->$key = $value;
+                    $paramsNewUser[$key] = $value;
+                    continue;
+                }
+            }
+            if (isset($user_info_class->$key)) {
+                if ($user_info_class->$key != $value) {
+                    $user_info_class->$key = $value;
+                    $paramsNewInfo[$key] = $value;
+                }
+            }
+        }
+        // массив с результатами изменений
+        $result = [
+            'user_upd' => '',
+            'user_info_upd' => '',
+        ];
+        // проверяем основные параметры на изменения
+        if (count($paramsNewUser) > 0) {
+            if ($user_class->save()) {
+                $result['user_upd'] = 'success';
+            } else {
+                $result['user_upd'] = $user_class->getErrors();
+            }
+        }
+        // проверяем доп. параметры на изменения
+        if (count($paramsNewInfo) > 0) {
+            if ($user_info_class->save()) {
+                $result['user_info_upd'] = 'success';
+            } else {
+                $result['user_info_upd'] = $user_info_class->getErrors();
+            }
+        }
+        return $result; // результат работы
     }
 }
