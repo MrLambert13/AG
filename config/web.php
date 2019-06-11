@@ -97,7 +97,7 @@ $config = [
                         'api/car-type',
                         'api/vip-card',
                         'api/bonus',
-                        'api/order',
+                        'api/order-work',
                     ],
                     'pluralize' => false],
 
