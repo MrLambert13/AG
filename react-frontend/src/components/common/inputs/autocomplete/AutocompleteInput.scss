@@ -1,0 +1,21 @@
+.autocomplete-box {
+  position: absolute;
+  width: 279px;
+  color: #a4a4a4;
+  background-color: #ffffff;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+.autocomplete-box:hover {
+  cursor: default;
+}
+
+.autocomplete-box__item {
+  padding-left: 16px;
+  transition: background-color 0.25s linear;
+}
+
+.autocomplete-box__item:hover {
+  background-color: #f5f3f3;
+}

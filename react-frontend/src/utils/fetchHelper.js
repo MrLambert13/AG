@@ -204,7 +204,7 @@ export function LOGIN(URL, data, LOGIN_BEGIN, LOGIN_SUCCESS, LOGIN_WRONG, LOGIN_
             payload: json,
           });
           // При успешной авторизации перенаправляемся в профиль
-          dispatch(push('/client/cabinet/profile'));
+          dispatch(push('/client/cabinet'));
         } else {
           dispatch({
             type: LOGIN_WRONG,
