@@ -200,13 +200,4 @@ class OrderController extends Controller
             return $result;
         }
     }
-    public function actionTest()
-    {
-        if (isset($this->params['idVehicle'])) {
-            $result = $this->params['idVehicle'];
-        }
-        return $result;
-//        return Orders::find()->byUser($this->params['idUser']);
-    }
-
 }
