@@ -110,8 +110,7 @@ class WorkController extends Controller
         $work->id_vehicle = $this->params['idVehicle'];
         $work->cost_service = $this->params['cost'];
         $work->created_by = $this->params['idUser'];
-        $work->created_at = time();
-        $work->id_request_status = RequestStatuses::STATUS_CREATE;
+        $work->create_at = time();
         if ($work->save()) {
             return $result = [
                 'success' => 1,
