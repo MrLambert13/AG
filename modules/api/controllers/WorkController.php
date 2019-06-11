@@ -6,14 +6,15 @@ use app\models\Orders;
 use app\models\RequestStatuses;
 use app\models\ServiceTypes;
 use app\models\Users;
+use app\models\Works;
 use app\models\WorkTypes;
 use Yii;
 use yii\rest\Controller;
 
 /**
- * Order controller for the `api` module
+ * Work controller for the `api` module
  */
-class OrderController extends Controller
+class WorkController extends Controller
 {
     public $modelClass = Orders::class;
 
@@ -103,23 +104,25 @@ class OrderController extends Controller
      */
     public function actionCreate()
     {
-        $order = new Orders();
-        $order->id_city = $this->params['idCity'];
-        $order->id_vehicle = $this->params['idVehicle'];
-        $order->created_by = $this->params['idUser'];
-        $order->created_at = time();
-        $order->id_request_status = RequestStatuses::STATUS_CREATE;
-        if ($order->save()) {
+        $work = new Works();
+        $work->id_service = $this->params['idService'];
+        $work->id_work_type = $this->params['idWorkType'];
+        $work->id_vehicle = $this->params['idVehicle'];
+        $work->cost_service = $this->params['cost'];
+        $work->created_by = $this->params['idUser'];
+        $work->created_at = time();
+        $work->id_request_status = RequestStatuses::STATUS_CREATE;
+        if ($work->save()) {
             return $result = [
                 'success' => 1,
-                'message' => 'Order created',
-                'order' => $order->id,
-                'payload' => $order,
+                'message' => 'Work created',
+                'work' => $work->id,
+                'payload' => $work,
             ];
         } else {
             return $result = [
                 'success' => 0,
-                'message' => 'Order is not created',
+                'message' => 'Work is not created',
                 'code' => 'error_save',
             ];
         }
