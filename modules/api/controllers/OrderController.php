@@ -138,18 +138,18 @@ class OrderController extends Controller
                 $order->complete_date = $this->params['completeDate'];
             }
 
-            $order->save()
-                ? $result = [
-                'success' => 1,
-                'message' => 'Order created',
-                'order' => $order->id,
-                'payload' => $order,
-            ]
-                : $result = [
-                'success' => 0,
-                'message' => 'Order is not created',
-                'code' => 'error_save',
-            ];
+            $result = $order->save()
+                ? [
+                    'success' => 1,
+                    'message' => 'Order updated',
+                    'order' => $order->id,
+                    'payload' => $order,
+                ]
+                : [
+                    'success' => 0,
+                    'message' => 'Order is not updated',
+                    'code' => 'error_save',
+                ];
 
             return $result;
         }
