@@ -1,0 +1,119 @@
+@import './mixins.scss';
+
+.content-find-map {
+  width: $width1440;
+  color: $color000000;
+  padding: $padding27 $padding60 $padding0 $padding60;
+  font-family: $font-family;
+  font-style: $font-style;
+
+  .text {
+    font-family: $font-family;
+    font-style: $font-style;
+    font-weight: $font-weight300;
+    font-size: $font-size20;
+    line-height: $line-height23;
+    margin-bottom: $margin13;
+    opacity: $opacity06;
+  }
+
+  select {
+    color: $color464646;
+    background: $backgroundBABABA;
+    opacity: $opacity02;
+  }
+
+  .year {
+    @include drop-downs($margin15, $padding19, $width149, $height46px, $border-radius6px, $font-family, $font-style, $font-weight, $font-size14, $line-height16);
+  }
+
+  .transmission {
+    @include drop-downs($margin15, $padding19, $width120, $height46px, $border-radius6px, $font-family, $font-style, $font-weight, $font-size14, $line-height16);
+  }
+
+  .run {
+    @include drop-downs($margin15, $padding19, $width175, $height46px, $border-radius6px, $font-family, $font-style, $font-weight, $font-size14, $line-height16);
+  }
+
+  .city {
+    @include drop-downs($margin15, $padding19, $width189, $height46px, $border-radius6px, $font-family, $font-style, $font-weight, $font-size14, $line-height16);
+    background: $backgroundffffff;
+    border: 1px solid $color000000;
+    box-sizing: border-box;
+    color: $color333333;
+  }
+
+  .distikt {
+    @include drop-downs($margin25, $padding19, $width175, $height46px, $border-radius6px, $font-family, $font-style, $font-weight, $font-size14, $line-height16);
+  }
+
+  .line {
+    display: inline-block;
+    vertical-align: bottom;
+    position: relative;
+    bottom: -10px;   
+    height: $height66;
+    border-right: 1px solid $color000000;
+    opacity: $opacity01;
+    margin-right: $margin26;
+  }
+
+  .date {
+    @include drop-downs($margin14, $padding19, $width173, $height46px, $border-radius6px, $font-family, $font-style, $font-weight, $font-size14, $line-height16);
+  }
+
+  .time {
+    @include drop-downs($margin15, $padding0, $width168, $height46px, $border-radius6px, $font-family, $font-style, $font-weight, $font-size14, $line-height16);
+    background: $backgroundffffff;
+    border: 1px solid $color000000;
+    box-sizing: border-box;
+    color: $color333333;
+  }
+
+  .wrap-cards-map {
+    margin-top: $margin30;
+    display: flex;
+    justify-content: space-between;
+    .wrap-cards {      
+      width: $width742;
+      margin-right: $margin29;
+      .wrap-text-on-cards {
+        display: flex;
+        justify-content: space-between;        
+        margin-bottom: $margin14;        
+        color: $color000000;
+        font-family: $font-family;
+        font-style: $font-style;
+        font-weight: $font-weight;
+        font-size: $font-size18px;
+        line-height: $line-height21px;
+        .sort-distance {
+          color: $color000000;
+          opacity: 1;
+          background: none;
+          border: none;
+          outline: none;
+          font-family: $font-family;
+          font-style: $font-style;
+          font-weight: $font-weight;
+          font-size: $font-size14;
+          line-height: $font-size16px;
+        }
+      }
+      
+      .card {               
+        height:$height166;     
+        background: #FFFFFF;
+        border: 0.1px solid rgba(0, 0, 0, 0.5);
+        box-sizing: border-box;
+        box-shadow: 0px 20px 30px rgba(207, 207, 207, 0.25);
+        border-radius: $border-radius12;
+        margin-bottom: 9px;
+        .wrap-left{                  
+        }
+        .wrap-right{                 
+        }
+      }
+    } 
+  }
+}

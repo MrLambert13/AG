@@ -1,23 +1,34 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap');
 @import './variables.scss';
+@import './header.scss';
+@import './content-cards-map.scss';
+@import './login.scss';
 
-.app {
-  font-size: 14px;
-}
 
-h1 {
-  color: $secondary-color;
-}
 
-.feedback {
-  width: 100%;
-  margin-top: .25rem;
-  font-size: 80%;
 
-  &-valid {
-    color: #28a745;
-  }
+// .app {
+//   font-size: 14px;
+//   font-family: $font-family;
 
-  &-error {
-    color: #dc3545;
-  }
-}
+// }
+
+// h1 {
+//   color: $base-color-text;
+//   font-size: $font-h1;
+//   font-style: $font-style;
+// }
+
+// .feedback {
+//   width: 100%;
+//   margin-top: .25rem;
+//   font-size: 80%;
+
+//   &-valid {
+//     color: #28a745;
+//   }
+
+//   &-error {
+//     color: #dc3545;
+//   }
+// }

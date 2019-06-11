@@ -9,8 +9,8 @@ class LoginContainer extends React.Component {
     const { user, login } = this.props;
 
     return (
-      <div>
-        <h4>Войти в свой аккаунт</h4>
+      <div>  
+        <h4 class="link-input-registry"><a href="/login/client">Войти</a><a href="components/registry">Зарегистрироваться</a></h4>
         <LoginForm url="/auth" sendMethod={login}/>
         {user.isFetching && <Spinner as="span" animation="border" role="status" size="sm"/>}
         {user.authError && <div className="text-danger">{user.message}</div>}
