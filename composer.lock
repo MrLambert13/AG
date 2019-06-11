@@ -2828,6 +2828,7 @@
         },
         {
             "name": "symfony/console",
+<<<<<<< HEAD
             "version": "v4.3.0",
             "source": {
                 "type": "git",
@@ -2838,6 +2839,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/console/zipball/707b619d2c3bedf0224d56f95f77dabc60102305",
                 "reference": "707b619d2c3bedf0224d56f95f77dabc60102305",
+=======
+            "version": "v4.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/console.git",
+                "reference": "d50bbeeb0e17e6dd4124ea391eff235e932cbf64"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/console/zipball/d50bbeeb0e17e6dd4124ea391eff235e932cbf64",
+                "reference": "d50bbeeb0e17e6dd4124ea391eff235e932cbf64",
+>>>>>>> 6d71b2d4cec0f5acd487e07bae77de2526f51338
                 "shasum": ""
             },
             "require": {
@@ -2899,11 +2912,19 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD
             "time": "2019-05-27T08:16:38+00:00"
         },
         {
             "name": "symfony/css-selector",
             "version": "v4.3.0",
+=======
+            "time": "2019-06-05T13:25:51+00:00"
+        },
+        {
+            "name": "symfony/css-selector",
+            "version": "v4.3.1",
+>>>>>>> 6d71b2d4cec0f5acd487e07bae77de2526f51338
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
@@ -2956,6 +2977,7 @@
         },
         {
             "name": "symfony/dom-crawler",
+<<<<<<< HEAD
             "version": "v4.3.0",
             "source": {
                 "type": "git",
@@ -2966,6 +2988,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/28edb1d371640654fbfb9df53d70fa03fdf69fb6",
                 "reference": "28edb1d371640654fbfb9df53d70fa03fdf69fb6",
+=======
+            "version": "v4.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/dom-crawler.git",
+                "reference": "06ee58fbc9a8130f1d35b5280e15235a0515d457"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/06ee58fbc9a8130f1d35b5280e15235a0515d457",
+                "reference": "06ee58fbc9a8130f1d35b5280e15235a0515d457",
+>>>>>>> 6d71b2d4cec0f5acd487e07bae77de2526f51338
                 "shasum": ""
             },
             "require": {
@@ -3013,6 +3047,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD
             "time": "2019-04-26T05:53:56+00:00"
         },
         {
@@ -3027,6 +3062,22 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/c71314cd3b9420b732e1526f33a24eff5430b5b3",
                 "reference": "c71314cd3b9420b732e1526f33a24eff5430b5b3",
+=======
+            "time": "2019-05-31T18:55:30+00:00"
+        },
+        {
+            "name": "symfony/event-dispatcher",
+            "version": "v4.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/event-dispatcher.git",
+                "reference": "4e6c670af81c4fb0b6c08b035530a9915d0b691f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/4e6c670af81c4fb0b6c08b035530a9915d0b691f",
+                "reference": "4e6c670af81c4fb0b6c08b035530a9915d0b691f",
+>>>>>>> 6d71b2d4cec0f5acd487e07bae77de2526f51338
                 "shasum": ""
             },
             "require": {
@@ -3083,7 +3134,11 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD
             "time": "2019-05-28T07:50:59+00:00"
+=======
+            "time": "2019-05-30T16:10:05+00:00"
+>>>>>>> 6d71b2d4cec0f5acd487e07bae77de2526f51338
         },
         {
             "name": "symfony/event-dispatcher-contracts",
@@ -3145,7 +3200,11 @@
         },
         {
             "name": "symfony/finder",
+<<<<<<< HEAD
             "version": "v4.3.0",
+=======
+            "version": "v4.3.1",
+>>>>>>> 6d71b2d4cec0f5acd487e07bae77de2526f51338
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
@@ -3368,7 +3427,11 @@
         },
         {
             "name": "symfony/yaml",
+<<<<<<< HEAD
             "version": "v4.3.0",
+=======
+            "version": "v4.3.1",
+>>>>>>> 6d71b2d4cec0f5acd487e07bae77de2526f51338
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
