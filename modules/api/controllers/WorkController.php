@@ -132,30 +132,28 @@ class WorkController extends Controller
      */
     public function actionUpdate()
     {
-        $order = Orders::findOne($this->params['id']);
-        if ($order) {
-            $order->updated_by = $this->params['idUser'];
-            $order->updated_at = time();
+        $work = Works::findOne($this->params['id']);
+        if ($work) {
             if (isset($this->params['status'])) {
-                $order->id_request_status = $this->params['status'];
+                $work->status = $this->params['status'];
             }
-            if (isset($this->params['cost'])) {
-                $order->final_cost = $this->params['cost'];
+            if (isset($this->params['start'])) {
+                $work->date_start = $this->params['start'];
             }
-            if (isset($this->params['completeDate'])) {
-                $order->complete_date = $this->params['completeDate'];
+            if (isset($this->params['end'])) {
+                $work->date_end = $this->params['end'];
             }
 
-            $result = $order->save()
+            $result = $work->save()
                 ? [
                     'success' => 1,
-                    'message' => 'Order updated',
-                    'order' => $order->id,
-                    'payload' => $order,
+                    'message' => 'Work updated',
+                    'work' => $work->id,
+                    'payload' => $work,
                 ]
                 : [
                     'success' => 0,
-                    'message' => 'Order is not updated',
+                    'message' => 'Work is not updated',
                     'code' => 'error_save',
                 ];
 
@@ -168,17 +166,17 @@ class WorkController extends Controller
      */
     public function actionView()
     {
-        $order = Orders::findOne($this->params['id']);
-        $result = $order
+        $work = Works::findOne($this->params['id']);
+        $result = $work
             ? [
                 'success' => 1,
-                'message' => 'Order finded',
-                'order' => $order->id,
-                'payload' => $order,
+                'message' => 'Work finded',
+                'work' => $work->id,
+                'payload' => $work,
             ]
             : [
                 'success' => 0,
-                'message' => 'Order is not finded',
+                'message' => 'Work is not finded',
                 'code' => 'error_find',
             ];
         return $result;
@@ -186,29 +184,20 @@ class WorkController extends Controller
 
     public function actionDelete()
     {
-        $order = Orders::findOne($this->params['id']);
-        if ($order) {
-            $result = $order->delete()
+        $work = Works::findOne($this->params['id']);
+        if ($work) {
+            $result = $work->delete()
                 ? [
                     'success' => 1,
-                    'message' => 'Order deleted',
+                    'message' => 'Work deleted',
                 ]
                 : [
                     'success' => 0,
-                    'message' => 'Order is not deleted',
+                    'message' => 'Work is not deleted',
                     'code' => 'error_delete',
                 ];
 
             return $result;
         }
     }
-    public function actionTest()
-    {
-        if (isset($this->params['idVehicle'])) {
-            $result = $this->params['idVehicle'];
-        }
-        return $result;
-//        return Orders::find()->byUser($this->params['idUser']);
-    }
-
 }
