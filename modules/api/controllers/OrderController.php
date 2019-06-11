@@ -98,6 +98,9 @@ class OrderController extends Controller
         return parent::behaviors();
     }
 
+    /**
+     * @return array
+     */
     public function actionCreate()
     {
         $order = new Orders();
@@ -122,6 +125,9 @@ class OrderController extends Controller
         }
     }
 
+    /**
+     * @return array
+     */
     public function actionUpdate()
     {
         $order = Orders::findOne($this->params['id']);
@@ -155,6 +161,45 @@ class OrderController extends Controller
         }
     }
 
+    /**
+     * @return array
+     */
+    public function actionView()
+    {
+        $order = Orders::findOne($this->params['id']);
+        $result = $order
+            ? [
+                'success' => 1,
+                'message' => 'Order finded',
+                'order' => $order->id,
+                'payload' => $order,
+            ]
+            : [
+                'success' => 0,
+                'message' => 'Order is not finded',
+                'code' => 'error_find',
+            ];
+        return $result;
+    }
+
+    public function actionDelete()
+    {
+        $order = Orders::findOne($this->params['id']);
+        if ($order) {
+            $result = $order->delete()
+                ? [
+                    'success' => 1,
+                    'message' => 'Order deleted',
+                ]
+                : [
+                    'success' => 0,
+                    'message' => 'Order is not deleted',
+                    'code' => 'error_delete',
+                ];
+
+            return $result;
+        }
+    }
     public function actionTest()
     {
         if (isset($this->params['idVehicle'])) {
