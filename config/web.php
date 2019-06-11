@@ -97,12 +97,14 @@ $config = [
                         'api/car-type',
                         'api/vip-card',
                         'api/bonus',
+                        'api/order',
                     ],
                     'pluralize' => false],
 
                 'service-type/<action:[\w-]+>' => 'api/service-type/<action>',
                 'work-type/<action:[\w-]+>' => 'api/work-type/<action>',
                 'work-category/<action:[\w-]+>' => 'api/work-category/<action>',
+                'order/<action:[\w-]+>' => 'api/order/<action>',
 
                 '<_c:[\w-]+>' => '<_c>/index',
                 '<_c:[\w-]+>/<id:\d+>' => '<_c>/view',
