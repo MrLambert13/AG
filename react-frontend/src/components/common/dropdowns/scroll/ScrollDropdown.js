@@ -43,8 +43,8 @@ export default class ScrollDropdown extends React.Component {
     });
 
     return (
-      <Dropdown className="mr-1">
-        <Dropdown.Toggle variant="success" id="dropdown-basic">
+      <Dropdown>
+        <Dropdown.Toggle className={this.props.className}>
           {this.state.currentItem.name ? this.state.currentItem.name : this.props.title}
         </Dropdown.Toggle>
 
@@ -65,6 +65,7 @@ ScrollDropdown.propTypes = {
   title: PropTypes.string.isRequired,
   items: PropTypes.array.isRequired,
   reset: PropTypes.bool,
+  className: PropTypes.string,
   onClickHandler: PropTypes.func,
   propKey: PropTypes.string,
 };

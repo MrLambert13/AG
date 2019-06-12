@@ -75,8 +75,8 @@
       .task {
         @include drop-downs($margin11px, $padding16px, $width311px, $height46px, $border-radius6px, $font-family, $font-style, $font-weight, $font-size17px, $line-height20px);
       }
-  
-      button {
+
+      .btn-search {
         background: $button-color-red;
         border-radius: $button-radius30px;
         border: none;

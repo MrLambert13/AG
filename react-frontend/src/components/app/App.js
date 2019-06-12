@@ -27,7 +27,7 @@ import OwnerProfile from 'routes/owner/cabinet/profile';
 class App extends React.Component {
   render() {
     return (
-      <div className="containers">
+      <div className="container">
         <Switch>
           <Route exact path="/" component={Home} />
 

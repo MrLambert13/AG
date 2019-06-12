@@ -49,7 +49,7 @@ class LoginForm extends React.Component {
                           touched.username ? (errors.username && touched.username ? 'is-invalid' : 'is-valid') : null
                         )}
                       id="inputUserName"
-                      placeholder="Username"
+                      placeholder="Логин"
                     />
                     {errors.username && touched.username ? (
                       <div className="feedback-error">{errors.username}</div>

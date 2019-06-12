@@ -3,6 +3,7 @@ import ScrollDropdown from 'components/common/dropdowns/scroll';
 import {getBrand, getModel, getService} from "actions/all/HomeActions";
 import {push} from "connected-react-router";
 import {connect} from "react-redux";
+import {Link} from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import ServiceListContainer from "./ServiceListContainer";
 
@@ -51,47 +52,38 @@ class HomeContainer extends React.Component {
 
     return (
       <div>
-        <div className="container">
-          {/*<div className="header">*/}
-            {/*<div className="wrap-header-top">*/}
-              {/*<div className="wrap-left">*/}
-                {/*<div className="logo"><a href="#">АВТОГИГАНТ</a></div>*/}
-                {/*<div className="city">город:</div>*/}
-                {/*<select className="drop-down-city">*/}
-                  {/*<option>Москва</option>*/}
-                {/*</select>*/}
-              {/*</div>*/}
-              {/*<div className="wrap-right">*/}
-                {/*<a href="#">Войти /</a>*/}
-                {/*<a href="#">Регистрация</a>*/}
-              {/*</div>*/}
-            {/*</div>*/}
-            {/*<h1>Выбирай автосервисы по оптимальной цене и качеству</h1>*/}
-            {/*<div className="drop-down-filters">*/}
-              {/*<form>*/}
-                {/*<select className="brand-car">*/}
-                  {/*<option>Ford</option>*/}
-                {/*</select>*/}
-                {/*<select className="model-car">*/}
-                  {/*<option>Focus</option>*/}
-                {/*</select>*/}
-                {/*<select className="task">*/}
-                  {/*<option>Замена фильтра; Диагностика...</option>*/}
-                {/*</select>*/}
-                {/*<button>Найти цены</button>*/}
-                {/*<hr/>*/}
-                {/*<ScrollDropdown title="Марка" items={brandItems} onClickHandler={onBrandClickHandler}/>*/}
-                {/*<ScrollDropdown title="Модель" items={modelItems} onClickHandler={onModelClickHandler} reset={isFetching}/>*/}
-                {/*<ScrollDropdown title="Услуга" items={serviceItems} onClickHandler={onServiceClickHandler} reset={isFetching}/>*/}
-              {/*</form>*/}
-            {/*</div>*/}
-          {/*</div>*/}
-          <div className="d-flex justify-content-start w-100">
-            <ScrollDropdown title="Марка" items={brandItems} onClickHandler={onBrandClickHandler}/>
-            <ScrollDropdown title="Модель" items={modelItems} onClickHandler={onModelClickHandler} reset={isFetching}/>
-            <ScrollDropdown title="Услуга" items={serviceItems} onClickHandler={onServiceClickHandler} reset={isFetching}/>
-            <Button variant="danger" className="ml-5">Найти цены</Button>
+        <div className>
+          <div className="header">
+            <div className="wrap-header-top">
+              <div className="wrap-left">
+                <div className="logo"><Link to="">АВТОГИГАНТ</Link></div>
+                <div className="city">город:</div>
+                <select className="drop-down-city">
+                  <option>Москва</option>
+                </select>
+              </div>
+              <div className="wrap-right">
+                <Link to="/login/client">Войти /</Link>
+                <Link to="/registry/client">Регистрация</Link>
+              </div>
+            </div>
+            <h1>Выбирай автосервисы по оптимальной цене и качеству</h1>
+            <div className="drop-down-filters">
+              <div className="d-flex justify-content-start w-100">
+                <ScrollDropdown className="brand-car" title="Марка" items={brandItems} onClickHandler={onBrandClickHandler}/>
+                <ScrollDropdown className="model-car" title="Модель" items={modelItems} onClickHandler={onModelClickHandler} reset={isFetching}/>
+                <ScrollDropdown className="task" title="Услуга" items={serviceItems} onClickHandler={onServiceClickHandler} reset={isFetching}/>
+                <Button variant="danger" className="btn-search">Найти цены</Button>
+              </div>
+            </div>
           </div>
+
+          {/*<div className="d-flex justify-content-start w-100">*/}
+            {/*<ScrollDropdown title="Марка" items={brandItems} onClickHandler={onBrandClickHandler}/>*/}
+            {/*<ScrollDropdown title="Модель" items={modelItems} onClickHandler={onModelClickHandler} reset={isFetching}/>*/}
+            {/*<ScrollDropdown title="Услуга" items={serviceItems} onClickHandler={onServiceClickHandler} reset={isFetching}/>*/}
+            {/*<Button variant="danger" className="ml-5">Найти цены</Button>*/}
+          {/*</div>*/}
           <ServiceListContainer stoItems={stoItems}/>
         </div>
       </div>
