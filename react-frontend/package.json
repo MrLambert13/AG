@@ -27,7 +27,7 @@
     "eject": "react-scripts eject"
   },
   
-  "proxy": "http://localhost",
+  "proxy": "http://autogiant.local",
   "eslintConfig": {
     "extends": "react-app"
   },

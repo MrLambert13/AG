@@ -42,6 +42,17 @@ export default class ServiceListContainer extends React.Component {
   };
 
   render() {
+
+    const listTemplate = this.props.stoItems.map(function(sto) {
+      return (
+        <article>
+          <h2>{sto.name}</h2>
+          <p>{sto.geo}</p>
+          <i>{sto.telephone}</i>
+        </article>
+      )
+    });
+
     return (
       <div>
         <div className="d-flex justify-content-start w-100">
@@ -53,6 +64,9 @@ export default class ServiceListContainer extends React.Component {
           <ScrollDropdown title="Метро" items={subwayItems} onClickHandler={this.onDropdownClickHandler} propKey="subwayId"/>
           <input type="date" onChange={this.onDateChangeHandler} defaultValue={this.state.date.toISOString().substr(0, 10)} min={this.state.date.toISOString().substr(0, 10)}/>
           <ScrollDropdown title="Время" items={timeItems} onClickHandler={this.onDropdownClickHandler} propKey="timeId"/>
+        </div>
+        <div>
+          {listTemplate}
         </div>
       </div>
     )

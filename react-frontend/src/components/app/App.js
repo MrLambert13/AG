@@ -31,7 +31,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/" component={Home} />
 
-          {/* <Route path="/login/client" component={LoginClient} />
+          <Route path="/login/client" component={LoginClient} />
           <Route path="/login/owner" component={LoginOwner} />
 
           <Route path="/registry/client" component={RegistryClient} />
@@ -47,7 +47,7 @@ class App extends React.Component {
           <Route path="/owner/cabinet/service" component={Service} />
           <Route exact path="/owner/cabinet/request" component={OwnerRequest} />
           <Route path="/owner/cabinet/request/view/:id" component={OwnerRequestView} />
-          <Route path="/owner/cabinet/profile" component={OwnerProfile} /> */}
+          <Route path="/owner/cabinet/profile" component={OwnerProfile} />
 
         </Switch>
       </div>

@@ -53,7 +53,7 @@ class RegistryForm extends React.Component {
                   <label>
                     <span>Username</span>
                     <Field
-                      name="userName"
+                      name="username"
                       className={
                         classNames(
                           'form-control',

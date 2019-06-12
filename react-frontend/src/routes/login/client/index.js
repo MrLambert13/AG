@@ -4,7 +4,7 @@ import LoginContainer from 'components/login';
 export default class Login extends React.Component {
   render() {
     return (      
-      <div class="login-client">       
+      <div className="login-client">
         <h1>Личный кабинет</h1>
         <LoginContainer />
       </div>
