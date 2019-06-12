@@ -18,8 +18,8 @@ class UsersController extends Controller
     protected function verbs()
     {
         return [
-            'profile' => ['post', 'get'],
-            'update-info' => ['post', 'get'],
+            'profile' => ['post'],
+            'update-info' => ['post'],
         ];
     }
 
@@ -43,8 +43,7 @@ class UsersController extends Controller
     public function actionProfile()
     {
         // получаем переданные параметры
-        //$params = Yii::$app->request->bodyParams; // POST
-        $params = Yii::$app->request->queryParams; // GET
+        $params = Yii::$app->request->bodyParams; // POST
 
         // необходимые параметры
         $paramsNeed = array(
@@ -125,8 +124,7 @@ class UsersController extends Controller
     public function actionUpdateInfo()
     {
         // получаем переданные параметры
-        //$params = Yii::$app->request->bodyParams; // POST
-        $params = Yii::$app->request->queryParams; // GET
+        $params = Yii::$app->request->bodyParams; // POST
 
         // необходимые параметры
         $paramsNeed = array(
