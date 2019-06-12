@@ -213,6 +213,7 @@ class UsersController extends Controller
             if ($user->save()) {
                 $result['user_upd'] = 'success';
             } else {
+                $result['result'] = 'error';
                 $result['user_upd'] = $user->getErrors();
             }
         }
@@ -222,6 +223,7 @@ class UsersController extends Controller
             if ($userInfo->save()) {
                 $result['user_info_upd'] = 'success';
             } else {
+                $result['result'] = 'error';
                 $result['user_info_upd'] = $userInfo->getErrors();
             }
         }
