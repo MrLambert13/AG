@@ -203,6 +203,7 @@ class UsersController extends Controller
 
         // массив с результатами изменений
         $result = [
+            'result' => 'ok',
             'user_upd' => '',
             'user_info_upd' => '',
         ];
@@ -303,7 +304,8 @@ class UsersController extends Controller
      *
      * @param array $params
      * @param array $paramsNotNull
-     * @return void
+     * 
+     * @return array
      */
     private function validateParamsNotNull(array $params, array $paramsNotNull)
     {
