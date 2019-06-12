@@ -81,7 +81,7 @@ $config = [
                 'logout' => 'api/login/logout',
                 '/api' => 'api/login/index',
                 'profile' => 'api/users/profile',
-                'update' => 'api/users/update',
+                'update-info' => 'api/users/update-info',
 
                 [
                     'class' => 'yii\rest\UrlRule',
