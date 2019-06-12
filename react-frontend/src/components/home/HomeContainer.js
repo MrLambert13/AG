@@ -52,7 +52,7 @@ class HomeContainer extends React.Component {
 
     return (
       <div>
-        <div className>
+        <div>
           <div className="header">
             <div className="wrap-header-top">
               <div className="wrap-left">

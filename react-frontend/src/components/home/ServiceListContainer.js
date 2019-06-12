@@ -45,7 +45,7 @@ export default class ServiceListContainer extends React.Component {
 
     const listTemplate = this.props.stoItems.map(function(sto) {
       return (
-        <div className="card">
+        <div className="card"  key={sto.id}>
           <div className="wrap-left">
             <div className="name-sto">{sto.name}</div>
             <div className="">22 отзыва</div>
