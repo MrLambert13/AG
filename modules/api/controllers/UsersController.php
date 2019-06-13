@@ -20,6 +20,7 @@ class UsersController extends Controller
         return [
             'profile' => ['post'],
             'update-info' => ['post'],
+            'update-email' => ['post', 'get'],
         ];
     }
 
@@ -118,8 +119,10 @@ class UsersController extends Controller
 
     /**
      * API обновить/изменить данные в ЛК (клиента)
-     * !!! "сырой" требует обновления
-     * @return void
+     *
+     * @var Users $user
+     * 
+     * @return array
      */
     public function actionUpdateInfo()
     {
@@ -179,7 +182,7 @@ class UsersController extends Controller
 
         $paramsNewUser = []; // параметры которые будут изменены
         $paramsNewInfo = []; // параметры которые будут изменены
-        
+
         // удаляем лишнее
         unset($params['token']);
         unset($params['id_user']);
@@ -232,10 +235,87 @@ class UsersController extends Controller
     }
 
     /**
+     * API обновить E-mail
+     *  // ЗАГЛУШКА требует переработки
+     * @var Users $user
+     * 
+     * @return array
+     */
+    public function actionUpdateEmail()
+    {
+        // email проверять уникальность и доступ пользователя к нему
+        // получаем переданные параметры
+        //$params = Yii::$app->request->bodyParams; // POST
+        $params = Yii::$app->request->queryParams; // GET
+
+        // необходимые параметры
+        $paramsNeed = array(
+            'id_user',
+            'token',
+            'email',
+        );
+
+        // параметры, которые не должны быть пустыми
+        $paramsNotNull = array(
+            'id_user',
+            'token',
+            'email',
+        );
+
+        // проверяем полученные параметры
+        $resultParamsNeed = $this->validateParamsNeed($params, $paramsNeed);
+        if ($resultParamsNeed['result'] == 'error') {
+            return $resultParamsNeed;
+        }
+
+        $resultParamsNotNull = $this->validateParamsNotNull($params, $paramsNotNull);
+        if ($resultParamsNotNull['result'] == 'error') {
+            return $resultParamsNotNull;
+        }
+
+        // записываем переданные параметры
+        $token = $params['token'];
+        $id_user = $params['id_user'];
+        $email = $params['email'];
+
+        // проверяем токен
+        $resultToken = $this->validateToken($token, $id_user);
+        if ($resultToken['result'] == 'error') {
+            return $resultToken;
+        }
+
+        // получаем юзера из БД
+        $user = $resultToken['user'];
+
+        // если новая почта отличается, меняем и сохраняем
+        /**
+         * @var Users $user
+         */
+        if ($email != $user->email) {
+            $user->email = $email;
+            if ($user->save()) {
+                return [
+                    'result' => 'ok',
+                    'message' => 'Новый E-mail был сохранен!'
+                ];
+            } else {
+                return $this->sendError('Ошибка сохранения в БД!', $user->getErrors());
+            }
+        }
+
+        return [
+            'result' => 'ok',
+            'message' => 'Полученный E-mail соот. сохраненому в БД!'
+        ];
+    }
+
+    /**
      * Проверка токена
      *
      * @param string $token
      * @param integer $id_user
+     * 
+     * @var Users $user
      * 
      * @return array
      */
@@ -272,7 +352,7 @@ class UsersController extends Controller
         }
 
         // если токен не был идентифицирован
-        return $this->sendError('Токен не действителен!'); 
+        return $this->sendError('Токен не действителен!');
     }
 
     /**
@@ -314,7 +394,7 @@ class UsersController extends Controller
         // проверяем параметры, которые не должны быть пустыми
         foreach ($paramsNotNull as $key) {
             if (empty($params[$key])) {
-                return $this->sendError('Параметры "username", "id_city" не должны быть пустыми!');
+                return $this->sendError('Эти параметры не должны быть пустыми:', $paramsNotNull);
             }
         }
 
