@@ -20,7 +20,8 @@ class UsersController extends Controller
         return [
             'profile' => ['post'],
             'update-info' => ['post'],
-            'update-email' => ['post', 'get'],
+            'update-email' => ['post'],
+            'update-password' => ['post'],
         ];
     }
 
@@ -243,10 +244,9 @@ class UsersController extends Controller
      */
     public function actionUpdateEmail()
     {
-        // email проверять уникальность и доступ пользователя к нему
         // получаем переданные параметры
-        //$params = Yii::$app->request->bodyParams; // POST
-        $params = Yii::$app->request->queryParams; // GET
+        $params = Yii::$app->request->bodyParams; // POST
+        //$params = Yii::$app->request->queryParams; // GET
 
         // необходимые параметры
         $paramsNeed = array(
@@ -299,7 +299,7 @@ class UsersController extends Controller
                     'message' => 'Новый E-mail был сохранен!'
                 ];
             } else {
-                return $this->sendError('Ошибка сохранения в БД!', $user->getErrors());
+                return $this->sendError('Ошибка сохранения Email!', $user->getErrors());
             }
         }
 
@@ -307,6 +307,88 @@ class UsersController extends Controller
             'result' => 'ok',
             'message' => 'Полученный E-mail соот. сохраненому в БД!'
         ];
+    }
+
+    /**
+     * API обновить Пароль
+     *  // ЗАГЛУШКА требует переработки
+     * @var Users $user
+     * 
+     * @return array
+     */
+    public function actionUpdatePassword()
+    {
+        // получаем переданные параметры
+        $params = Yii::$app->request->bodyParams; // POST
+        //$params = Yii::$app->request->queryParams; // GET
+
+        // необходимые параметры
+        $paramsNeed = array(
+            'id_user',
+            'token',
+            'pass_old',
+            'pass_new',
+        );
+
+        // параметры, которые не должны быть пустыми
+        $paramsNotNull = array(
+            'id_user',
+            'token',
+            'pass_old',
+            'pass_new',
+        );
+
+        // проверяем полученные параметры
+        $resultParamsNeed = $this->validateParamsNeed($params, $paramsNeed);
+        if ($resultParamsNeed['result'] == 'error') {
+            return $resultParamsNeed;
+        }
+
+        $resultParamsNotNull = $this->validateParamsNotNull($params, $paramsNotNull);
+        if ($resultParamsNotNull['result'] == 'error') {
+            return $resultParamsNotNull;
+        }
+
+        // записываем переданные параметры
+        $token = $params['token'];
+        $id_user = $params['id_user'];
+        $pass_old = $params['pass_old'];
+        $pass_new = $params['pass_new'];
+
+        // если пароли равны
+        if ($pass_old === $pass_new) {
+            return [
+                'result' => 'warning',
+                'message' => 'Старый и новый пароли не должны быть одинаковыми!'
+            ];
+        }
+
+        // проверяем токен
+        $resultToken = $this->validateToken($token, $id_user);
+        if ($resultToken['result'] == 'error') {
+            return $resultToken;
+        }
+
+        // получаем юзера из БД
+        $user = $resultToken['user'];
+
+        // проверяем старый пароль пользователя
+        /**
+         * @var Users $user
+         */
+        if ($user->validatePassword($pass_old)) {
+            $user->setPassword($pass_new);
+            if ($user->save()) {
+                return [
+                    'result' => 'ok',
+                    'message' => 'Новый пароль сохранен!'
+                ];
+            } else {
+                return $this->sendError('Ошибка сохранения пароля!', $user->getErrors());
+            }
+        }
+
+        return $this->sendError('Старый пароль не верен!');
     }
 
     /**
