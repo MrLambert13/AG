@@ -109,6 +109,7 @@ class UsersController extends Controller
         $response['telegram'] = $userInfo->telegram_name;
         $response['telephone'] = $userInfo->telephone;
         $response['city'] = $userInfo->city['name'];
+        $response['id_city'] = $userInfo->city['id'];
         $response['region'] = $region['description'];
         $response['country'] = $region->country['name'];
         $response['currency'] = $country->currency['name'];

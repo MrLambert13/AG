@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
-import FormPassword from './FormPassword'
+import FormPasswordContainer from './FormPasswordContainer'
 
 export default class ModalPassword extends React.Component {
 
@@ -18,7 +18,7 @@ export default class ModalPassword extends React.Component {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <FormPassword/>
+          <FormPasswordContainer/>
         </Modal.Body>
       </Modal>
     );

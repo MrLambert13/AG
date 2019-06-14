@@ -1,5 +1,3 @@
-// import {LOGIN_BEGIN, LOGIN_ERROR, LOGIN_SUCCESS, LOGIN_WRONG} from "actions/client/UserActions";
-// import history from 'store/history';
 import { push } from 'connected-react-router'
 import {SETTINGS} from 'settings';
 
@@ -22,7 +20,7 @@ const getJson = function (response) {
   throw new TypeError("We haven't got JSON in response!");
 };
 
-const sendMethod = function (methodType, URL, data, BEGIN_ACTION, SUCCESS_ACTION, ERROR_ACTION, successRedirectURL) {
+const sendMethod = function (methodType, URL, data, BEGIN_ACTION, SUCCESS_ACTION, ERROR_ACTION, dispatchData) {
   return dispatch => {
     dispatch({
       type: BEGIN_ACTION,
@@ -42,9 +40,11 @@ const sendMethod = function (methodType, URL, data, BEGIN_ACTION, SUCCESS_ACTION
       .then(getJson)
       .then(function (json) {
         console.log(json);
+        let payload = dispatchData ? {...json, ...data} : json;
+
         dispatch({
           type: SUCCESS_ACTION,
-          payload: json,
+          payload: payload,
         });
       })
       .catch(function (ex) {
@@ -98,11 +98,12 @@ export function GET(URL, BEGIN_ACTION, SUCCESS_ACTION, ERROR_ACTION) {
  * @param BEGIN_ACTION Действие начала запроса
  * @param SUCCESS_ACTION Действие при успешном запросе
  * @param ERROR_ACTION Дейтсвие при ошибке
+ * @param dispatchData Если true, при успешном запросе в payload попадают и переданные данные
  * @returns {Function}
  * @constructor
  */
-export function POST(URL, data, BEGIN_ACTION, SUCCESS_ACTION, ERROR_ACTION) {
-  return sendMethod('POST', URL, data, BEGIN_ACTION, SUCCESS_ACTION, ERROR_ACTION);
+export function POST(URL, data, BEGIN_ACTION, SUCCESS_ACTION, ERROR_ACTION, dispatchData = false) {
+  return sendMethod('POST', URL, data, BEGIN_ACTION, SUCCESS_ACTION, ERROR_ACTION, dispatchData);
 }
 
 /**
@@ -221,4 +222,79 @@ export function LOGIN(URL, data, LOGIN_BEGIN, LOGIN_SUCCESS, LOGIN_WRONG, LOGIN_
         });
       })
   }
-};
+}
+
+export function UPDATE_PROFILE(URL, data, UPDATE_PROFILE_BEGIN, UPDATE_PROFILE_SUCCESS, UPDATE_PROFILE_ERROR) {
+  return dispatch => {
+    dispatch({
+      type: UPDATE_PROFILE_BEGIN,
+    });
+
+    fetch(SETTINGS.domain + URL, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(checkStatus)
+      .then(getJson)
+      .then(function (json) {
+        console.log(json);
+        if (json.result === 'ok') {
+          dispatch({
+            type: UPDATE_PROFILE_SUCCESS,
+            payload: json.user_info_upd === 'success' ? {...data, ...json} : json,
+          });
+        } else if (json.result === 'error'){
+          throw new TypeError("We have update error. User_upd: " + json.user_upd + ". User_info_upd: " + json.user_info_upd);
+        }
+      })
+      .catch(function (ex) {
+        dispatch({
+          type: UPDATE_PROFILE_ERROR,
+          error: true,
+          payload: new Error(ex),
+        });
+      })
+  }
+}
+
+
+export function UPDATE_PASSWORD(URL, data, UPDATE_PASSWORD_BEGIN, UPDATE_PASSWORD_SUCCESS, UPDATE_PASSWORD_ERROR) {
+  return dispatch => {
+    dispatch({
+      type: UPDATE_PASSWORD_BEGIN,
+    });
+
+    fetch(SETTINGS.domain + URL, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(checkStatus)
+      .then(getJson)
+      .then(function (json) {
+        console.log(json);
+        if (json.result === 'ok') {
+          dispatch({
+            type: UPDATE_PASSWORD_SUCCESS,
+            payload: json,
+          });
+        } else if (json.result === 'error'){
+          throw new TypeError("Error: " + json.message);
+        }
+      })
+      .catch(function (ex) {
+        dispatch({
+          type: UPDATE_PASSWORD_ERROR,
+          error: true,
+          payload: new Error(ex),
+        });
+      })
+  }
+}
