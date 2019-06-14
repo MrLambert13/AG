@@ -17,10 +17,11 @@
     opacity: $opacity06;
   }
 
-  select {
+  button {
     color: $color464646;
-    background: $backgroundBABABA;
-    opacity: $opacity02;
+    background-color: white;
+    border: 1px solid black;
+    //opacity: $opacity02;
   }
 
   .year {
@@ -102,7 +103,7 @@
       }
       
       .card {               
-        height:$height166;     
+        min-height:$height166;
         background: #FFFFFF;
         border: 0.1px solid rgba(0, 0, 0, 0.5);
         box-sizing: border-box;

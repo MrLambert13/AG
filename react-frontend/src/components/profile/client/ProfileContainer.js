@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {logout} from "actions/client/UserActions";
-import {getProfile} from "actions/client/ProfileActions";
+import {getProfile, LOCAL_PROFILE_UPDATE} from "actions/client/ProfileActions";
 import {push} from "connected-react-router";
 import {Table, Button} from 'react-bootstrap';
 import ModalEdit from './ModalEdit';
@@ -35,7 +35,7 @@ class ProfileContainer extends React.Component {
 
   render() {
 
-    const {user, profile} = this.props;
+    const {profile, updateProfileInStorage} = this.props;
 
     let birthday = new Date(profile.birthday * 1000);
     let createdAt = new Date(profile.created_at * 1000);
@@ -102,7 +102,6 @@ class ProfileContainer extends React.Component {
           <ModalEdit
             show={this.state.modalEditShow}
             onHide={modalEditClose}
-            profile={profile}
           />
           <ModalPassword
             show={this.state.modalPasswordShow}
@@ -131,6 +130,7 @@ const mapDispatchToProps = dispatch => {
     logout: (url, data) => dispatch(logout(url, data)),
     getProfile: (url, data) => dispatch(getProfile(url, data)),
     redirect: () => dispatch(push('/login/client')),
+    updateProfileInStorage: (data) => dispatch({type: LOCAL_PROFILE_UPDATE, payload: data}),
   }
 };
 

@@ -3,23 +3,25 @@ import classNames from 'classnames';
 import {Formik, Form, Field} from 'formik';
 import * as Yup from 'yup';
 import FormikInput from 'components/common/inputs/FormikInput'
+import {updatePassword} from "actions/client/ProfileActions";
+import {connect} from "react-redux";
 
 const validationScheme = Yup.object().shape({
   passwordOld: Yup.string()
     .required('Required'),
   password: Yup.string()
     .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.')
-    .min(8, 'Password is too short - should be 8 chars minimum.')
+    .min(5, 'Password is too short - should be 5 chars minimum.')
     .required('Required'),
   passwordConfirm: Yup.string()
     .oneOf([Yup.ref('password'), null],"Passwords don't match")
     .required('Password confirm is required')
 });
 
-export default class FormPassword extends React.Component {
+class FormPasswordContainer extends React.Component {
 
   render() {
-    const { url, sendMethod } = this.props;
+    const { url, updatePassword } = this.props;
 
     return (
       <div>
@@ -33,12 +35,13 @@ export default class FormPassword extends React.Component {
 
           onSubmit={values => {
             let data = {
-              passwordOld: values.passwordOld,
-              password: values.password,
-              passwordConfirm: values.passwordConfirm,
+              id_user: this.props.user.id_user,
+              token: this.props.user.token,
+              pass_old: values.passwordOld,
+              pass_new: values.password,
             };
 
-            sendMethod(url, data);
+            updatePassword(url, data);
           }}
         >
           {({errors, touched}) => (
@@ -64,4 +67,21 @@ export default class FormPassword extends React.Component {
       </div>
     )
   }
+}
+
+const mapStateToProps = store => {
+  return {
+    user: store.user,
+  }
 };
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updatePassword: (url, data) => dispatch(updatePassword(url, data)),
+  }
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(FormPasswordContainer)
