@@ -1,0 +1,12 @@
+header {
+  margin-bottom: 20px;
+  background-color: lightblue;
+}
+
+.main-nav {
+  &__item {
+    &:hover {
+      background-color: yellow;
+    }
+  }
+}

@@ -28,6 +28,12 @@ use Yii;
  */
 class Orders extends \yii\db\ActiveRecord
 {
+    const STATUSES = [
+        RequestStatuses::STATUS_CREATE,
+        RequestStatuses::STATUS_IN_WORK,
+        RequestStatuses::STATUS_HALT,
+        RequestStatuses::STATUS_DONE,
+    ];
     /**
      * {@inheritdoc}
      */
@@ -44,10 +50,11 @@ class Orders extends \yii\db\ActiveRecord
         return [
             [['id_city', 'id_vehicle', 'id_request_status'], 'required'],
             [['id_city', 'id_vehicle', 'created_by', 'created_at', 'updated_by', 'updated_at', 'id_request_status', 'complete_date'], 'integer'],
-            [['final_cost'], 'number'],
+            [['final_cost'], 'number', 'min' => 0],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['created_by' => 'id']],
             [['id_city'], 'exist', 'skipOnError' => true, 'targetClass' => Cities::class, 'targetAttribute' => ['id_city' => 'id']],
-            [['id_request_status'], 'exist', 'skipOnError' => true, 'targetClass' => RequestStatuses::class, 'targetAttribute' => ['id_request_status' => 'id']],
+            ['id_request_status', 'default', 'value' => RequestStatuses::STATUS_CREATE],
+            ['id_request_status', 'in', 'range' => self::STATUSES],
             [['id_vehicle'], 'exist', 'skipOnError' => true, 'targetClass' => Vehicles::class, 'targetAttribute' => ['id_vehicle' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['updated_by' => 'id']],
         ];

@@ -18,7 +18,7 @@ class LoginForm extends React.Component {
     return (
       <div>
         <Formik
-          initialValues={{
+          initialValues={{           
             username: '',
             password: '',
           }}
@@ -26,6 +26,7 @@ class LoginForm extends React.Component {
 
           onSubmit={values => {
             let data = {
+              email: values.email,
               username: values.username,
               password: values.password
             };
@@ -35,11 +36,10 @@ class LoginForm extends React.Component {
         >
           {({errors, touched}) => (
 
-            <Form className="needs-validation" noValidate>
+            <Form className="needs-validation" noValidate>              
               <div className="form-row">
                 <div className="form-group">
-                  <label>
-                    <span>Username</span>
+                  <label>                    
                     <Field
                       name="username"
                       className={
@@ -49,7 +49,7 @@ class LoginForm extends React.Component {
                           touched.username ? (errors.username && touched.username ? 'is-invalid' : 'is-valid') : null
                         )}
                       id="inputUserName"
-                      placeholder="Username"
+                      placeholder="Логин"
                     />
                     {errors.username && touched.username ? (
                       <div className="feedback-error">{errors.username}</div>
@@ -60,8 +60,7 @@ class LoginForm extends React.Component {
 
               <div className="form-row">
                 <div className="form-group">
-                  <label>
-                    <span>Password</span>
+                  <label>                    
                     <Field
                       name="password"
                       type="password"
@@ -72,7 +71,7 @@ class LoginForm extends React.Component {
                           touched.password ? (errors.password && touched.password ? 'is-invalid' : 'is-valid') : null
                         )}
                       id="inputPassword"
-                      placeholder="Password"
+                      placeholder="Пароль"
                     />
                     {errors.password && touched.password ? (
                       <div className="feedback-error">{errors.password}</div>

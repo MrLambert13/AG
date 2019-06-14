@@ -24,7 +24,7 @@ class Users extends ActiveRecord implements IdentityInterface
 {
 
     const STATUS_DELETED = 0;
-    const STATUS_ACTIVE = 10;
+    const STATUS_ACTIVE = 1;
     const USER_TYPE_CLIENT = 1;
     const USER_TYPE_STO = 2;
     const USER_TYPE_GUEST = 3;

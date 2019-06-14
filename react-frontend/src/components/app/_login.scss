@@ -1,0 +1,78 @@
+.login {
+    width: $width1440;
+    height: $height875;
+    background: $login-background;
+    padding: $padding37 $padding60 $padding20 $padding60;
+    font-family: $font-family;
+    font-style: $font-style;
+    color: $colorffffff;
+
+    &_logo a {
+        font-weight: 900;
+        font-size: 18px;
+        line-height: 21px;
+        letter-spacing: 0.34em;
+        text-transform: uppercase;
+        color: $colorffffff;
+    }
+
+    h1 {
+        margin: 57px 0 33px 0;
+        font-weight: bold;
+        font-size: 26px;
+        line-height: 30px;
+        text-align: center;
+
+        span {
+            padding-left: 40px;
+        }
+    }
+
+    .wrap-for-center {
+        text-align: center;
+    }
+
+    a {
+        margin: 0 19px 35px 0;
+        text-decoration: none;
+        color: $colorffffff;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 19px;
+    }
+
+    form {
+        width: 314px;
+        ;
+        margin-top: 33px;
+        position: absolute;
+        left: 50%;
+    }
+
+    input {
+        height: 46px;
+        padding-left: 19px;
+        margin-bottom: 24px;
+        border-radius: 6px;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 16px;
+        ::placeholder {
+            color: #464646;
+            opacity: 0.5;
+        }
+
+    }
+
+    button {
+        background: $button-color-red;
+        border-radius: $button-radius30px;
+        border: none;
+        color: $header-text;
+        width: $width172px;
+        height: $height48px;
+    }
+
+}

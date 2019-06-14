@@ -1,6 +1,7 @@
 // import {LOGIN_BEGIN, LOGIN_ERROR, LOGIN_SUCCESS, LOGIN_WRONG} from "actions/client/UserActions";
 // import history from 'store/history';
 import { push } from 'connected-react-router'
+import {SETTINGS} from 'settings';
 
 const checkStatus = function (response) {
   console.log("response: ", response);
@@ -28,7 +29,7 @@ const sendMethod = function (methodType, URL, data, BEGIN_ACTION, SUCCESS_ACTION
     });
 
     // Тут Ajax запрос
-    fetch(URL, {
+    fetch(SETTINGS.domain + URL, {
       method: methodType,
       headers: {
         // 'Accept': 'application/json, text/plain, */*',
@@ -71,7 +72,7 @@ export function GET(URL, BEGIN_ACTION, SUCCESS_ACTION, ERROR_ACTION) {
       type: BEGIN_ACTION,
     });
 
-    fetch(URL)
+    fetch(SETTINGS.domain + URL)
       .then(checkStatus)
       .then(getJson)
       .then(function (json) {
@@ -147,7 +148,7 @@ export function DELETE(URL, BEGIN_ACTION, SUCCESS_ACTION, ERROR_ACTION) {
       type: BEGIN_ACTION,
     });
 
-    fetch(URL, {
+    fetch(SETTINGS.domain + URL, {
       method: 'DELETE',
     })
       .then(checkStatus)
@@ -186,7 +187,7 @@ export function LOGIN(URL, data, LOGIN_BEGIN, LOGIN_SUCCESS, LOGIN_WRONG, LOGIN_
       payload: data.username
     });
 
-    fetch(URL, {
+    fetch(SETTINGS.domain + URL, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

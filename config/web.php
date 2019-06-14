@@ -81,6 +81,7 @@ $config = [
                 'logout' => 'api/login/logout',
                 '/api' => 'api/login/index',
                 'profile' => 'api/users/profile',
+                'update-info' => 'api/users/update-info',
 
                 [
                     'class' => 'yii\rest\UrlRule',
@@ -96,12 +97,15 @@ $config = [
                         'api/car-type',
                         'api/vip-card',
                         'api/bonus',
+                        'api/order-work',
                     ],
                     'pluralize' => false],
 
                 'service-type/<action:[\w-]+>' => 'api/service-type/<action>',
                 'work-type/<action:[\w-]+>' => 'api/work-type/<action>',
                 'work-category/<action:[\w-]+>' => 'api/work-category/<action>',
+                'order/<action:[\w-]+>' => 'api/order/<action>',
+                'work/<action:[\w-]+>' => 'api/work/<action>',
 
                 '<_c:[\w-]+>' => '<_c>/index',
                 '<_c:[\w-]+>/<id:\d+>' => '<_c>/view',
