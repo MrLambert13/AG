@@ -100,6 +100,7 @@ $config = [
                         'api/vip-card',
                         'api/bonus',
                         'api/order-work',
+                        'api/basket',
                     ],
                     'pluralize' => false],
 

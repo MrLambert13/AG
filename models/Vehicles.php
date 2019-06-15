@@ -7,28 +7,28 @@ use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "vehicles".
- * @property int           $id
- * @property int           $id_car_model
- * @property int           $id_motor
- * @property int           $power
- * @property string        $vin
- * @property string        $reg_number
- * @property int           $rel_year
- * @property int           $id_transmission
- * @property int           $mileage
- * @property int           $created_by
- * @property int           $created_at
- * @property int           $updated_by
- * @property int           $updated_at
- * @property Basket[]      $baskets
- * @property Garages[]     $garages
- * @property Orders[]      $orders
- * @property Users         $createdBy
- * @property CarModels     $carModel
- * @property Motors        $motor
+ * @property int $id
+ * @property int $id_car_model
+ * @property int $id_motor
+ * @property int $power
+ * @property string $vin
+ * @property string $reg_number
+ * @property int $rel_year
+ * @property int $id_transmission
+ * @property int $mileage
+ * @property int $created_by
+ * @property int $created_at
+ * @property int $updated_by
+ * @property int $updated_at
+ * @property Basket[] $baskets
+ * @property Garages[] $garages
+ * @property Orders[] $orders
+ * @property Users $createdBy
+ * @property CarModels $carModel
+ * @property Motors $motor
  * @property Transmissions $transmission
- * @property Users         $updatedBy
- * @property Works[]       $works
+ * @property Users $updatedBy
+ * @property Works[] $works
  */
 class Vehicles extends \yii\db\ActiveRecord
 {
@@ -167,5 +167,15 @@ class Vehicles extends \yii\db\ActiveRecord
     public static function find()
     {
         return new \app\models\query\VehiclesQuery(get_called_class());
+    }
+
+    public function fields()
+    {
+        return [
+            parent::fields(),
+            'id_car_model' => function () {
+                return $this->carModel;
+            },
+        ];
     }
 }
