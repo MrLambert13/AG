@@ -171,11 +171,10 @@ class Vehicles extends \yii\db\ActiveRecord
 
     public function fields()
     {
-        return [
-            parent::fields(),
-            'id_car_model' => function () {
-                return $this->carModel;
-            },
-        ];
+        $fields = parent::fields();
+        $fields['car_model'] = function () {
+            return $this->carModel;
+        };
+        return $fields;
     }
 }
