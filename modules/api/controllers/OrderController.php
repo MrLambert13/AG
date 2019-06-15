@@ -200,4 +200,21 @@ class OrderController extends Controller
             return $result;
         }
     }
+
+    public function actionIndex()
+    {
+        $order = Orders::find()->byUser($this->params['idUser']);
+        $result = $order
+            ? [
+                'success' => 1,
+                'message' => 'Orders finded',
+                'payload' => $order,
+            ]
+            : [
+                'success' => 0,
+                'message' => 'Orders is not finded',
+                'code' => 'error_find',
+            ];
+        return $result;
+    }
 }
