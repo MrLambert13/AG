@@ -5,6 +5,8 @@ import {
 import {
   GET_PROFILE_BEGIN, GET_PROFILE_SUCCESS, GET_PROFILE_ERROR,
   UPDATE_PROFILE_BEGIN, UPDATE_PROFILE_SUCCESS, UPDATE_PROFILE_ERROR,
+  UPDATE_PASSWORD_BEGIN, UPDATE_PASSWORD_SUCCESS, UPDATE_PASSWORD_ERROR,
+  RESET_PROFILE_SETTINGS
 } from 'actions/client/ProfileActions';
 
 const initialState = {
@@ -22,12 +24,17 @@ export function profileReducer(state = initialState, action) {
   switch (action.type) {
     case GET_PROFILE_BEGIN:
     case UPDATE_PROFILE_BEGIN:
-      return {...state, result: '', user_upd: '', user_info_upd: '', isFetching: true, error: ''};
+    case UPDATE_PASSWORD_BEGIN:
+      return {...state,  success: false, result: '', user_upd: '', user_info_upd: '', isFetching: true, error: ''};
+    case RESET_PROFILE_SETTINGS:
+      return {...state, result: '', user_upd: '', user_info_upd: '', error: '', success: false};
     case GET_PROFILE_SUCCESS:
     case UPDATE_PROFILE_SUCCESS:
+    case UPDATE_PASSWORD_SUCCESS:
       return {...state, ...action.payload, isFetching: false, success: true};
     case GET_PROFILE_ERROR:
     case UPDATE_PROFILE_ERROR:
+    case UPDATE_PASSWORD_ERROR:
       return {...state, isFetching: false, error: action.payload.message};
     case LOGOUT_SUCCESS:
       return {...initialState, ...action.payload, isFetching: false};

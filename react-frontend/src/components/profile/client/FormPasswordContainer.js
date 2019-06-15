@@ -21,7 +21,7 @@ const validationScheme = Yup.object().shape({
 class FormPasswordContainer extends React.Component {
 
   render() {
-    const { url, updatePassword } = this.props;
+    const { updatePassword } = this.props;
 
     return (
       <div>
@@ -41,7 +41,7 @@ class FormPasswordContainer extends React.Component {
               pass_new: values.password,
             };
 
-            updatePassword(url, data);
+            updatePassword('/update-password', data);
           }}
         >
           {({errors, touched}) => (

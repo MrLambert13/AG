@@ -2,7 +2,7 @@ import React from 'react';
 import {Formik, Form, Field} from 'formik';
 import * as Yup from 'yup';
 import FormikInput from 'components/common/inputs/FormikInput'
-import {LOCAL_PROFILE_UPDATE, updateProfile} from "actions/client/ProfileActions";
+import {RESET_PROFILE_SETTINGS, updateProfile} from "actions/client/ProfileActions";
 import {logout} from "actions/client/UserActions";
 import {connect} from "react-redux";
 import {push} from "connected-react-router";
@@ -31,6 +31,28 @@ const validationScheme = Yup.object().shape({
 });
 
 class FormEditContainer extends React.Component {
+  // state = {
+  //   showMessage: false
+  // };
+  //
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   if (nextProps.profile.success) {
+  //     return {
+  //       showMessage: true
+  //     }
+  //   }
+  //
+  //   return null;
+  // }
+  //
+  // componentDidUpdate(prevProps, prevState) {
+  //   if(prevState.showMessage){
+  //     this.setState({showMessage: false});
+  //     // Диспатчим экшн на обнуление
+  //     this.props.resetSettings();
+  //   }
+  // }
+
 
   render() {
     const {updateProfile, user, profile, onHide} = this.props;
@@ -98,7 +120,7 @@ class FormEditContainer extends React.Component {
       </div>
     )
   }
-};
+}
 
 const mapStateToProps = store => {
   return {
@@ -110,6 +132,7 @@ const mapStateToProps = store => {
 const mapDispatchToProps = dispatch => {
   return {
     updateProfile: (url, data) => dispatch(updateProfile(url, data)),
+    resetSettings: () => dispatch({type: 'RESET_PROFILE_SETTINGS'}),
   }
 };
 
