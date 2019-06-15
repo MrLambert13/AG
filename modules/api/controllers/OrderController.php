@@ -34,7 +34,6 @@ class OrderController extends Controller
     {
         $user = $this->findUser();
 
-
         if (!$user->isSto()) {
             return $result = [
                 'success' => 0,

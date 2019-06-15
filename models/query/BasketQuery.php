@@ -13,6 +13,11 @@ class BasketQuery extends \yii\db\ActiveQuery
         return $this->andWhere('[[status]]=1');
     }*/
 
+    public function byUser($idUser)
+    {
+        return $this->andWhere(['created_by' => $idUser])->all();
+    }
+
     /**
      * {@inheritdoc}
      * @return \app\models\Basket[]|array
