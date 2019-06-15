@@ -9,6 +9,7 @@ const ClientNav = () => {
       <Navbar.Brand href="/"><Image src={logo} alt="logo" className="main-nav__logo" rounded /></Navbar.Brand>
       <Nav className="mr-auto">
         <Nav.Link href="/client/cabinet">Кабинет</Nav.Link>
+        <Nav.Link href="/client/cabinet/request">Мои заказы</Nav.Link>
         <Nav.Link href="/client/cabinet/profile">Профиль</Nav.Link>
         <Nav.Link href="/client/cabinet/garage">Гараж</Nav.Link>
       </Nav>
