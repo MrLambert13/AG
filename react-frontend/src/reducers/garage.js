@@ -14,8 +14,9 @@ export function garageReducer(state = initialState, action) {
   console.log('GarageReducer, Action: ', action.type);
 
   switch (action.type) {
-    case SET_TS_BEGIN:
     case GET_TS_BEGIN:
+      return {...state, TS: [], isFetching: true, error: ''};
+    case SET_TS_BEGIN:
     case UPDATE_TS_BEGIN:
       return {...state, isFetching: true, error: ''};
     case GET_TS_SUCCESS:
@@ -31,6 +32,7 @@ export function garageReducer(state = initialState, action) {
           break;
         }
       }
+
       return {...state, TS: newTS, isFetching: false};
 
     case SET_TS_ERROR:

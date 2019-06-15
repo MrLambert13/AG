@@ -1,4 +1,8 @@
-import { GET, POST, PATCH, DELETE } from 'utils/fetchHelper';
+import { GET, POST, PUT, DELETE } from 'utils/fetchHelper';
+
+// export const CREATE_GARAGE_BEGIN = 'CREATE_GARAGE_BEGIN';
+// export const CREATE_GARAGE_SUCCESS = 'CREATE_GARAGE_SUCCESS';
+// export const CREATE_GARAGE_ERROR = 'CREATE_GARAGE_ERROR';
 
 export const SET_TS_BEGIN = 'SET_TS_BEGIN';
 export const SET_TS_SUCCESS = 'SET_TS_SUCCESS';
@@ -25,7 +29,7 @@ export function setTS(url, data) {
 }
 
 export function updateTS(url, data) {
-  return PATCH(url, data, UPDATE_TS_BEGIN, UPDATE_TS_SUCCESS, UPDATE_TS_ERROR);
+  return PUT(url, data, UPDATE_TS_BEGIN, UPDATE_TS_SUCCESS, UPDATE_TS_ERROR);
 }
 
 export function deleteTS(url) {

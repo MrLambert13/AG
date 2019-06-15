@@ -4,9 +4,9 @@ import ItemTS from './ItemTS';
 
 export default class ListTS extends React.Component {
   render() {
-    const listTemplate = this.props.TS.map(function(TS) {
+    const listTemplate = this.props.TS.map((TS) => {
       return (
-        <ItemTS TS={TS} key={TS.id} />
+        <ItemTS TS={TS} key={TS.id} dataKey={TS.id} showModal={this.props.showModal}/>
       )
     });
 
