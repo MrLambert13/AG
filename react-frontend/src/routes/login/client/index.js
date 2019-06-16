@@ -5,7 +5,7 @@ export default class Login extends React.Component {
   render() {
     return (      
       <div className="login-client">
-        <h1>Личный кабинет</h1>
+        {/* <h1>Личный кабинет</h1> */}
         <LoginContainer />
       </div>
     )

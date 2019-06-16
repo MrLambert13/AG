@@ -24,22 +24,24 @@
       line-height: $line-height21px;
       letter-spacing: $letter-spacing034;
       text-transform: uppercase;
-      margin-right: $margin33;
+      margin-right: $margin33;      
     }
   
     .city {
+      padding-top: 3px;
       margin-right: $margin5px;
       font-size: $font-size16px;
       line-height: $line-height19px;
     }
-  
+    
     .drop-down-city {
       height: $height19;
       background: none;
-      border: none;
+      border: 0;
       color: $header-text;
       font-size: $font-size16px;
-      outline: none;
+      outline:none;
+      appearance: none;                     
     }
   
     a {
@@ -62,17 +64,20 @@
   
     .drop-down-filters {
       display: flex;
-      margin-bottom: $margin20;
+      margin-bottom: $margin20;               
   
-      .brand-car {        
-        @include drop-downs($margin11px, $padding16px, $width190px, $height46px, $border-radius6px, $font-family, $font-style, $font-weight, $font-size17px, $line-height20px);
+      .brand-car {
+        text-align: left;         
+        @include drop-downs($margin11px, $padding16px, $width190px, $height46px, $border-radius6px, $font-family, $font-style, $font-weight, $font-size17px, $line-height20px);       
       }
   
-      .model-car {        
+      .model-car {
+        text-align: left;         
         @include drop-downs($margin11px, $padding16px, $width190px, $height46px, $border-radius6px, $font-family, $font-style, $font-weight, $font-size17px, $line-height20px);
       }
   
       .task {
+        text-align: left; 
         @include drop-downs($margin11px, $padding16px, $width311px, $height46px, $border-radius6px, $font-family, $font-style, $font-weight, $font-size17px, $line-height20px);
       }
 
