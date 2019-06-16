@@ -34,6 +34,7 @@ class StoController extends ActiveController
     {
         $actions = parent::actions();
 
+        unset($actions['delete'], $actions['create'], $actions['update']);
         $actions['index']['prepareDataProvider'] = [$this, 'prepareDataProvider'];
 
         return $actions;
