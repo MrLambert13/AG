@@ -2,9 +2,8 @@
 
 namespace app\modules\api\controllers;
 
-use app\models\Basket;
 use app\models\Users;
-use phpDocumentor\Reflection\Types\This;
+use app\models\query\UsersQuery;
 use Yii;
 use yii\rest\ActiveController;
 
@@ -42,16 +41,16 @@ class StoController extends ActiveController
 
     public function prepareDataProvider()
     {
-        $basket = $this->modelClass::find()->byUser($this->params['idUser']);
-        $result = $basket
+        $sto = $this->modelClass::find()->sto();
+        $result = $sto
             ? [
                 'success' => 1,
-                'message' => 'Baskets finded',
-                'payload' => $basket,
+                'message' => 'Sto finded',
+                'payload' => $sto,
             ]
             : [
                 'success' => 0,
-                'message' => 'Baskets is not finded',
+                'message' => 'Sto is not finded',
                 'code' => 'error_find',
             ];
         return $result;
