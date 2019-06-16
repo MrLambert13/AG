@@ -19,6 +19,7 @@ use yii\web\IdentityInterface;
  * @property string  $email
  * @property integer $status
  * @property integer $id_user_type
+ * @property StoInfo $stoInfo
  */
 class Users extends ActiveRecord implements IdentityInterface
 {
@@ -176,6 +177,12 @@ class Users extends ActiveRecord implements IdentityInterface
         $fields = parent::fields();
 
         unset($fields['password_hash'], $fields['auth_key']);
+
+        if ($this->isSto()) {
+            $fields['info'] = function () {
+                return $this->stoInfo;
+            };
+        }
 
         return $fields;
     }

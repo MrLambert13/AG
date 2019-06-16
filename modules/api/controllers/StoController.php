@@ -41,7 +41,7 @@ class StoController extends ActiveController
 
     public function prepareDataProvider()
     {
-        $sto = $this->modelClass::find()->sto();
+        $sto = Users::find()->sto();
         $result = $sto
             ? [
                 'success' => 1,

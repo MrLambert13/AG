@@ -16,7 +16,6 @@ class UserQuery extends ActiveQuery
     public function sto()
     {
         return $this->andWhere(['id_user_type' => Users::USER_TYPE_STO])->all();
-
     }
 
     public function all($db = null)
