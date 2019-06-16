@@ -1,14 +1,14 @@
 import React from 'react';
 import ScrollDropdown from 'components/common/dropdowns/scroll/index';
-import {getBrand, getModel, getService} from "actions/all/HomeActions";
+import {getService} from "actions/all/HomeActions";
 import {push} from "connected-react-router";
 import {connect} from "react-redux";
 import {Link} from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import ServiceList from "components/services/ServiceList";
 import AlertDismissible from 'components/common/alerts/AlertDismissible';
-
-let stoItems = [{id: 1, name: 'Сервис +', geo: 'Ул. Ленина 7/12', telephone: '8977654123'},{id: 2, name: 'АВТО PRO', geo: 'Проспект мира 21', telephone: '8984378287'},{id: 3, name: 'Люкс ремонт', geo: 'ул. Героев - панфиловцев 7', telephone: '8495333384'},];
+import {getSto} from "actions/all/HomeActions";
+import {setCart} from "actions/client/CartActions";
 
 class CabinetContainer extends React.Component {
 
@@ -22,11 +22,15 @@ class CabinetContainer extends React.Component {
 
   componentDidMount() {
     this.props.getService('/work-type/all');
-
-    // Получаю список СТО, пока нет АПИ - хардкод
+    this.props.getSto('/api/sto');
   }
 
   render() {
+
+    let stoItems = [];
+    if (this.props.home.stoItems) {
+      stoItems = this.props.home.stoItems.payload;
+    }
 
     let filteredItems = this.props.garage.TS.filter( (item) => (+item.created_by === this.props.user.id_user));
 
@@ -38,7 +42,6 @@ class CabinetContainer extends React.Component {
       this.setState({
         vehicleId,
         showResults: false,
-
       });
     };
 
@@ -54,9 +57,19 @@ class CabinetContainer extends React.Component {
         stoId,
         showResults: false,
         showAlert: true
-      })
-      // Добавляю элемент в корзину
+      });
 
+      let data = {
+        id_work_type: this.state.serviceId,
+        id_work_category: 4,
+        created_by: this.props.user.id_user,
+        id_vehicle: this.state.vehicleId,
+        cost_service: 3800,
+        id_sto: stoId,
+        create_at: Math.floor(Date.now() / 1000),
+      };
+
+      this.props.setCart('/api/basket', data)
     };
 
     const onBtnSearchClickHandler = () => {
@@ -99,6 +112,7 @@ class CabinetContainer extends React.Component {
 const mapStateToProps = store => {
   return {
     user: store.user,
+    home: store.home,
     garage: store.garage,
     serviceItems: store.home.serviceItems,
   }
@@ -107,7 +121,9 @@ const mapStateToProps = store => {
 const mapDispatchToProps = dispatch => {
   return {
     getService: (url) => dispatch(getService(url)),
+    setCart: (url, data) => dispatch(setCart(url, data)),
     redirect: () => dispatch(push('/login/client')),
+    getSto: (url) => dispatch(getSto(url)),
   }
 };
 

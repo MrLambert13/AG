@@ -19,16 +19,16 @@ export default class ServiceList extends React.Component {
       return (
         <div className="card"  key={sto.id}>
           <div className="wrap-left">
-            <div className="name-sto">{sto.name}</div>
+            <div className="name-sto">{sto.info.name}</div>
             <div className="">22 отзыва</div>
             <div className="">Диагностика подвески <span>от 600</span>руб.</div>
             <div className="">Замена фильтра <span>от 450</span>руб.</div>
           </div>
           <div className="wrap-right">
-            <div className="distance-sto">{sto.geo}</div>
+            <div className="distance-sto">{sto.info.geo}</div>
             <div className="">пн-вс: с 07:30 до 23:00</div>
             <div className="">Сейчас открыто</div>
-            <i>{sto.telephone}</i>
+            <i>{sto.info.telephone}</i>
             <button className="btn btn-primary" data-key={sto.id} onClick={onBtnChooseClickHandler}>Выбрать исполнителем</button>
           </div>
         </div>

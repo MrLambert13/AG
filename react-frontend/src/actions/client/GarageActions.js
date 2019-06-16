@@ -1,9 +1,5 @@
 import { GET, POST, PUT, DELETE } from 'utils/fetchHelper';
 
-// export const CREATE_GARAGE_BEGIN = 'CREATE_GARAGE_BEGIN';
-// export const CREATE_GARAGE_SUCCESS = 'CREATE_GARAGE_SUCCESS';
-// export const CREATE_GARAGE_ERROR = 'CREATE_GARAGE_ERROR';
-
 export const SET_TS_BEGIN = 'SET_TS_BEGIN';
 export const SET_TS_SUCCESS = 'SET_TS_SUCCESS';
 export const SET_TS_ERROR = 'SET_TS_ERROR';

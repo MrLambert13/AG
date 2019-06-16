@@ -1,4 +1,4 @@
-import { sendMethod, POST, PUT, DELETE } from 'utils/fetchHelper';
+import {  POST, DELETE } from 'utils/fetchHelper';
 
 export const GET_ORDER_BEGIN = 'GET_ORDER_BEGIN';
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
@@ -21,7 +21,7 @@ export function getOrder(url, data) {
 }
 
 export function setOrder(url, data) {
-  return POST(url, data, SET_ORDER_BEGIN, SET_ORDER_SUCCESS, SET_ORDER_ERROR);
+  return POST(url, data, SET_ORDER_BEGIN, SET_ORDER_SUCCESS, SET_ORDER_ERROR, true);
 }
 
 export function deleteOrder(url) {

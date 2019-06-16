@@ -6,7 +6,6 @@ export default class Profile extends React.Component {
   render() {
     return (
       <Main>
-        <h1>ProfileClient page</h1>
         <ProfileContainer/>
       </Main>
     )

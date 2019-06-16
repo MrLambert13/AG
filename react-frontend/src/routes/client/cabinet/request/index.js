@@ -6,7 +6,6 @@ export default class Request extends React.Component {
   render() {
     return (
       <Main>
-        <h1>Мои заказы</h1>
         <OrderContainer/>
       </Main>
     )

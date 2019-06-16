@@ -182,22 +182,26 @@ export function PUT(URL, data, BEGIN_ACTION, SUCCESS_ACTION, ERROR_ACTION) {
  * @param BEGIN_ACTION Действие начала запроса
  * @param SUCCESS_ACTION Действие при успешном запросе
  * @param ERROR_ACTION Дейтсвие при ошибке
+ * @param id Идентификатор удаляемой сущности
  * @returns {Function}
  * @constructor
  */
-export function DELETE(URL, BEGIN_ACTION, SUCCESS_ACTION, ERROR_ACTION) {
+export function DELETE(URL, BEGIN_ACTION, SUCCESS_ACTION, ERROR_ACTION, id) {
   return dispatch => {
     dispatch({
       type: BEGIN_ACTION,
     });
 
-    fetch(SETTINGS.domain + URL, {
+    let pathId = id ? '/' + id : '';
+
+    fetch(SETTINGS.domain + URL + pathId, {
       method: 'DELETE',
     })
       .then(checkStatus)
       .then(function () {
         dispatch({
-          type: SUCCESS_ACTION
+          type: SUCCESS_ACTION,
+          payload: id
         })
       })
       .catch(function (ex) {

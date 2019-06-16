@@ -1,6 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
-import {Formik, Form, Field} from 'formik';
+import {Formik, Form} from 'formik';
 import * as Yup from 'yup';
 import FormikInput from 'components/common/inputs/FormikInput'
 import {updatePassword} from "actions/client/ProfileActions";

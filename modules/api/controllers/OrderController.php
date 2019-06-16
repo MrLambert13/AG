@@ -107,6 +107,7 @@ class OrderController extends Controller
         $order->id_vehicle = $this->params['idVehicle'];
         $order->created_by = $this->params['idUser'];
         $order->created_at = time();
+        $order->updated_at = time();
         $order->id_request_status = RequestStatuses::STATUS_CREATE;
         if ($order->save()) {
             return $result = [

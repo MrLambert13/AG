@@ -45,10 +45,9 @@ class ProfileContainer extends React.Component {
 
     return (
       <div>
-        <h4>
+        <h2 className="text-center text-capitalize text-success">
           Добро пожаловать, {this.props.user.username}
-          <button className="btn btn-info btn-md" onClick={this.onClickHandler}>Выйти</button>
-        </h4>
+        </h2>
 
         <div>
           <Table responsive="sm" striped bordered hover variant="dark">

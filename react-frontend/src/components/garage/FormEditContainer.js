@@ -1,11 +1,9 @@
 import React from 'react';
-import {Formik, Form, Field} from 'formik';
+import {Formik, Form} from 'formik';
 import * as Yup from 'yup';
 import FormikInput from 'components/common/inputs/FormikInput'
 import {updateTS} from "actions/client/GarageActions";
-import {logout} from "actions/client/UserActions";
 import {connect} from "react-redux";
-import {push} from "connected-react-router";
 
 const validationScheme = Yup.object().shape({
   reg_number: Yup.string()
