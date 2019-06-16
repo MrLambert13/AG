@@ -3,7 +3,6 @@
 namespace app\modules\api\controllers;
 
 use app\models\Users;
-use app\models\query\UsersQuery;
 use Yii;
 use yii\rest\ActiveController;
 
@@ -34,7 +33,7 @@ class StoController extends ActiveController
     {
         $actions = parent::actions();
 
-        unset($actions['delete'], $actions['create'], $actions['update']);
+        unset($actions['delete'], $actions['create'], $actions['update'], $actions['view']);
         $actions['index']['prepareDataProvider'] = [$this, 'prepareDataProvider'];
 
         return $actions;

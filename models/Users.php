@@ -164,13 +164,19 @@ class Users extends ActiveRecord implements IdentityInterface
     public function getUserType()
     {
         return $this->hasOne(UserTypes::class, ['id' => 'id_user_type']);
+    }
 
+    public function getStoInfo()
+    {
+        return $this->hasOne(StoInfo::class, ['id_user' => 'id']);
     }
 
     public function fields()
     {
         $fields = parent::fields();
+
         unset($fields['password_hash'], $fields['auth_key']);
+
         return $fields;
     }
 }
