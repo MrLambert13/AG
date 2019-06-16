@@ -5,7 +5,7 @@ import {push} from "connected-react-router";
 import {connect} from "react-redux";
 import {Link} from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-import ServiceListContainer from "./ServiceListContainer";
+import ServiceListContainer from "components/services/ServiceListContainer";
 
 let stoItems = [{id: 1, name: 'Сервис +', geo: 'Ул. Ленина 7/12', telephone: '8977654123'},{id: 2, name: 'АВТО PRO', geo: 'Проспект мира 21', telephone: '8984378287'},{id: 3, name: 'Люкс ремонт', geo: 'ул. Героев - панфиловцев 7', telephone: '8495333384'},];
 
@@ -18,7 +18,8 @@ class HomeContainer extends React.Component {
   };
 
   componentDidMount() {
-    this.props.getBrand('/api/car-brand')
+    this.props.getBrand('/api/car-brand');
+    this.props.getService('/work-type/all');
   }
 
   render() {
@@ -45,9 +46,6 @@ class HomeContainer extends React.Component {
       this.setState({
         serviceId
       });
-
-      // Получаем список услуг
-      this.props.getService('URL');
     };
 
     return (

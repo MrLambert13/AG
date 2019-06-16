@@ -130,7 +130,6 @@ const mapDispatchToProps = dispatch => {
     logout: (url, data) => dispatch(logout(url, data)),
     getProfile: (url, data) => dispatch(getProfile(url, data)),
     redirect: () => dispatch(push('/login/client')),
-    updateProfileInStorage: (data) => dispatch({type: LOCAL_PROFILE_UPDATE, payload: data}),
   }
 };
 

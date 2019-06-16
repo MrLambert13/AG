@@ -20,7 +20,7 @@ const getJson = function (response) {
   throw new TypeError("We haven't got JSON in response!");
 };
 
-const sendMethod = function (methodType, URL, data, BEGIN_ACTION, SUCCESS_ACTION, ERROR_ACTION, dispatchData) {
+export const sendMethod = function (methodType, URL, data, BEGIN_ACTION, SUCCESS_ACTION, ERROR_ACTION, dispatchData) {
   return dispatch => {
     dispatch({
       type: BEGIN_ACTION,
@@ -90,6 +90,48 @@ export function GET(URL, BEGIN_ACTION, SUCCESS_ACTION, ERROR_ACTION) {
       })
   }
 }
+
+// /**
+//  * Функция реализует GET запрос с отправкой данных на указанный URL
+//  * @param URL
+//  * @param data
+//  * @param BEGIN_ACTION
+//  * @param SUCCESS_ACTION
+//  * @param ERROR_ACTION
+//  * @param dispatchData
+//  * @returns {*}
+//  * @constructor
+//  */
+// export function GET_WITH_BODY(URL, data, BEGIN_ACTION, SUCCESS_ACTION, ERROR_ACTION, dispatchData = false) {
+//   return dispatch => {
+//     dispatch({
+//       type: BEGIN_ACTION,
+//     });
+//
+//     var xhr = new XMLHttpRequest();
+//     xhr.open('GET', URL, true);
+//     xhr.setRequestHeader('Content-Type', 'application/json');
+//
+//     xhr.send(JSON.stringify(data));
+//
+//     xhr.onreadystatechange = function() {
+//       if (xhr.status != 200) {
+//         dispatch({
+//           type: ERROR_ACTION,
+//           error: true,
+//           payload: new Error("Ошибка получения корзины"),
+//         });
+//       } else {
+//         console.log(JSON.parse(xhr.responseText));
+//         dispatch({
+//           type: SUCCESS_ACTION,
+//           payload: JSON.parse(xhr.responseText),
+//         })
+//       }
+//
+//     };
+//   };
+// }
 
 /**
  * Функция реализует POST запрос на указанный URL

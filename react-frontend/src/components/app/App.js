@@ -17,6 +17,7 @@ import Garage from 'routes/client/cabinet/garage';
 import ClientRequest from 'routes/client/cabinet/request';
 import ClientRequestView from 'routes/client/cabinet/request/view';
 import ClientProfile from 'routes/client/cabinet/profile';
+import ClientCart from 'routes/client/cabinet/cart';
 
 import OwnerCabinet from 'routes/owner/cabinet';
 import Service from 'routes/owner/cabinet/service';
@@ -42,6 +43,7 @@ class App extends React.Component {
           <Route exact path="/client/cabinet/request" component={ClientRequest} />
           <Route path="/client/cabinet/request/view/:id" component={ClientRequestView} />
           <Route path="/client/cabinet/profile" component={ClientProfile} />
+          <Route path="/client/cabinet/cart" component={ClientCart} />
 
           <Route exact path="/owner/cabinet" component={OwnerCabinet} />
           <Route path="/owner/cabinet/service" component={Service} />
