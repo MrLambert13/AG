@@ -32,7 +32,7 @@ class BasketController extends ActiveController
     {
         $actions = parent::actions();
 
-        $actions['index']['prepareDataProvider'] = [$this, 'prepareDataProvider'];
+//        $actions['index']['prepareDataProvider'] = [$this, 'prepareDataProvider'];
 
         return $actions;
     }
