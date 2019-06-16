@@ -54,11 +54,13 @@ class HomeContainer extends React.Component {
           <div className="header">
             <div className="wrap-header-top">
               <div className="wrap-left">
-                <div className="logo"><Link to="">АВТОГИГАНТ</Link></div>
+                <div className="logo"><Link to="/">АВТОГИГАНТ</Link></div>
                 <div className="city">город:</div>
                 <select className="drop-down-city">
-                  <option>Москва</option>
+                  <option>Москва &#8744;</option>
+                  <option>Рязань</option>
                 </select>
+                 
               </div>
               <div className="wrap-right">
                 <Link to="/login/client">Войти /</Link>

@@ -80,6 +80,28 @@ class LoginForm extends React.Component {
                 </div>
               </div>
 
+              <div className="form-row">
+                <div className="form-group">
+                  <label>                    
+                    <Field
+                      name="repeat-password"
+                      type="password"
+                      className={
+                        classNames(
+                          'form-control',
+                          'mt-1',
+                          touched.password ? (errors.password && touched.password ? 'is-invalid' : 'is-valid') : null
+                        )}
+                      id="inputPassword"
+                      placeholder="Повторите пароль"
+                    />
+                    {errors.password && touched.password ? (
+                      <div className="feedback-error">{errors.password}</div>
+                    ) : null}
+                  </label>
+                </div>
+              </div>
+
               <button type="submit" className="btn btn-primary">Войти</button>
 
             </Form>

@@ -23,16 +23,26 @@
     border: 1px solid black;
     //opacity: $opacity02;
   }
+  
 
   .year {
+    background: $backgroundBABABA;
+    border-color: $colorffffff;
+    opacity: 0.2;   
     @include drop-downs($margin15, $padding19, $width149, $height46px, $border-radius6px, $font-family, $font-style, $font-weight, $font-size14, $line-height16);
   }
 
   .transmission {
+    background: $backgroundBABABA;
+    border-color: $colorffffff;
+    opacity: 0.2;
     @include drop-downs($margin15, $padding19, $width120, $height46px, $border-radius6px, $font-family, $font-style, $font-weight, $font-size14, $line-height16);
   }
 
   .run {
+    background: $backgroundBABABA;
+    border-color: $colorffffff;
+    opacity: 0.2;
     @include drop-downs($margin15, $padding19, $width175, $height46px, $border-radius6px, $font-family, $font-style, $font-weight, $font-size14, $line-height16);
   }
 
@@ -42,9 +52,13 @@
     border: 1px solid $color000000;
     box-sizing: border-box;
     color: $color333333;
+    opacity: 0.2;
   }
 
   .distikt {
+    background: $backgroundBABABA;
+    border-color: $colorffffff;
+    opacity: 0.2;
     @include drop-downs($margin25, $padding19, $width175, $height46px, $border-radius6px, $font-family, $font-style, $font-weight, $font-size14, $line-height16);
   }
 
@@ -52,7 +66,7 @@
     display: inline-block;
     vertical-align: bottom;
     position: relative;
-    bottom: -10px;   
+    bottom: 10px;   
     height: $height66;
     border-right: 1px solid $color000000;
     opacity: $opacity01;
@@ -60,6 +74,9 @@
   }
 
   .date {
+    background: $backgroundBABABA;
+    border-color: $colorffffff;
+    opacity: 0.2;
     @include drop-downs($margin14, $padding19, $width173, $height46px, $border-radius6px, $font-family, $font-style, $font-weight, $font-size14, $line-height16);
   }
 
@@ -69,6 +86,7 @@
     border: 1px solid $color000000;
     box-sizing: border-box;
     color: $color333333;
+    opacity: 0.2;
   }
 
   .wrap-cards-map {
@@ -99,6 +117,7 @@
           font-weight: $font-weight;
           font-size: $font-size14;
           line-height: $font-size16px;
+          appearance: none;
         }
       }
       

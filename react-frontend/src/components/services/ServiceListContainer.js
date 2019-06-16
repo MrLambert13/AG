@@ -65,13 +65,14 @@ export default class ServiceListContainer extends React.Component {
     return (
       <div className="content-find-map">
         <div className="text">Цены будут точнее, если вы также укажете:</div>
-        <div className="drop-down-filters d-flex justify-content-start w-100">
+        <div className="drop-down-filters d-flex justify-content-between w-100">
           <ScrollDropdown title="Год выпуска" className="year" items={yearItems} onClickHandler={this.onDropdownClickHandler} propKey="yearId"/>
           <ScrollDropdown title="КПП" className="transmission" items={transmissionItems} onClickHandler={this.onDropdownClickHandler} propKey="transmissionId"/>
           <ScrollDropdown title="Пробег" className="run" items={mileageItems} onClickHandler={this.onDropdownClickHandler} propKey="mileageId"/>
           <ScrollDropdown title="Город" className="city" items={cityItems} onClickHandler={this.onDropdownClickHandler} propKey="cityId"/>
-          <ScrollDropdown title="Район" className="distikt" items={districtItems} onClickHandler={this.onDropdownClickHandler} propKey="districtId"/>
-          <ScrollDropdown title="Метро" className="distikt" items={subwayItems} onClickHandler={this.onDropdownClickHandler} propKey="subwayId"/>
+          <ScrollDropdown title="Район/Метро" className="distikt" items={districtItems} onClickHandler={this.onDropdownClickHandler} propKey="districtId"/>
+          {/* <ScrollDropdown title="Метро" className="distikt" items={subwayItems} onClickHandler={this.onDropdownClickHandler} propKey="subwayId"/> */}
+          <span class="line"></span>
           <input type="date" className="date" onChange={this.onDateChangeHandler} defaultValue={this.state.date.toISOString().substr(0, 10)} min={this.state.date.toISOString().substr(0, 10)}/>
           <ScrollDropdown title="Время" className="time" items={timeItems} onClickHandler={this.onDropdownClickHandler} propKey="timeId"/>
         </div>
@@ -82,7 +83,7 @@ export default class ServiceListContainer extends React.Component {
                 <div>Найдено {this.props.stoItems.length} сервиса</div>
                 <div>
                   <select className="sort-distance">
-                    <option>по удаленности</option>
+                    <option>по удаленности &#8744;</option>
                   </select>
                 </div>
               </div>
