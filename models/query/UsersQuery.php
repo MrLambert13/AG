@@ -2,6 +2,8 @@
 
 namespace app\models\query;
 
+use app\models\Users;
+
 /**
  * This is the ActiveQuery class for [[\app\models\Users]].
  *
@@ -14,13 +16,19 @@ class UsersQuery extends \yii\db\ActiveQuery
         return $this->andWhere('[[status]]=1');
     }*/
 
+    public function sto()
+    {
+        return $this->andWhere(['id_user_type' => Users::USER_TYPE_STO])->all();
+
+    }
+
     /**
      * {@inheritdoc}
      * @return \app\models\Users[]|array
      */
     public function all($db = null)
     {
-        return parent::all($db);
+        return $this->sto();
     }
 
     /**

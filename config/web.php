@@ -101,6 +101,8 @@ $config = [
                         'api/bonus',
                         'api/order-work',
                         'api/basket',
+                        'api/sto',
+
                     ],
                     'pluralize' => false],
 
