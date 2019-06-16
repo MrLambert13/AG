@@ -203,4 +203,12 @@ class WorkCategoryController extends Controller
             ];
         }
     }
+
+    public function actionAll()
+    {
+        $workCategories = WorkCategories::find()->select(['id', 'name', 'cost'])->groupBy('name')->all();
+        if ($workCategories) {
+            return $workCategories;
+        }
+    }
 }
