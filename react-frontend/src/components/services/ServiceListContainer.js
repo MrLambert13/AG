@@ -1,5 +1,5 @@
 import React from 'react';
-import ScrollDropdown from 'components/common/dropdowns/scroll';
+import ScrollDropdown from 'components/common/dropdowns/scroll/index';
 import {getBrand, getModel, getService} from "actions/all/HomeActions";
 import {push} from "connected-react-router";
 import {connect} from "react-redux";

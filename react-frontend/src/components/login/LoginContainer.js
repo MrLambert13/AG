@@ -4,9 +4,18 @@ import {login} from "actions/client/UserActions";
 import LoginForm from './LoginForm';
 import Spinner from 'react-bootstrap/Spinner';
 import {Link} from 'react-router-dom';
+import {push} from "connected-react-router";
 
 
 class LoginContainer extends React.Component {
+
+  componentWillMount() {
+    if (this.props.user.token) {
+      this.props.redirect();
+      return;
+    }
+  }
+
   render () {
     const { user, login } = this.props;
 
@@ -43,6 +52,7 @@ const mapStateToProps = store => {
 const mapDispatchToProps = dispatch => {
   return {
     login: (url, data) => dispatch(login(url, data)),
+    redirect: () => dispatch(push('/client/cabinet')),
   }
 };
 

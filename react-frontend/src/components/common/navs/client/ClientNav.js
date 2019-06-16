@@ -12,6 +12,7 @@ const ClientNav = () => {
         <Nav.Link href="/client/cabinet/request">Мои заказы</Nav.Link>
         <Nav.Link href="/client/cabinet/profile">Профиль</Nav.Link>
         <Nav.Link href="/client/cabinet/garage">Гараж</Nav.Link>
+        <Nav.Link href="/client/cabinet/cart">Корзина</Nav.Link>
       </Nav>
     </Navbar>
   )
