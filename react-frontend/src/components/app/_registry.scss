@@ -1,0 +1,57 @@
+.header_registry {
+    width: $width1440;
+    height: $height84;
+    background: $header-background;
+    padding: $padding37 $padding60 $padding26 $padding60;
+
+    &_logo a {
+        font-weight: 900;
+        font-size: 18px;
+        line-height: 21px;
+        letter-spacing: 0.34em;
+        text-transform: uppercase;
+        color: $colorffffff;
+    }
+
+}
+
+.wrap-for-center {
+    width: $width1440;
+    text-align: center;
+    margin-top: 31px;
+}
+
+h1 {
+    font-family: $font-family;
+    font-style: Bold;
+    font-size: 26px;
+    line-height: 30px;
+    color: #29293A;
+}
+
+.text_registry{    
+font-family: $font-family;
+font-style: $font-style;
+font-size: 14px;
+line-height: 16px;
+color: $colorBABABA;
+
+}
+
+form {
+    position: absolute;
+    left: 50%;
+}
+
+
+.form-control {
+    width: $width314px !important;
+}
+
+.btn-registry {
+    background: $button-color-red;
+    width: $width314px;
+    height: $height48px;
+    border-radius: $button-radius30px;
+    color: $colorffffff;
+}

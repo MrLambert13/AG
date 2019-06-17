@@ -51,7 +51,7 @@ class RegistryForm extends React.Component {
               <div className="form-row">
                 <div className="form-group">
                   <label>
-                    <span>Username</span>
+                    {/* <span>Username</span> */}
                     <Field
                       name="username"
                       className={
@@ -61,7 +61,7 @@ class RegistryForm extends React.Component {
                           touched.username ? (errors.username && touched.username ? 'is-invalid' : 'is-valid') : null
                         )}
                       id="inputUserName"
-                      placeholder="Username"
+                      placeholder="Название компании"
                     />
                     {errors.username && touched.username ? (
                       <div className="feedback-error">{errors.username}</div>
@@ -73,7 +73,7 @@ class RegistryForm extends React.Component {
               <div className="form-row">
                 <div className="form-group">
                   <label>
-                    <span>Email</span>
+                    {/* <span>Email</span> */}
                     <Field
                       name="email"
                       className={
@@ -83,7 +83,7 @@ class RegistryForm extends React.Component {
                           touched.email ? (errors.email && touched.email ? 'is-invalid' : 'is-valid') : null
                         )}
                       id="inputEmail"
-                      placeholder="Email"
+                      placeholder="Адрес"
                     />
                     {errors.email && touched.email ? (
                       <div className="feedback-error">{errors.email}</div>
@@ -95,7 +95,7 @@ class RegistryForm extends React.Component {
               <div className="form-row">
                 <div className="form-group">
                   <label>
-                    <span>Password</span>
+                    {/* <span>Password</span> */}
                     <Field
                       name="password"
                       type="password"
@@ -106,7 +106,7 @@ class RegistryForm extends React.Component {
                           touched.password ? (errors.password && touched.password ? 'is-invalid' : 'is-valid') : null
                         )}
                       id="inputPassword"
-                      placeholder="Password"
+                      placeholder="Телефон"
                     />
                     {errors.password && touched.password ? (
                       <div className="feedback-error">{errors.password}</div>
@@ -118,7 +118,7 @@ class RegistryForm extends React.Component {
               <div className="form-row">
                 <div className="form-group">
                   <label>
-                    <span>Password confirm</span>
+                    {/* <span>Password confirm</span> */}
                     <Field
                       name="passwordConfirm"
                       type="password"
@@ -129,7 +129,7 @@ class RegistryForm extends React.Component {
                           touched.passwordConfirm ? (errors.passwordConfirm && touched.passwordConfirm ? 'is-invalid' : 'is-valid') : null
                         )}
                       id="inputPasswordConfirm"
-                      placeholder="Confirm"
+                      placeholder="Ваше имя"
                     />
                     {errors.passwordConfirm && touched.passwordConfirm ? (
                       <div className="feedback-error">{errors.passwordConfirm}</div>
@@ -138,11 +138,14 @@ class RegistryForm extends React.Component {
                 </div>
               </div>
 
-              <button type="submit" className="btn btn-primary">Зарегистрироваться</button>
+              <button type="submit" className="btn-registry">Далее</button>         
+                            
 
             </Form>
+            
           )}
         </Formik>
+        
       </div>
     )
   }

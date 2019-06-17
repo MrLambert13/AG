@@ -17,8 +17,28 @@ class RegistryContainer extends React.Component {
 
     return (
       <div>
-        <h4>Регистрация аккаунта</h4>
-        <RegistryForm url="/register" sendMethod={registry}/>
+        <div className="header_registry">
+          <div className="header_registry_logo"><Link to="/">АВТОГИГАНТ</Link></div>
+        </div>
+
+        <div className="wrap-for-center">              
+          <h1>Личный кабинет</h1>
+          <p className='text_registry'>Владельца автосервиса или мастера</p>
+          <p className='text_registry'>Мы предлагаем вместе создавать удобный и полезный сервис. Необходимо только оставить заявку на бесплатное подключение.</p>
+          <Link to="/login/client">Войти</Link><span> </span><Link to="/registry/client">Зарегистрирроваться</Link>
+               
+          <div>
+            <label for ="private-person">Физ. лицо</label>
+            <input type="radio" id="private-person"></input>
+            
+            <label for="legal_person">Юр. лицо</label>
+            <input type="radio" id="legal_person" checked="checked"></input>
+          </div>            
+          
+          <RegistryForm url="/register" sendMethod={registry}/>
+          
+          
+        </div>
       </div>
     )
   }
